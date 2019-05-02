@@ -179,23 +179,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\lenovo\\.nuget\\packages\\": {},
+    "C:\\Users\\DELL\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\lenovo\\OneDrive\\Máy tính\\Project\\Shop_HeadPhone_G03\\Source Code\\Persistence\\Persistence.csproj",
+      "projectUniqueName": "d:\\PROJECT\\Shop_HeadPhone_G03\\Source Code\\Persistence\\Persistence.csproj",
       "projectName": "Persistence",
-      "projectPath": "C:\\Users\\lenovo\\OneDrive\\Máy tính\\Project\\Shop_HeadPhone_G03\\Source Code\\Persistence\\Persistence.csproj",
-      "packagesPath": "C:\\Users\\lenovo\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\lenovo\\OneDrive\\Máy tính\\Project\\Shop_HeadPhone_G03\\Source Code\\Persistence\\obj\\",
+      "projectPath": "d:\\PROJECT\\Shop_HeadPhone_G03\\Source Code\\Persistence\\Persistence.csproj",
+      "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
+      "outputPath": "d:\\PROJECT\\Shop_HeadPhone_G03\\Source Code\\Persistence\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\DELL\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netstandard2.0"
