@@ -195,23 +195,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\DELL\\.nuget\\packages\\": {},
+    "C:\\Users\\lenovo\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "d:\\PROJECT\\Shop_HeadPhone_G03\\Source Code\\DAL\\DAL.csproj",
+      "projectUniqueName": "c:\\Users\\lenovo\\OneDrive\\Máy tính\\Project\\Shop_HeadPhone_G03\\Source_Code\\DAL\\DAL.csproj",
       "projectName": "DAL",
-      "projectPath": "d:\\PROJECT\\Shop_HeadPhone_G03\\Source Code\\DAL\\DAL.csproj",
-      "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
-      "outputPath": "d:\\PROJECT\\Shop_HeadPhone_G03\\Source Code\\DAL\\obj\\",
+      "projectPath": "c:\\Users\\lenovo\\OneDrive\\Máy tính\\Project\\Shop_HeadPhone_G03\\Source_Code\\DAL\\DAL.csproj",
+      "packagesPath": "C:\\Users\\lenovo\\.nuget\\packages\\",
+      "outputPath": "c:\\Users\\lenovo\\OneDrive\\Máy tính\\Project\\Shop_HeadPhone_G03\\Source_Code\\DAL\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\DELL\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netstandard2.0"
@@ -222,8 +222,8 @@
       "frameworks": {
         "netstandard2.0": {
           "projectReferences": {
-            "d:\\PROJECT\\Shop_HeadPhone_G03\\Source Code\\Persistence\\Persistence.csproj": {
-              "projectPath": "d:\\PROJECT\\Shop_HeadPhone_G03\\Source Code\\Persistence\\Persistence.csproj"
+            "c:\\Users\\lenovo\\OneDrive\\Máy tính\\Project\\Shop_HeadPhone_G03\\Source_Code\\Persistence\\Persistence.csproj": {
+              "projectPath": "c:\\Users\\lenovo\\OneDrive\\Máy tính\\Project\\Shop_HeadPhone_G03\\Source_Code\\Persistence\\Persistence.csproj"
             }
           }
         }

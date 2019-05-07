@@ -1,5 +1,5 @@
 drop database Headphone_Shop_Gr3;
-Create database Headphone_Shop_Gr3;
+Create database if not exists Headphone_Shop_Gr3;
 use Headphone_Shop_Gr3;
 
 create table if not exists Customers(
@@ -8,7 +8,7 @@ create table if not exists Customers(
     Cus_DateBirth date not null,
     Cus_Address nvarchar(100) not null,
     Cus_Email varchar(100) not null unique,
-    Cus_Phone_Numbers varchar(20) not null,
+    Cus_Phone_Numbers char(20) not null,
     User_Name varchar(50) not null unique,
     User_Password varchar(15) not null
 );
@@ -40,3 +40,7 @@ create table if not exists OrderDetails(
     foreign key (Order_ID) references Orders(Order_ID),
     foreign key (Produce_Code) references Items(Produce_Code)
 );
+
+
+insert into Items(Produce_Code, Item_Name, Trademark, Attribute, Item_Price, Item_Description, Quantity)
+values ();
