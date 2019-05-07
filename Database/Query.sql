@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 drop database Headphone_Shop_Gr3;
 Create database if not exists Headphone_Shop_Gr3;
+=======
+-- drop database Headphone_Shop_Gr3;
+Create database Headphone_Shop_Gr3;
+>>>>>>> 9f56d50a6b8ca7b85ad4b40897b5f48e10c0498b
 use Headphone_Shop_Gr3;
 
 create table if not exists Customers(

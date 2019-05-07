@@ -5912,11 +5912,19 @@
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< HEAD
       "projectUniqueName": "c:\\Users\\lenovo\\OneDrive\\Máy tính\\Project\\Shop_HeadPhone_G03\\Source_Code\\BL.Test\\BL.Test.csproj",
       "projectName": "BL.Test",
       "projectPath": "c:\\Users\\lenovo\\OneDrive\\Máy tính\\Project\\Shop_HeadPhone_G03\\Source_Code\\BL.Test\\BL.Test.csproj",
       "packagesPath": "C:\\Users\\lenovo\\.nuget\\packages\\",
       "outputPath": "c:\\Users\\lenovo\\OneDrive\\Máy tính\\Project\\Shop_HeadPhone_G03\\Source_Code\\BL.Test\\obj\\",
+=======
+      "projectUniqueName": "d:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\BL.Test\\BL.Test.csproj",
+      "projectName": "BL.Test",
+      "projectPath": "d:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\BL.Test\\BL.Test.csproj",
+      "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
+      "outputPath": "d:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\BL.Test\\obj\\",
+>>>>>>> 9f56d50a6b8ca7b85ad4b40897b5f48e10c0498b
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -5933,11 +5941,19 @@
       "frameworks": {
         "netcoreapp2.2": {
           "projectReferences": {
+<<<<<<< HEAD
             "c:\\Users\\lenovo\\OneDrive\\Máy tính\\Project\\Shop_HeadPhone_G03\\Source_Code\\BL\\BL.csproj": {
               "projectPath": "c:\\Users\\lenovo\\OneDrive\\Máy tính\\Project\\Shop_HeadPhone_G03\\Source_Code\\BL\\BL.csproj"
             },
             "c:\\Users\\lenovo\\OneDrive\\Máy tính\\Project\\Shop_HeadPhone_G03\\Source_Code\\Persistence\\Persistence.csproj": {
               "projectPath": "c:\\Users\\lenovo\\OneDrive\\Máy tính\\Project\\Shop_HeadPhone_G03\\Source_Code\\Persistence\\Persistence.csproj"
+=======
+            "d:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\BL\\BL.csproj": {
+              "projectPath": "d:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\BL\\BL.csproj"
+            },
+            "d:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\Persistence\\Persistence.csproj": {
+              "projectPath": "d:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\Persistence\\Persistence.csproj"
+>>>>>>> 9f56d50a6b8ca7b85ad4b40897b5f48e10c0498b
             }
           }
         }
