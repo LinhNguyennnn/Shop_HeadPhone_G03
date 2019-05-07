@@ -1,4 +1,4 @@
-drop database Headphone_Shop_Gr3;
+-- drop database Headphone_Shop_Gr3;
 Create database Headphone_Shop_Gr3;
 use Headphone_Shop_Gr3;
 
