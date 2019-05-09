@@ -25,29 +25,6 @@
         "build": {
           "build/netstandard2.0/NETStandard.Library.targets": {}
         }
-      },
-      "DAL/1.0.0": {
-        "type": "project",
-        "framework": ".NETStandard,Version=v2.0",
-        "dependencies": {
-          "Persistence": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/DAL.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/DAL.dll": {}
-        }
-      },
-      "Persistence/1.0.0": {
-        "type": "project",
-        "framework": ".NETStandard,Version=v2.0",
-        "compile": {
-          "bin/placeholder/Persistence.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Persistence.dll": {}
-        }
       }
     }
   },
@@ -194,23 +171,11 @@
         "netstandard.library.2.0.3.nupkg.sha512",
         "netstandard.library.nuspec"
       ]
-    },
-    "DAL/1.0.0": {
-      "type": "project",
-      "path": "../DAL/DAL.csproj",
-      "msbuildProject": "../DAL/DAL.csproj"
-    },
-    "Persistence/1.0.0": {
-      "type": "project",
-      "path": "../Persistence/Persistence.csproj",
-      "msbuildProject": "../Persistence/Persistence.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.0": [
-      "DAL >= 1.0.0",
-      "NETStandard.Library >= 2.0.3",
-      "Persistence >= 1.0.0"
+      "NETStandard.Library >= 2.0.3"
     ]
   },
   "packageFolders": {
@@ -220,11 +185,19 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\lenovo\\OneDrive\\Máy tính\\Project\\Shop_HeadPhone_G03\\Source_Code\\BL\\BL.csproj",
-      "projectName": "BL",
-      "projectPath": "c:\\Users\\lenovo\\OneDrive\\Máy tính\\Project\\Shop_HeadPhone_G03\\Source_Code\\BL\\BL.csproj",
+<<<<<<< HEAD
+      "projectUniqueName": "c:\\Users\\lenovo\\OneDrive\\Máy tính\\Project\\Shop_HeadPhone_G03\\Source_Code\\Persistence\\Persistence.csproj",
+      "projectName": "Persistence",
+      "projectPath": "c:\\Users\\lenovo\\OneDrive\\Máy tính\\Project\\Shop_HeadPhone_G03\\Source_Code\\Persistence\\Persistence.csproj",
       "packagesPath": "C:\\Users\\lenovo\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\lenovo\\OneDrive\\Máy tính\\Project\\Shop_HeadPhone_G03\\Source_Code\\BL\\obj\\",
+      "outputPath": "c:\\Users\\lenovo\\OneDrive\\Máy tính\\Project\\Shop_HeadPhone_G03\\Source_Code\\Persistence\\obj\\",
+=======
+      "projectUniqueName": "d:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\Persistence\\Persistence.csproj",
+      "projectName": "Persistence",
+      "projectPath": "d:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\Persistence\\Persistence.csproj",
+      "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
+      "outputPath": "d:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\Persistence\\obj\\",
+>>>>>>> 9f56d50a6b8ca7b85ad4b40897b5f48e10c0498b
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -240,14 +213,7 @@
       },
       "frameworks": {
         "netstandard2.0": {
-          "projectReferences": {
-            "c:\\Users\\lenovo\\OneDrive\\Máy tính\\Project\\Shop_HeadPhone_G03\\Source_Code\\DAL\\DAL.csproj": {
-              "projectPath": "c:\\Users\\lenovo\\OneDrive\\Máy tính\\Project\\Shop_HeadPhone_G03\\Source_Code\\DAL\\DAL.csproj"
-            },
-            "c:\\Users\\lenovo\\OneDrive\\Máy tính\\Project\\Shop_HeadPhone_G03\\Source_Code\\Persistence\\Persistence.csproj": {
-              "projectPath": "c:\\Users\\lenovo\\OneDrive\\Máy tính\\Project\\Shop_HeadPhone_G03\\Source_Code\\Persistence\\Persistence.csproj"
-            }
-          }
+          "projectReferences": {}
         }
       },
       "warningProperties": {

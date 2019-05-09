@@ -1,19 +1,20 @@
-Create database if not exists Headphone_Shop_Gr3;
+-- drop database Headphone_Shop_Gr3;
+Create database Headphone_Shop_Gr3;
 use Headphone_Shop_Gr3;
 
 create table if not exists Customers(
 	Cus_ID int auto_increment primary key not null,
-    Cus_Name nvarchar(50) not null,
+    Cus_Name varchar(50) not null,
     Cus_DateBirth date not null,
     Cus_Address nvarchar(100) not null,
     Cus_Email varchar(100) not null unique,
-    Cus_Phone_Numbers varchar(20) not null,
+    Cus_Phone_Numbers char(12) not null,
     User_Name varchar(50) not null unique,
     User_Password varchar(15) not null
 );
 
 create table if not exists Items(
-	Produce_Code varchar(250) not null primary key,
+	Produce_Code varchar(50) not null primary key,
     Item_Name nvarchar(50) not null,
     Trademark nvarchar(50) not null,
     Attribute nvarchar(50) not null,
@@ -23,7 +24,7 @@ create table if not exists Items(
 );
 
 create table if not exists Orders(
-	Order_ID int not null,
+	Order_ID int auto_increment,
     Cus_ID int not null,
     Order_Date  timestamp,
     Note nvarchar(500),
@@ -32,9 +33,9 @@ create table if not exists Orders(
 );
 
 create table if not exists OrderDetails(
-	Order_ID int,
-    Produce_Code varchar(250),
-    Order_Count int not null,
+	Order_ID int auto_increment,
+    Produce_Code varchar(50),
+    OrderDetails_Count int not null,
     primary key(Order_ID, Produce_Code),
     foreign key (Order_ID) references Orders(Order_ID),
     foreign key (Produce_Code) references Items(Produce_Code)
@@ -42,4 +43,4 @@ create table if not exists OrderDetails(
 
 
 insert into Items(Produce_Code, Item_Name, Trademark, Attribute, Item_Price, Item_Description, Quantity)
-values ('','22836  ',);
+values ();
