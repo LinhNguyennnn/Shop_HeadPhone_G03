@@ -1,4 +1,14 @@
+<<<<<<< HEAD
 Create database if not exists Headphone_Shop_Gr3;
+=======
+<<<<<<< HEAD
+drop database Headphone_Shop_Gr3;
+Create database if not exists Headphone_Shop_Gr3;
+=======
+-- drop database Headphone_Shop_Gr3;
+Create database Headphone_Shop_Gr3;
+>>>>>>> 9f56d50a6b8ca7b85ad4b40897b5f48e10c0498b
+>>>>>>> 56c2f46d721123caa9f3ec704ccb083c31b783bc
 use Headphone_Shop_Gr3;
 
 create table if not exists Customers(
@@ -7,7 +17,7 @@ create table if not exists Customers(
     Cus_DateBirth date not null,
     Cus_Address nvarchar(100) not null,
     Cus_Email varchar(100) not null unique,
-    Cus_Phone_Numbers varchar(20) not null,
+    Cus_Phone_Numbers char(20) not null,
     User_Name varchar(50) not null unique,
     User_Password varchar(15) not null
 );
@@ -42,4 +52,8 @@ create table if not exists OrderDetails(
 
 
 insert into Items(Produce_Code, Item_Name, Trademark, Attribute, Item_Price, Item_Description, Quantity)
+<<<<<<< HEAD
 values ('','22836  ',);
+=======
+values ();
+>>>>>>> 56c2f46d721123caa9f3ec704ccb083c31b783bc
