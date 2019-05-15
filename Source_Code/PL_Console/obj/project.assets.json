@@ -740,23 +740,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\lenovo\\.nuget\\packages\\": {},
+    "C:\\Users\\DELL\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\lenovo\\OneDrive\\Máy tính\\Project\\Shop_HeadPhone_G03\\Source_Code\\PL_Console\\PL_Console.csproj",
+      "projectUniqueName": "d:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\PL_Console\\PL_Console.csproj",
       "projectName": "PL_Console",
-      "projectPath": "c:\\Users\\lenovo\\OneDrive\\Máy tính\\Project\\Shop_HeadPhone_G03\\Source_Code\\PL_Console\\PL_Console.csproj",
-      "packagesPath": "C:\\Users\\lenovo\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\lenovo\\OneDrive\\Máy tính\\Project\\Shop_HeadPhone_G03\\Source_Code\\PL_Console\\obj\\",
+      "projectPath": "d:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\PL_Console\\PL_Console.csproj",
+      "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
+      "outputPath": "d:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\PL_Console\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\DELL\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.2"
@@ -767,11 +767,11 @@
       "frameworks": {
         "netcoreapp2.2": {
           "projectReferences": {
-            "c:\\Users\\lenovo\\OneDrive\\Máy tính\\Project\\Shop_HeadPhone_G03\\Source_Code\\BL\\BL.csproj": {
-              "projectPath": "c:\\Users\\lenovo\\OneDrive\\Máy tính\\Project\\Shop_HeadPhone_G03\\Source_Code\\BL\\BL.csproj"
+            "d:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\BL\\BL.csproj": {
+              "projectPath": "d:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\BL\\BL.csproj"
             },
-            "c:\\Users\\lenovo\\OneDrive\\Máy tính\\Project\\Shop_HeadPhone_G03\\Source_Code\\Persistence\\Persistence.csproj": {
-              "projectPath": "c:\\Users\\lenovo\\OneDrive\\Máy tính\\Project\\Shop_HeadPhone_G03\\Source_Code\\Persistence\\Persistence.csproj"
+            "d:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\Persistence\\Persistence.csproj": {
+              "projectPath": "d:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\Persistence\\Persistence.csproj"
             }
           }
         }
