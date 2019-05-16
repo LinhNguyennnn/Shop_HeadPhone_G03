@@ -10,9 +10,15 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
+<<<<<<< HEAD
+            "program": "${workspaceFolder}/Source_Code/DAL_Test/bin/Debug/netcoreapp2.2/DAL_Test.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/Source_Code/DAL_Test",
+=======
             "program": "${workspaceFolder}/Source_Code/DAL.Test/bin/Debug/netcoreapp2.2/DAL.Test.dll",
             "args": [],
             "cwd": "${workspaceFolder}/Source_Code/DAL.Test",
+>>>>>>> 1832284a82a2a3351ec5d7be5044d78c3ed8d9ee
             // For more information about the 'console' field, see https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md#console-terminal-window
             "console": "internalConsole",
             "stopAtEntry": false

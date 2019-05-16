@@ -1189,7 +1189,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.0": [
-      "MySql.Data",
+      "MySql.Data >= 8.0.16",
       "NETStandard.Library >= 2.0.3",
       "Persistence >= 1.0.0"
     ]
@@ -1201,19 +1201,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-<<<<<<< HEAD
-      "projectUniqueName": "C:\\Users\\lenovo\\Desktop\\Project\\Shop_HeadPhone_G03\\Source_Code\\DAL\\DAL.csproj",
-      "projectName": "DAL",
-      "projectPath": "C:\\Users\\lenovo\\Desktop\\Project\\Shop_HeadPhone_G03\\Source_Code\\DAL\\DAL.csproj",
-      "packagesPath": "C:\\Users\\lenovo\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\lenovo\\Desktop\\Project\\Shop_HeadPhone_G03\\Source_Code\\DAL\\obj\\",
-=======
       "projectUniqueName": "d:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\DAL\\DAL.csproj",
       "projectName": "DAL",
       "projectPath": "d:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\DAL\\DAL.csproj",
       "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
       "outputPath": "d:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\DAL\\obj\\",
->>>>>>> 5cd93f5bdce375d7b0911ed9b115cc6b5cd48a46
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -1230,13 +1222,8 @@
       "frameworks": {
         "netstandard2.0": {
           "projectReferences": {
-<<<<<<< HEAD
-            "C:\\Users\\lenovo\\Desktop\\Project\\Shop_HeadPhone_G03\\Source_Code\\Persistence\\Persistence.csproj": {
-              "projectPath": "C:\\Users\\lenovo\\Desktop\\Project\\Shop_HeadPhone_G03\\Source_Code\\Persistence\\Persistence.csproj"
-=======
             "d:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\Persistence\\Persistence.csproj": {
               "projectPath": "d:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\Persistence\\Persistence.csproj"
->>>>>>> 5cd93f5bdce375d7b0911ed9b115cc6b5cd48a46
             }
           }
         }
@@ -1252,7 +1239,7 @@
         "dependencies": {
           "MySql.Data": {
             "target": "Package",
-            "version": "(, )"
+            "version": "[8.0.16, )"
           },
           "NETStandard.Library": {
             "suppressParent": "All",
