@@ -1,6 +1,6 @@
 using System;
 
-namespace persistence
+namespace Persistence
 {
     public class Customers
     {
@@ -22,23 +22,28 @@ namespace persistence
 
         public Customers() { }
 
-        public Customers(int id, string name, string birth, string address, string email, string phone, string Uname, string password)
+        // public Customers(int id, string name, string birth, string address, string email, string phone, string username, string password)
+        // {
+        //     this.Cus_ID = id;
+
+        //     this.Cus_Name = name;
+
+        //     this.Cus_DateBirth = birth;
+
+        //     this.Cus_Address = address;
+
+        //     this.Cus_Email = email;
+
+        //     this.Cus_Phone_Numbers = phone;
+
+        //     this.User_Name = username;
+
+        //     this.User_Password = password;
+        // }
+        public Customers(string username, string password)
         {
-            Cus_ID = id;
-
-            Cus_Name = name;
-
-            Cus_DateBirth = birth;
-
-            Cus_Address = address;
-
-            Cus_Email = email;
-
-            Cus_Phone_Numbers = phone;
-
-            User_Name = Uname;
-
-            User_Password = password;
+            this.User_Name = username;
+            this.User_Password = password;
         }
     }
 }
