@@ -1195,23 +1195,31 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\lenovo\\.nuget\\packages\\": {},
+    "C:\\Users\\DELL\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< HEAD
       "projectUniqueName": "C:\\Users\\lenovo\\Desktop\\Project\\Shop_HeadPhone_G03\\Source_Code\\DAL\\DAL.csproj",
       "projectName": "DAL",
       "projectPath": "C:\\Users\\lenovo\\Desktop\\Project\\Shop_HeadPhone_G03\\Source_Code\\DAL\\DAL.csproj",
       "packagesPath": "C:\\Users\\lenovo\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\lenovo\\Desktop\\Project\\Shop_HeadPhone_G03\\Source_Code\\DAL\\obj\\",
+=======
+      "projectUniqueName": "d:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\DAL\\DAL.csproj",
+      "projectName": "DAL",
+      "projectPath": "d:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\DAL\\DAL.csproj",
+      "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
+      "outputPath": "d:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\DAL\\obj\\",
+>>>>>>> 5cd93f5bdce375d7b0911ed9b115cc6b5cd48a46
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\DELL\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netstandard2.0"
@@ -1222,8 +1230,13 @@
       "frameworks": {
         "netstandard2.0": {
           "projectReferences": {
+<<<<<<< HEAD
             "C:\\Users\\lenovo\\Desktop\\Project\\Shop_HeadPhone_G03\\Source_Code\\Persistence\\Persistence.csproj": {
               "projectPath": "C:\\Users\\lenovo\\Desktop\\Project\\Shop_HeadPhone_G03\\Source_Code\\Persistence\\Persistence.csproj"
+=======
+            "d:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\Persistence\\Persistence.csproj": {
+              "projectPath": "d:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\Persistence\\Persistence.csproj"
+>>>>>>> 5cd93f5bdce375d7b0911ed9b115cc6b5cd48a46
             }
           }
         }
@@ -1255,5 +1268,13 @@
         "warn": true
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file d:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\DAL\\obj\\DAL.csproj.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }
