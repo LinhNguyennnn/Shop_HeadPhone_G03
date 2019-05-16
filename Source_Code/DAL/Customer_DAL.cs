@@ -11,6 +11,6 @@ namespace DAL
         {
             connection = DbHelper.OpenConnection();
         }
-        public Customer Login(string )
+        public Customer Login(string)
     }
 }
