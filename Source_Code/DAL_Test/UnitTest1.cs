@@ -1,7 +1,7 @@
 using System;
 using Xunit;
 
-namespace DAL.Test
+namespace DAL_Test
 {
     public class UnitTest1
     {
