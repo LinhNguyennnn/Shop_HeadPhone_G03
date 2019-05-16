@@ -7,11 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-<<<<<<< HEAD
-                "${workspaceFolder}/Source_Code/DAL_Test/DAL_Test.csproj"
-=======
-                "${workspaceFolder}/Source_Code/DAL.Test/DAL.Test.csproj"
->>>>>>> 1832284a82a2a3351ec5d7be5044d78c3ed8d9ee
+                "${workspaceFolder}/DAL_Test/DAL_Test.csproj"
             ],
             "problemMatcher": "$tsc"
         },
@@ -21,11 +17,7 @@
             "type": "process",
             "args": [
                 "publish",
-<<<<<<< HEAD
-                "${workspaceFolder}/Source_Code/DAL_Test/DAL_Test.csproj"
-=======
-                "${workspaceFolder}/Source_Code/DAL.Test/DAL.Test.csproj"
->>>>>>> 1832284a82a2a3351ec5d7be5044d78c3ed8d9ee
+                "${workspaceFolder}/DAL_Test/DAL_Test.csproj"
             ],
             "problemMatcher": "$tsc"
         },
@@ -36,11 +28,7 @@
             "args": [
                 "watch",
                 "run",
-<<<<<<< HEAD
-                "${workspaceFolder}/Source_Code/DAL_Test/DAL_Test.csproj"
-=======
-                "${workspaceFolder}/Source_Code/DAL.Test/DAL.Test.csproj"
->>>>>>> 1832284a82a2a3351ec5d7be5044d78c3ed8d9ee
+                "${workspaceFolder}/DAL_Test/DAL_Test.csproj"
             ],
             "problemMatcher": "$tsc"
         }
