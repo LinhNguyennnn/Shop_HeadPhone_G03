@@ -1,6 +1,3 @@
-using System;
-using System.Text.RegularExpressions;
-using CTS_Persistence;
 using MySql.Data.MySqlClient;
 
 namespace DAL

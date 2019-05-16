@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-
+using MySql.Data.MySqlClient;
 
 namespace DAL
 {
@@ -16,7 +16,7 @@ namespace DAL
                 {
                     ConnectionString = connection_String
                 };
-                connection.open();
+                connection.Open();
                 return connection;
             }
             catch (System.Exception)
@@ -54,7 +54,7 @@ namespace DAL
                 {
                     ConnectionString = connectionString
                 };
-                connection.open();
+                connection.Open();
                 return connection;
             }
             catch (System.Exception)
