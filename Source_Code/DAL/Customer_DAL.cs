@@ -35,7 +35,7 @@ namespace DAL
             {
                 connection.Open();
             }
-            query = @"select * from Customers where User_Name = '" + username + "' and Password = '" + password + "';";
+            // query = @"select * from Customers where User_Name = '" + username + "' and Password = '" + password + "';";
             MySqlCommand command = new MySqlCommand(query, connection);
             Customers customer = null;
             using (reader = command.ExecuteReader())
