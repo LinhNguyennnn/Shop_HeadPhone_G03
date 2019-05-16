@@ -1,12 +1,5 @@
-
-Create database if not exists Headphone_Shop_Gr3;
-
-
 drop database Headphone_Shop_Gr3;
 Create database if not exists Headphone_Shop_Gr3;
-
--- drop database Headphone_Shop_Gr3;
-Create database Headphone_Shop_Gr3;
 
 use Headphone_Shop_Gr3;
 
@@ -27,7 +20,7 @@ create table if not exists Items(
     Trademark nvarchar(50) not null,
     Attribute nvarchar(50) not null,
     Item_Price decimal(10,2) not null,
-    Item_Description nvarchar(250) not null,
+    Item_Description nvarchar(500) not null,
     Quantity int not null
 );
 
@@ -49,9 +42,13 @@ create table if not exists OrderDetails(
     foreign key (Produce_Code) references Items(Produce_Code)
 );
 
+insert into Customers(Cus_ID, Cus_Name, Cus_DateBirth, Cus_Address, Cus_Email, Cus_Phone_Numbers, User_Name, User_Password)
+values('1','Nguyễn Anh Linh','1999/3/18','188 giải phóng','123@gmail.com','013354789712','NAL','nal123'),
+	  ('2','Lý Bảo Thắng','1998/4/19','253 giải phóng','456@gmail.com','028975048976','LBT','lbt456'),
+      ('3','Nguyễn Văn Dân','1998/5/20','385 Tam Trinh','789@gmail.com','089327184637','NVD','nvd789');
 
 insert into Items(Produce_Code, Item_Name, Trademark, Attribute, Item_Price, Item_Description, Quantity)
-values('1','Urbanista Tokyo plus TWS','Urbanista','không dây','2990000','Với chíp Bluetooth 5.0 và 4h nghe nhạc liên tục cho 1 lần sạc đầy kết hợp cùng hộp đựng giúp tăng thời lượng sử dụng lên đến hơn 16h','100'),
+values('1','Urbanista Tokyo plus TWS','Urbanista','không dây','2990000','Chíp Bluetooth 5.0 và 4h nghe nhạc liên tục cho 1 lần sạc đầy kết hợp cùng hộp đựng giúp tăng thời lượng sử dụng lên đến hơn 16h','100'),
 	  ('2','Urbanista New York ANC Wireless','Urbanista','không dây','3990000','Công nghệ chống ồn chủ động với khả năng loại bỏ những âm thanh dưới 27 dB,hầu hết những tiếng ồn từ động cơ khi tham gia giao thông hay tiếng ồn ào nơi công sở sẽ được triệt tiêu.','100'),
       ('3','Urbanista Detroit Wireless','Urbanista','không dây','1890000','Với chíp bluetooth 4.2 với độ trễ thấp và khả năng kết nối ổn định trong phạm vi 10m','100'),
       ('4','Urbanista Chicago Wireless','Urbanista','thể thao','2190000','Được thiết kế hướng đến những vận động viên chuyên nghiệp,với 7h nghe nhạc liên tục cùng âm thanh sống động và khả năng bám tai tốt giúp bạn tự do và thoải mái khi vận động mạnh.','100'),
