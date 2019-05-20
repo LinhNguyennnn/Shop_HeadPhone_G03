@@ -1,5 +1,5 @@
 using System;
-using HP_Persistance;
+using HP_Persistence;
 using HP_DAL;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
@@ -22,7 +22,7 @@ namespace HP_BL
             {
                 return null;
             }
-            return IDAL.GetItemByProduceCode(Produce_Code);
+            return IDAL.GetItems(Produce_Code);
         }
     }
 }

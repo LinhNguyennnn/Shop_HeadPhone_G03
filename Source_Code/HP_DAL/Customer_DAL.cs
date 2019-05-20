@@ -57,6 +57,6 @@ namespace HP_DAL
             Customers customer = new Customers(username, password);
             return customer;
         }
-            public Customer Login();
+            // public Customer Login();
     }
 }
