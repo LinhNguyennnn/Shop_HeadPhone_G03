@@ -1,0 +1,1 @@
+server=localhost;user id=root;password=Hanhphuc1;port=3306;database=headphone_shop_gr3;SslMode=None
