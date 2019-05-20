@@ -14,7 +14,7 @@ namespace DAL
         {
             connection = DbHelper.OpenConnection();
         }
-<<<<<<< HEAD
+        
         public Customers Login(string username, string password)
         {
             if ((username == null) || (password == null))
@@ -62,9 +62,7 @@ namespace DAL
             Customers customer = new Customers(username, password);
             return customer;
         }
-        
-=======
-        public Customer Login(string)
->>>>>>> 8364bd210270ce629cd015b4653e5bff3e64f25b
+            public Customer Login(string)
+
     }
 }
