@@ -1,6 +1,6 @@
 using System;
 
-namespace UI
+namespace PL_Console
 {
     class Login : Menu
     {

@@ -1,5 +1,5 @@
 using System;
-namespace UI
+namespace PL_Console
 {
     class Product : Menu
     {

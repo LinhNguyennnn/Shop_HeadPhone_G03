@@ -6,8 +6,8 @@ namespace PL_Console
     {
         static void Main(string[] args)
         {
-            Menu menu = new Menu();
-            menu.Menu(null);
+            Menu mn = new Menu();
+            mn.menu();
         }
     }
 }

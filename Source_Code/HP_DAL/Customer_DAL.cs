@@ -14,10 +14,7 @@ namespace HP_DAL
         {
             connection = DbHelper.OpenConnection();
         }
-<<<<<<< HEAD:Source_Code/DAL/Customer_DAL.cs
-        
-=======
->>>>>>> 8c1e9abe80df4e0c14a4a2cbee7be3fb664fa483:Source_Code/HP_DAL/Customer_DAL.cs
+
         public Customers Login(string username, string password)
         {
             if ((username == null) || (password == null))
@@ -60,10 +57,6 @@ namespace HP_DAL
             Customers customer = new Customers(username, password);
             return customer;
         }
-<<<<<<< HEAD:Source_Code/DAL/Customer_DAL.cs
-            public Customer Login(string)
-
-=======
->>>>>>> 8c1e9abe80df4e0c14a4a2cbee7be3fb664fa483:Source_Code/HP_DAL/Customer_DAL.cs
+            public Customer Login();
     }
 }
