@@ -1,0 +1,13 @@
+c:\Users\lenovo\Desktop\Project\Shop_HeadPhone_G03\Source_Code\DAL\bin\Debug\netstandard2.0\ConnectionString.txt
+c:\Users\lenovo\Desktop\Project\Shop_HeadPhone_G03\Source_Code\DAL\bin\Debug\netstandard2.0\DAL.deps.json
+c:\Users\lenovo\Desktop\Project\Shop_HeadPhone_G03\Source_Code\DAL\bin\Debug\netstandard2.0\DAL.dll
+c:\Users\lenovo\Desktop\Project\Shop_HeadPhone_G03\Source_Code\DAL\bin\Debug\netstandard2.0\DAL.pdb
+c:\Users\lenovo\Desktop\Project\Shop_HeadPhone_G03\Source_Code\DAL\bin\Debug\netstandard2.0\Persistence.dll
+c:\Users\lenovo\Desktop\Project\Shop_HeadPhone_G03\Source_Code\DAL\bin\Debug\netstandard2.0\Persistence.pdb
+c:\Users\lenovo\Desktop\Project\Shop_HeadPhone_G03\Source_Code\DAL\obj\Debug\netstandard2.0\DAL.csprojAssemblyReference.cache
+c:\Users\lenovo\Desktop\Project\Shop_HeadPhone_G03\Source_Code\DAL\obj\Debug\netstandard2.0\DAL.csproj.CoreCompileInputs.cache
+c:\Users\lenovo\Desktop\Project\Shop_HeadPhone_G03\Source_Code\DAL\obj\Debug\netstandard2.0\DAL.AssemblyInfoInputs.cache
+c:\Users\lenovo\Desktop\Project\Shop_HeadPhone_G03\Source_Code\DAL\obj\Debug\netstandard2.0\DAL.AssemblyInfo.cs
+c:\Users\lenovo\Desktop\Project\Shop_HeadPhone_G03\Source_Code\DAL\obj\Debug\netstandard2.0\DAL.csproj.CopyComplete
+c:\Users\lenovo\Desktop\Project\Shop_HeadPhone_G03\Source_Code\DAL\obj\Debug\netstandard2.0\DAL.dll
+c:\Users\lenovo\Desktop\Project\Shop_HeadPhone_G03\Source_Code\DAL\obj\Debug\netstandard2.0\DAL.pdb
