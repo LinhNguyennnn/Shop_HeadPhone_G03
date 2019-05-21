@@ -1,13 +1,6 @@
-using System;
+using System;    
 
-<<<<<<< HEAD
 namespace HP_PLConsole
-{
-    public class Menu
-    {
-        
-=======
-namespace PL_Console
 {
     class Menu
     {
@@ -55,6 +48,5 @@ namespace PL_Console
                     break;
             }
         }
->>>>>>> 5fe03f8b7712773beefaea02bc76e12ea910ac93
     }
 }

@@ -1,5 +1,5 @@
 using System;
-namespace PL_Console
+namespace HP_PLConsole
 {
     class Product : Menu
     {
