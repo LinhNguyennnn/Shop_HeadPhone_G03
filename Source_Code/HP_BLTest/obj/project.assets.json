@@ -6394,5 +6394,13 @@
         "warn": true
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file c:\\Users\\lenovo\\Desktop\\Project\\Shop_HeadPhone_G03\\Source_Code\\HP_BLTest\\obj\\HP_BLTest.csproj.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }

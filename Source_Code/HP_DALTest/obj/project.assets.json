@@ -6298,37 +6298,29 @@
       "HP_Persistence >= 1.0.0",
       "Microsoft.NET.Test.Sdk >= 15.9.0",
       "Microsoft.NETCore.App >= 2.2.0",
-      "MySql.Data",
+      "MySql.Data >= 8.0.16",
       "xunit >= 2.4.0",
       "xunit.runner.visualstudio >= 2.4.0"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\DELL\\.nuget\\packages\\": {},
+    "C:\\Users\\lenovo\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-<<<<<<< HEAD
-      "projectUniqueName": "C:\\Users\\lenovo\\Desktop\\Project\\Shop_HeadPhone_G03\\Source_Code\\HP_DALTest\\HP_DALTest.csproj",
+      "projectUniqueName": "c:\\Users\\lenovo\\Desktop\\Project\\Shop_HeadPhone_G03\\Source_Code\\HP_DALTest\\HP_DALTest.csproj",
       "projectName": "HP_DALTest",
-      "projectPath": "C:\\Users\\lenovo\\Desktop\\Project\\Shop_HeadPhone_G03\\Source_Code\\HP_DALTest\\HP_DALTest.csproj",
+      "projectPath": "c:\\Users\\lenovo\\Desktop\\Project\\Shop_HeadPhone_G03\\Source_Code\\HP_DALTest\\HP_DALTest.csproj",
       "packagesPath": "C:\\Users\\lenovo\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\lenovo\\Desktop\\Project\\Shop_HeadPhone_G03\\Source_Code\\HP_DALTest\\obj\\",
-=======
-      "projectUniqueName": "d:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\HP_DALTest\\HP_DALTest.csproj",
-      "projectName": "HP_DALTest",
-      "projectPath": "d:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\HP_DALTest\\HP_DALTest.csproj",
-      "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
-      "outputPath": "d:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\HP_DALTest\\obj\\",
->>>>>>> 5fe03f8b7712773beefaea02bc76e12ea910ac93
+      "outputPath": "c:\\Users\\lenovo\\Desktop\\Project\\Shop_HeadPhone_G03\\Source_Code\\HP_DALTest\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\DELL\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.2"
@@ -6339,19 +6331,11 @@
       "frameworks": {
         "netcoreapp2.2": {
           "projectReferences": {
-<<<<<<< HEAD
-            "C:\\Users\\lenovo\\Desktop\\Project\\Shop_HeadPhone_G03\\Source_Code\\HP_DAL\\HP_DAL.csproj": {
-              "projectPath": "C:\\Users\\lenovo\\Desktop\\Project\\Shop_HeadPhone_G03\\Source_Code\\HP_DAL\\HP_DAL.csproj"
+            "c:\\Users\\lenovo\\Desktop\\Project\\Shop_HeadPhone_G03\\Source_Code\\HP_DAL\\HP_DAL.csproj": {
+              "projectPath": "c:\\Users\\lenovo\\Desktop\\Project\\Shop_HeadPhone_G03\\Source_Code\\HP_DAL\\HP_DAL.csproj"
             },
-            "C:\\Users\\lenovo\\Desktop\\Project\\Shop_HeadPhone_G03\\Source_Code\\HP_Persistence\\HP_Persistence.csproj": {
-              "projectPath": "C:\\Users\\lenovo\\Desktop\\Project\\Shop_HeadPhone_G03\\Source_Code\\HP_Persistence\\HP_Persistence.csproj"
-=======
-            "d:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\HP_DAL\\HP_DAL.csproj": {
-              "projectPath": "d:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\HP_DAL\\HP_DAL.csproj"
-            },
-            "d:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\HP_Persistence\\HP_Persistence.csproj": {
-              "projectPath": "d:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\HP_Persistence\\HP_Persistence.csproj"
->>>>>>> 5fe03f8b7712773beefaea02bc76e12ea910ac93
+            "c:\\Users\\lenovo\\Desktop\\Project\\Shop_HeadPhone_G03\\Source_Code\\HP_Persistence\\HP_Persistence.csproj": {
+              "projectPath": "c:\\Users\\lenovo\\Desktop\\Project\\Shop_HeadPhone_G03\\Source_Code\\HP_Persistence\\HP_Persistence.csproj"
             }
           }
         }
@@ -6377,7 +6361,7 @@
           },
           "MySql.Data": {
             "target": "Package",
-            "version": "(, )"
+            "version": "[8.0.16, )"
           },
           "xunit": {
             "target": "Package",
