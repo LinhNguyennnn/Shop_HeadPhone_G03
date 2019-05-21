@@ -17,16 +17,16 @@ namespace HP_DALTest
         [Fact]
         public void GetItemByProduceCodeTest1()
         {
-            Items item = itemDAL.GetItemByProduceCode("1");
+            Items item = itemDAL.GetItemByProduceCode(1);
 
             Assert.NotNull(item);
-            Assert.Equal("1", item.Produce_Code);    
+            Assert.Equal(1, item.Produce_Code);
         }
 
         [Fact]
         public void GetItemByProduceCodeTest2()
         {
-            Assert.Null(itemDAL.GetItemByProduceCode("0"));
+            Assert.Null(itemDAL.GetItemByProduceCode(0));
         }
 
         [Fact]
