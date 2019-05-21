@@ -1,7 +1,13 @@
-drop database Headphone_Shop_Gr3;
+-- drop database Headphone_Shop_Gr3;
 Create database if not exists Headphone_Shop_Gr3;
 
 use Headphone_Shop_Gr3;
+
+show tables;
+describe Customers;
+describe Items;
+select * from Customers;
+select * from Items;
 
 create table if not exists Customers(
 	Cus_ID int auto_increment primary key not null,
@@ -77,7 +83,7 @@ values('1','Urbanista Tokyo plus TWS','Urbanista','không dây','2990000','Chíp
 	  ('27','Somic G618i','SOMIC','Gaming','580000','Tai nghe chơi game Somic G618i được thiết kế giúp game thủ chơi đạt thành tích cáo nhất. Phần Ear-hok được thiết kế giúp chiếc tai nghe có thể gắn chặt trên tai người dùng đồng thời không gây cảm giắc khó chịu khi sử dụng trong thời gian dài.','100'),
       ('28','Somic G618 PRO Wireless','SOMIC','Gaming','980000','Công nghệ Bluetooth 4.1 và bộ giải mã APTX cho âm thanh được truyền tải 1 cách trung thực với độ trễ thấp. Được tích hợp 2 microphone giúp đạt chất lượng đàm thoại tốt nhất với khả năng lọc tiến ồn cao hơn. Thời gian nghe nhạc và đàm thoại liên tục lên đến 8h','100'),
       ('29','Somic G954 V7.1 có rung','SOMIC','Gaming','950000','Công nghệ giả lập âm thanh vòm 7.1 giúp tăng cường tính thực tế và rõ nét trong game giúp game thủ xác định chính xác các vị trí. Công nghệ rung thông minh SVE thế hệ mới mang lại trải nghiệm hoàn toàn mới mẻ và thú vị','100'),
-      ('30','Somic G951 pink','SOMIC','TGaming','1350000','Giả lập âm thanh 7.1 cao cấp của Somic, tích hợp hệ thống đèn led tai mèo với hiệu ứng led nhịp hơi thở đẹp mắt,chế độ rung sử dụng AI tăng cường trải nghiệm trong game. Thích hợp cho các bạn nữ chơi game, chụp ảnh, nghe nhạc, livestream, xem phim. Đệm tai cỡ lớn giúp người dùng thoải mái trong nhiều giờ sử dụng.','100'),
+      ('30','Somic G951 pink','SOMIC','Gaming','1350000','Giả lập âm thanh 7.1 cao cấp của Somic, tích hợp hệ thống đèn led tai mèo với hiệu ứng led nhịp hơi thở đẹp mắt,chế độ rung sử dụng AI tăng cường trải nghiệm trong game. Thích hợp cho các bạn nữ chơi game, chụp ảnh, nghe nhạc, livestream, xem phim. Đệm tai cỡ lớn giúp người dùng thoải mái trong nhiều giờ sử dụng.','100'),
       ('31','Sennheiser Momentum Free','Sennheiser','không dây','5190000','là chiếc tai nghe Bluetooth nhỏ gọn nhất của Sennheiser từ trước đến nay.Âm thanh hi-fi tinh tế nhờ công nghệ Bluetooth 4.2 và Qualcomm apt-X, tích hợp microphone, thời lượng pin 6h','100'),
       ('32','Sennheiser CX 7.00 BT','Sennheiser','In-Ear','4020000','Sử dụng Bluetooth 4.1 và bộ giải mã tín hiệu APTX mới nhất.Hỗ trợ kết nối nhanh 1 chạm NFC. Hỗ trợ kết nối cùng lúc với 2 thiết bị phát. Tích hợp microphone.','100'),
       ('33','Sennheiser CX 6.00BT','Sennheiser','thể thao','2540000','Bluetooth 4.2 và Qualcomm apt-X và Qualcomm apt-X Low Latency giúp cho âm thanh có độ chân thực, sắc nét. Mất 1,5h để sạc đầy pin, cho thời gian nghe khoảng 6h. Chỉ cần sạc 10p là có thể sử dụng thêm 2h.Được tích hợp microphone.','100'),
@@ -96,5 +102,5 @@ values('1','Urbanista Tokyo plus TWS','Urbanista','không dây','2990000','Chíp
       ('46','Ausdom SP007 Wireless','Ausdom','không dây','499000','Bluetooth 4.1. Tích hợp microphone đàm thoại. Nghe nhạc liên tục 7h, đàm thoại liên tục 8h cho 1 lần sạc đầy pin Bán kinh bắt sóng ổn định trong phạm vi 8m.','100'),
       ('47','AUSDOM M08 Wireless','Ausdom','không dây','990000','Sử dụng driver dynamic, tích hợp công nghệ bluetooth 4.0 bắt sóng ổn định trong phạm vi bán kính 10m, thời lượng pin lên đến 20h. Tích hợp microphone đàm thoại và có thể nghe nhạc thông qua kết nối dây dẫn truyền thống khi tai nghe hết pin.','100'),
       ('48','Ausdom AH861 Wireless','Ausdom','không dây','790000','Với chức năng chia sẻ nhạc cho một chiếc tai nghe AH861 khác ở cạnh nó, hai người gần nhau có thể cùng nghe chung 1 bài hát mà chỉ cần sử dụng 1 thiết bị phát duy nhất. Ngoài ra cũng được trang bị Bluetooth 4.1, microphone đàm thoại... Thiết kế trẻ trung, năng động, có thể nghe nhạc nhiều giờ liên tục mà không bị mỏi.','100'),
-      ('49','1More EB100 Wireless','1More','thể thao','1500000','','100'),
+      ('49','1More EB100 Wireless','1More','thể thao','1500000','Thời lượng pin lên đến 8h, nói chuyện liên tục 10h chỉ mất 2h để sạc đầy pin. Có khả năng chống thấm mồ hôi và nước theo tiêu chuẩn IPX4. Kết nối bluetooth 4.1 và công nghệ giải mã tín hiệu APTX thế hệ mới nhất, với bán kính bắt sóng ổn định là 10m.','100'),
       ('50','1More iBFree','1More','không dây','1150000','Thời lượng pin lên đến 8h, nói chuyện liên tục 10h chỉ mất 2h để sạc đầy pin. Có khả năng chống thấm mồ hôi và nước theo tiêu chuẩn IPX4. Kết nối bluetooth 4.1 và công nghệ giải mã tín hiệu APTX thế hệ mới nhất, với bán kính bắt sóng ổn định là 10m.','100');

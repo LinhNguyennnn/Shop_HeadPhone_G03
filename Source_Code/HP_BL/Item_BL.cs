@@ -22,7 +22,7 @@ namespace HP_BL
             {
                 return null;
             }
-            return IDAL.GetItemByProduceCode(Produce_Code);
+            return IDAL.GetItems(Produce_Code);
         }
     }
 }

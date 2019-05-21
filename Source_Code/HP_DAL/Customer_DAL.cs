@@ -14,6 +14,7 @@ namespace HP_DAL
         {
             connection = DbHelper.OpenConnection();
         }
+
         public Customers Login(string username, string password)
         {
             if ((username == null) || (password == null))
@@ -56,5 +57,6 @@ namespace HP_DAL
             Customers customer = new Customers(username, password);
             return customer;
         }
+            // public Customer Login();
     }
 }

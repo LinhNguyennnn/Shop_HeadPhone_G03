@@ -5,6 +5,10 @@
     <ProjectReference Include="..\HP_DAL\HP_DAL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="mysql.data" Version="8.0.16" />
+  </ItemGroup>
+
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
