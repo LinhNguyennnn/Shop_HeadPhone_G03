@@ -16,7 +16,7 @@ namespace HP_DAL
             connection = DbHelper.OpenConnection();
         }
 
-        public Items GetItems(string _code)
+        public Items GetItemByProduceCode(string _code)
         {
             if (_code == null)
             {   
@@ -43,6 +43,7 @@ namespace HP_DAL
             connection.Close();
             return item;
         }
+
         public Items GetItems(MySqlDataReader reader)
         {
             string _code = reader.GetString("Produce_Code");

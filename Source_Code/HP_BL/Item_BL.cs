@@ -1,5 +1,5 @@
 using System;
-using HP_Persistance;
+using HP_Persistence;
 using HP_DAL;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
@@ -18,7 +18,7 @@ namespace HP_BL
             {
                 return null;
             }
-            else if (matchCollection.Count < Produce_Code.ToString())
+            else if (matchCollection.Count < Produce_Code.ToString().Length)
             {
                 return null;
             }
