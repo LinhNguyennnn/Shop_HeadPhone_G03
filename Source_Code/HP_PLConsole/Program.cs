@@ -8,10 +8,6 @@ namespace HP_PLConsole
         {
             Menu menu = new Menu();
             menu.menu();
-<<<<<<< HEAD
-
-=======
->>>>>>> 4462d4cf82509d589c0cd4ac7e0c49986bb728e0
         }
     }
 }
