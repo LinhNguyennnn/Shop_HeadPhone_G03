@@ -2,6 +2,8 @@ drop database Headphone_Shop_Gr3;
 Create database if not exists Headphone_Shop_Gr3;
 
 use Headphone_Shop_Gr3;
+create user 'HP_User'@'localhost' identified by '123456';
+grant all privileges on * . * to 'HP_User'@'localhost';
 
 show tables;
 describe Customers;
