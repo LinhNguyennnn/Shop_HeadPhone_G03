@@ -6,7 +6,7 @@ namespace HP_DAL
 {
     public class DbHelper
     {
-        private static string connection_String = "server=localhost;user id=root;password=Hanhphuc1;port=3306;database=headphone_shop_gr3;SslMode=None";
+        private static string connection_String = "server=localhost;user id=root;password=becontraime;port=3306;database=Headphone_Shop_Gr3;SslMode=None";
         public static MySqlConnection OpenDefaultConnection()
         {
             try

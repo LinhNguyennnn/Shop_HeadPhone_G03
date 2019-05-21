@@ -18,7 +18,7 @@ namespace HP_BL
             {
                 return null;
             }
-            else if (matchCollection.Count < Produce_Code.ToString())
+            else if (matchCollection.Count < Produce_Code.ToString().Length)
             {
                 return null;
             }
