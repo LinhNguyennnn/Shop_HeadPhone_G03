@@ -2,11 +2,8 @@ using System;
 
 namespace HP_PLConsole
 {
-<<<<<<< HEAD
-    class Menu
-=======
     public class Menu
->>>>>>> 4462d4cf82509d589c0cd4ac7e0c49986bb728e0
+
     {
         public void menu()
         {
