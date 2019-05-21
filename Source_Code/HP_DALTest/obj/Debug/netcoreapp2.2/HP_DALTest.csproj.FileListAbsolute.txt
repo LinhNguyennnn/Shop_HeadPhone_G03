@@ -1,0 +1,4 @@
+c:\Users\lenovo\Desktop\Project\Shop_HeadPhone_G03\Source_Code\HP_DALTest\obj\Debug\netcoreapp2.2\HP_DALTest.csprojAssemblyReference.cache
+c:\Users\lenovo\Desktop\Project\Shop_HeadPhone_G03\Source_Code\HP_DALTest\obj\Debug\netcoreapp2.2\HP_DALTest.csproj.CoreCompileInputs.cache
+c:\Users\lenovo\Desktop\Project\Shop_HeadPhone_G03\Source_Code\HP_DALTest\obj\Debug\netcoreapp2.2\HP_DALTest.AssemblyInfoInputs.cache
+c:\Users\lenovo\Desktop\Project\Shop_HeadPhone_G03\Source_Code\HP_DALTest\obj\Debug\netcoreapp2.2\HP_DALTest.AssemblyInfo.cs

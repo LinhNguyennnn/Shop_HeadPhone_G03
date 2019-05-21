@@ -45,9 +45,9 @@ create table if not exists OrderDetails(
 );
 
 insert into Customers(Cus_Name, Cus_DateBirth, Cus_Address, Cus_Email, Cus_Phone_Numbers, User_Name, User_Password)
-values('Nguyễn Anh Linh','1999/3/18','188 giải phóng','123@gmail.com','013354789712','NAL','nal123'),
-	  ('Lý Bảo Thắng','1998/4/19','253 giải phóng','456@gmail.com','028975048976','LBT','lbt456'),
-      ('Nguyễn Văn Dân','1998/5/20','385 Tam Trinh','789@gmail.com','089327184637','NVD','nvd789');
+values('Nguyễn Anh Linh','1999/3/18','188 giải phóng','123@gmail.com','013354789712','Linh','nal123'),
+	  ('Lý Bảo Thắng','1998/4/19','253 giải phóng','456@gmail.com','028975048976','Thang','lbt456'),
+      ('Nguyễn Văn Dân','1998/5/20','385 Tam Trinh','789@gmail.com','089327184637','Dan','nvd789');
 
 insert into Items( Item_Name, Trademark, Attribute, Item_Price, Item_Description, Quantity)
 values('Urbanista Tokyo plus TWS','Urbanista','không dây','2990000','Chíp Bluetooth 5.0 và 4h nghe nhạc liên tục cho 1 lần sạc đầy kết hợp cùng hộp đựng giúp tăng thời lượng sử dụng lên đến hơn 16h','100'),
@@ -100,6 +100,5 @@ values('Urbanista Tokyo plus TWS','Urbanista','không dây','2990000','Chíp Blu
       ('Ausdom AH861 Wireless','Ausdom','không dây','790000','Với chức năng chia sẻ nhạc cho một chiếc tai nghe AH861 khác ở cạnh nó, hai người gần nhau có thể cùng nghe chung 1 bài hát mà chỉ cần sử dụng 1 thiết bị phát duy nhất. Ngoài ra cũng được trang bị Bluetooth 4.1, microphone đàm thoại... Thiết kế trẻ trung, năng động, có thể nghe nhạc nhiều giờ liên tục mà không bị mỏi.','100'),
       ('1More EB100 Wireless','1More','thể thao','1500000','Thời lượng pin lên đến 8h, nói chuyện liên tục 10h chỉ mất 2h để sạc đầy pin. Có khả năng chống thấm mồ hôi và nước theo tiêu chuẩn IPX4. Kết nối bluetooth 4.1 và công nghệ giải mã tín hiệu APTX thế hệ mới nhất, với bán kính bắt sóng ổn định là 10m.','100'),
       ('1More iBFree','1More','không dây','1150000','Thời lượng pin lên đến 8h, nói chuyện liên tục 10h chỉ mất 2h để sạc đầy pin. Có khả năng chống thấm mồ hôi và nước theo tiêu chuẩn IPX4. Kết nối bluetooth 4.1 và công nghệ giải mã tín hiệu APTX thế hệ mới nhất, với bán kính bắt sóng ổn định là 10m.','100');
-
-CREATE USER 'HP_User'@'localhost' IDENTIFIED BY '123456';
-GRANT ALL PRIVILEGES ON * . * TO 'HP_User'@'localhost';
+-- CREATE USER if not exists 'HP_User'@'localhost' IDENTIFIED BY '123456';
+-- GRANT ALL PRIVILEGES ON * . * TO 'HP_User'@'localhost';

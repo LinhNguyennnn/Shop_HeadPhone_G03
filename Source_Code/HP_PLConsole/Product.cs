@@ -11,21 +11,21 @@ namespace HP_PLConsole
             Console.WriteLine("Menu sản phẩm");
             Console.WriteLine("1. Xem danh sách sản phẩm theo hãng");
             Console.WriteLine("2. Xem danh sách sản phẩm theo phân loại sản phẩm");
-            Console.WriteLine("0. Trở về menu chính \n");
-            Console.Write("#chọn: ");
+            Console.WriteLine("0. Trở về MENU chính \n");
+            Console.Write("#Chọn: ");
 
             while (true)
             {
                 bool kt = Int32.TryParse(Console.ReadLine(), out number);
                 if (kt == false)
                 {
-                    Console.WriteLine("bạn đã nhập sai");
-                    Console.WriteLine("#chọn: ");
+                    Console.WriteLine("Bạn đã nhập sai!");;
+                    Console.Write("#Chọn: ");
                 }
                 else if (number < 0 || number > 2)
                 {
-                    Console.WriteLine("bạn đã nhập sai");
-                    Console.WriteLine("#chọn: ");
+                    Console.WriteLine("Bạn đã nhập sai!");;
+                    Console.Write("#Chọn: ");
                 }
                 else
                 {
@@ -46,7 +46,6 @@ namespace HP_PLConsole
                     break;
             }
         }
-
 
         public void DisplayTradeMark()
         {
@@ -73,13 +72,13 @@ namespace HP_PLConsole
                 bool kt = Int32.TryParse(Console.ReadLine(), out number);
                 if (kt == false)
                 {
-                    Console.WriteLine("bạn đã nhập sai");
-                    Console.WriteLine("#chọn: ");
+                    Console.WriteLine("Bạn đã nhập sai!");;
+                    Console.Write("#Chọn: ");
                 }
                 else if (number < 0 || number > 11)
                 {
-                    Console.WriteLine("bạn đã nhập sai");
-                    Console.WriteLine("#chọn: ");
+                    Console.WriteLine("Bạn đã nhập sai!");;
+                    Console.Write("#Chọn: ");
                 }
                 else
                 {
@@ -140,20 +139,20 @@ namespace HP_PLConsole
             Console.WriteLine("4. Gaming");
             Console.WriteLine("5. Earbud");
             Console.WriteLine("0. Trở về menu sản phẩm \n");
-            Console.Write("#chọn: ");
+            Console.Write("#Chọn: ");
 
             while (true)
             {
                 bool kt = Int32.TryParse(Console.ReadLine(), out number);
                 if (kt == false)
                 {
-                    Console.WriteLine("bạn đã nhập sai");
-                    Console.WriteLine("#chọn: ");
+                    Console.WriteLine("Bạn đã nhập sai!");;
+                    Console.Write("#Chọn: ");
                 }
                 else if (number < 0 || number > 5)
                 {
-                    Console.WriteLine("bạn đã nhập sai");
-                    Console.WriteLine("#chọn: ");
+                    Console.WriteLine("Bạn đã nhập sai!");;
+                    Console.Write("#Chọn: ");
                 }
                 else
                 {
@@ -196,13 +195,13 @@ namespace HP_PLConsole
                 bool kt = Int32.TryParse(Console.ReadLine(), out number);
                 if (kt == false)
                 {
-                    Console.WriteLine("bạn đã nhập sai");
-                    Console.WriteLine("#chọn: ");
+                    Console.WriteLine("Bạn đã nhập sai!");;
+                    Console.Write("#Chọn: ");
                 }
                 else if (number < 0 || number > 0)
                 {
-                    Console.WriteLine("bạn đã nhập sai");
-                    Console.WriteLine("#chọn: ");
+                    Console.WriteLine("Bạn đã nhập sai!");;
+                    Console.Write("#Chọn: ");
                 }
                 else
                 {
@@ -228,13 +227,13 @@ namespace HP_PLConsole
                 bool kt = Int32.TryParse(Console.ReadLine(), out number);
                 if (kt == false)
                 {
-                    Console.WriteLine("bạn đã nhập sai");
-                    Console.WriteLine("#chọn: ");
+                    Console.WriteLine("Bạn đã nhập sai!");;
+                    Console.Write("#Chọn: ");
                 }
                 else if (number < 0 || number > 0)
                 {
-                    Console.WriteLine("bạn đã nhập sai");
-                    Console.WriteLine("#chọn: ");
+                    Console.WriteLine("Bạn đã nhập sai!");;
+                    Console.Write("#Chọn: ");
                 }
                 else
                 {
@@ -260,13 +259,13 @@ namespace HP_PLConsole
                 bool kt = Int32.TryParse(Console.ReadLine(), out number);
                 if (kt == false)
                 {
-                    Console.WriteLine("bạn đã nhập sai");
-                    Console.WriteLine("#chọn: ");
+                    Console.WriteLine("Bạn đã nhập sai!");;
+                    Console.Write("#Chọn: ");
                 }
                 else if (number < 0 || number > 0)
                 {
-                    Console.WriteLine("bạn đã nhập sai");
-                    Console.WriteLine("#chọn: ");
+                    Console.WriteLine("Bạn đã nhập sai!");;
+                    Console.Write("#Chọn: ");
                 }
                 else
                 {
@@ -292,13 +291,13 @@ namespace HP_PLConsole
                 bool kt = Int32.TryParse(Console.ReadLine(), out number);
                 if (kt == false)
                 {
-                    Console.WriteLine("bạn đã nhập sai");
-                    Console.WriteLine("#chọn: ");
+                    Console.WriteLine("Bạn đã nhập sai!");
+                    Console.WriteLine("#Chọn: ");
                 }
                 else if (number < 0 || number > 0)
                 {
-                    Console.WriteLine("bạn đã nhập sai");
-                    Console.WriteLine("#chọn: ");
+                    Console.WriteLine("Bạn đã nhập sai!");
+                    Console.WriteLine("#Chọn: ");
                 }
                 else
                 {
@@ -324,13 +323,13 @@ namespace HP_PLConsole
                 bool kt = Int32.TryParse(Console.ReadLine(), out number);
                 if (kt == false)
                 {
-                    Console.WriteLine("bạn đã nhập sai");
-                    Console.WriteLine("#chọn: ");
+                    Console.WriteLine("Bạn đã nhập sai!");
+                    Console.WriteLine("#Chọn: ");
                 }
                 else if (number < 0 || number > 0)
                 {
-                    Console.WriteLine("bạn đã nhập sai");
-                    Console.WriteLine("#chọn: ");
+                    Console.WriteLine("Bạn đã nhập sai!");
+                    Console.WriteLine("#Chọn: ");
                 }
                 else
                 {
@@ -356,13 +355,13 @@ namespace HP_PLConsole
                 bool kt = Int32.TryParse(Console.ReadLine(), out number);
                 if (kt == false)
                 {
-                    Console.WriteLine("bạn đã nhập sai");
-                    Console.WriteLine("#chọn: ");
+                    Console.WriteLine("Bạn đã nhập sai!");
+                    Console.WriteLine("#Chọn: ");
                 }
                 else if (number < 0 || number > 0)
                 {
-                    Console.WriteLine("bạn đã nhập sai");
-                    Console.WriteLine("#chọn: ");
+                    Console.WriteLine("Bạn đã nhập sai!");
+                    Console.WriteLine("#Chọn: ");
                 }
                 else
                 {
@@ -388,13 +387,13 @@ namespace HP_PLConsole
                 bool kt = Int32.TryParse(Console.ReadLine(), out number);
                 if (kt == false)
                 {
-                    Console.WriteLine("bạn đã nhập sai");
-                    Console.WriteLine("#chọn: ");
+                    Console.WriteLine("Bạn đã nhập sai!");
+                    Console.WriteLine("#Chọn: ");
                 }
                 else if (number < 0 || number > 0)
                 {
-                    Console.WriteLine("bạn đã nhập sai");
-                    Console.WriteLine("#chọn: ");
+                    Console.WriteLine("Bạn đã nhập sai!");
+                    Console.WriteLine("#Chọn: ");
                 }
                 else
                 {
@@ -420,13 +419,13 @@ namespace HP_PLConsole
                 bool kt = Int32.TryParse(Console.ReadLine(), out number);
                 if (kt == false)
                 {
-                    Console.WriteLine("bạn đã nhập sai");
-                    Console.WriteLine("#chọn: ");
+                    Console.WriteLine("Bạn đã nhập sai!");
+                    Console.WriteLine("#Chọn: ");
                 }
                 else if (number < 0 || number > 0)
                 {
-                    Console.WriteLine("bạn đã nhập sai");
-                    Console.WriteLine("#chọn: ");
+                    Console.WriteLine("Bạn đã nhập sai!");
+                    Console.WriteLine("#Chọn: ");
                 }
                 else
                 {
@@ -452,13 +451,13 @@ namespace HP_PLConsole
                 bool kt = Int32.TryParse(Console.ReadLine(), out number);
                 if (kt == false)
                 {
-                    Console.WriteLine("bạn đã nhập sai");
-                    Console.WriteLine("#chọn: ");
+                    Console.WriteLine("Bạn đã nhập sai!");
+                    Console.WriteLine("#Chọn: ");
                 }
                 else if (number < 0 || number > 0)
                 {
-                    Console.WriteLine("bạn đã nhập sai");
-                    Console.WriteLine("#chọn: ");
+                    Console.WriteLine("Bạn đã nhập sai!");
+                    Console.WriteLine("#Chọn: ");
                 }
                 else
                 {
@@ -484,13 +483,13 @@ namespace HP_PLConsole
                 bool kt = Int32.TryParse(Console.ReadLine(), out number);
                 if (kt == false)
                 {
-                    Console.WriteLine("bạn đã nhập sai");
-                    Console.WriteLine("#chọn: ");
+                    Console.WriteLine("Bạn đã nhập sai!");
+                    Console.WriteLine("#Chọn: ");
                 }
                 else if (number < 0 || number > 0)
                 {
-                    Console.WriteLine("bạn đã nhập sai");
-                    Console.WriteLine("#chọn: ");
+                    Console.WriteLine("Bạn đã nhập sai!");
+                    Console.WriteLine("#Chọn: ");
                 }
                 else
                 {
@@ -516,13 +515,13 @@ namespace HP_PLConsole
                 bool kt = Int32.TryParse(Console.ReadLine(), out number);
                 if (kt == false)
                 {
-                    Console.WriteLine("bạn đã nhập sai");
-                    Console.WriteLine("#chọn: ");
+                    Console.WriteLine("Bạn đã nhập sai!");
+                    Console.WriteLine("#Chọn: ");
                 }
                 else if (number < 0 || number > 0)
                 {
-                    Console.WriteLine("bạn đã nhập sai");
-                    Console.WriteLine("#chọn: ");
+                    Console.WriteLine("Bạn đã nhập sai!");
+                    Console.WriteLine("#Chọn: ");
                 }
                 else
                 {
@@ -553,13 +552,13 @@ namespace HP_PLConsole
                 bool kt = Int32.TryParse(Console.ReadLine(), out number);
                 if (kt == false)
                 {
-                    Console.WriteLine("bạn đã nhập sai");
-                    Console.WriteLine("#chọn: ");
+                    Console.WriteLine("Bạn đã nhập sai!");
+                    Console.WriteLine("#Chọn: ");
                 }
                 else if (number < 0 || number > 0)
                 {
-                    Console.WriteLine("bạn đã nhập sai");
-                    Console.WriteLine("#chọn: ");
+                    Console.WriteLine("Bạn đã nhập sai!");
+                    Console.WriteLine("#Chọn: ");
                 }
                 else
                 {
@@ -585,13 +584,13 @@ namespace HP_PLConsole
                 bool kt = Int32.TryParse(Console.ReadLine(), out number);
                 if (kt == false)
                 {
-                    Console.WriteLine("bạn đã nhập sai");
-                    Console.WriteLine("#chọn: ");
+                    Console.WriteLine("Bạn đã nhập sai!");
+                    Console.WriteLine("#Chọn: ");
                 }
                 else if (number < 0 || number > 0)
                 {
-                    Console.WriteLine("bạn đã nhập sai");
-                    Console.WriteLine("#chọn: ");
+                    Console.WriteLine("Bạn đã nhập sai!");
+                    Console.WriteLine("#Chọn: ");
                 }
                 else
                 {
@@ -617,13 +616,13 @@ namespace HP_PLConsole
                 bool kt = Int32.TryParse(Console.ReadLine(), out number);
                 if (kt == false)
                 {
-                    Console.WriteLine("bạn đã nhập sai");
-                    Console.WriteLine("#chọn: ");
+                    Console.WriteLine("Bạn đã nhập sai!");
+                    Console.WriteLine("#Chọn: ");
                 }
                 else if (number < 0 || number > 0)
                 {
-                    Console.WriteLine("bạn đã nhập sai");
-                    Console.WriteLine("#chọn: ");
+                    Console.WriteLine("Bạn đã nhập sai!");
+                    Console.WriteLine("#Chọn: ");
                 }
                 else
                 {
@@ -649,13 +648,13 @@ namespace HP_PLConsole
                 bool kt = Int32.TryParse(Console.ReadLine(), out number);
                 if (kt == false)
                 {
-                    Console.WriteLine("bạn đã nhập sai");
-                    Console.WriteLine("#chọn: ");
+                    Console.WriteLine("Bạn đã nhập sai!");
+                    Console.WriteLine("#Chọn: ");
                 }
                 else if (number < 0 || number > 0)
                 {
-                    Console.WriteLine("bạn đã nhập sai");
-                    Console.WriteLine("#chọn: ");
+                    Console.WriteLine("Bạn đã nhập sai!");
+                    Console.WriteLine("#Chọn: ");
                 }
                 else
                 {
@@ -681,13 +680,13 @@ namespace HP_PLConsole
                 bool kt = Int32.TryParse(Console.ReadLine(), out number);
                 if (kt == false)
                 {
-                    Console.WriteLine("bạn đã nhập sai");
-                    Console.WriteLine("#chọn: ");
+                    Console.WriteLine("Bạn đã nhập sai!");
+                    Console.WriteLine("#Chọn: ");
                 }
                 else if (number < 0 || number > 0)
                 {
-                    Console.WriteLine("bạn đã nhập sai");
-                    Console.WriteLine("#chọn: ");
+                    Console.WriteLine("Bạn đã nhập sai!");
+                    Console.WriteLine("#Chọn: ");
                 }
                 else
                 {

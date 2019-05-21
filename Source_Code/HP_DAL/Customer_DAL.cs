@@ -28,15 +28,24 @@ namespace HP_DAL
             {
                 return null;
             }
-            if (connection == null)
+            try
             {
-                connection = DbHelper.OpenConnection();
+                if (connection == null)
+                {
+                    connection = DbHelper.OpenConnection();
+                }
+                if (connection.State == System.Data.ConnectionState.Closed)
+                {
+                    connection.Open();
+                }
             }
-            if (connection.State == System.Data.ConnectionState.Closed)
+            catch (System.Exception)
             {
-                connection.Open();
+
+                throw;
             }
-            query = @"select * from Customers where User_Name = '" + username + "' and Password = '" + password + "';";
+
+            query = @"select * from Customers where User_Name = '" + username + "' and User_Password = '" + password + "';";
             MySqlCommand command = new MySqlCommand(query, connection);
             Customers customer = null;
             using (reader = command.ExecuteReader())
@@ -52,11 +61,11 @@ namespace HP_DAL
         private Customers GetCustomer(MySqlDataReader reader)
         {
             string username = reader.GetString("User_Name");
-            string password = reader.GetString("Password");
+            string password = reader.GetString("User_Password");
 
             Customers customer = new Customers(username, password);
             return customer;
         }
-            // public Customer Login();
+        // public Customer Login();
     }
 }

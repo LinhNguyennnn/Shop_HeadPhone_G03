@@ -1221,11 +1221,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\lenovo\\Desktop\\Project\\Shop_HeadPhone_G03\\Source_Code\\HP_BL\\HP_BL.csproj",
+      "projectUniqueName": "C:\\Users\\lenovo\\Desktop\\Project\\Shop_HeadPhone_G03\\Source_Code\\HP_BL\\HP_BL.csproj",
       "projectName": "HP_BL",
-      "projectPath": "c:\\Users\\lenovo\\Desktop\\Project\\Shop_HeadPhone_G03\\Source_Code\\HP_BL\\HP_BL.csproj",
+      "projectPath": "C:\\Users\\lenovo\\Desktop\\Project\\Shop_HeadPhone_G03\\Source_Code\\HP_BL\\HP_BL.csproj",
       "packagesPath": "C:\\Users\\lenovo\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\lenovo\\Desktop\\Project\\Shop_HeadPhone_G03\\Source_Code\\HP_BL\\obj\\",
+      "outputPath": "C:\\Users\\lenovo\\Desktop\\Project\\Shop_HeadPhone_G03\\Source_Code\\HP_BL\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -1242,11 +1242,11 @@
       "frameworks": {
         "netstandard2.0": {
           "projectReferences": {
-            "c:\\Users\\lenovo\\Desktop\\Project\\Shop_HeadPhone_G03\\Source_Code\\HP_DAL\\HP_DAL.csproj": {
-              "projectPath": "c:\\Users\\lenovo\\Desktop\\Project\\Shop_HeadPhone_G03\\Source_Code\\HP_DAL\\HP_DAL.csproj"
+            "C:\\Users\\lenovo\\Desktop\\Project\\Shop_HeadPhone_G03\\Source_Code\\HP_DAL\\HP_DAL.csproj": {
+              "projectPath": "C:\\Users\\lenovo\\Desktop\\Project\\Shop_HeadPhone_G03\\Source_Code\\HP_DAL\\HP_DAL.csproj"
             },
-            "c:\\Users\\lenovo\\Desktop\\Project\\Shop_HeadPhone_G03\\Source_Code\\HP_Persistence\\HP_Persistence.csproj": {
-              "projectPath": "c:\\Users\\lenovo\\Desktop\\Project\\Shop_HeadPhone_G03\\Source_Code\\HP_Persistence\\HP_Persistence.csproj"
+            "C:\\Users\\lenovo\\Desktop\\Project\\Shop_HeadPhone_G03\\Source_Code\\HP_Persistence\\HP_Persistence.csproj": {
+              "projectPath": "C:\\Users\\lenovo\\Desktop\\Project\\Shop_HeadPhone_G03\\Source_Code\\HP_Persistence\\HP_Persistence.csproj"
             }
           }
         }
@@ -1278,13 +1278,5 @@
         "warn": true
       }
     }
-  },
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problem reading the cache file c:\\Users\\lenovo\\Desktop\\Project\\Shop_HeadPhone_G03\\Source_Code\\HP_BL\\obj\\HP_BL.csproj.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
-    }
-  ]
+  }
 }
