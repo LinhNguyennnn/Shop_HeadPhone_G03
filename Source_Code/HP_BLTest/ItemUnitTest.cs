@@ -10,12 +10,12 @@ namespace HP_BL_Test
         [Fact]
         public void GetItemByProduceCodeTest1()
         {
-            Assert.NotNull(IBL.GetItemByProduceCode("1"));
+            Assert.NotNull(IBL.GetItemByProduceCode(1));
         }
         [Fact]
         public void GetItemByProduceCodeTest2()
         {
-            Assert.Null(IBL.GetItemByProduceCode("0"));
+            Assert.Null(IBL.GetItemByProduceCode(0));
         }
         public void GetItemByProduceCodeTest3()
         {

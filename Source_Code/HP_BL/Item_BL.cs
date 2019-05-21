@@ -1,6 +1,6 @@
 using System;
 using HP_Persistence;
-using HP_HP;
+using HP_DAL;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
 
@@ -10,7 +10,7 @@ namespace HP_BL
     {
         private Item_DAL IDAL = new Item_DAL();
 
-        public Items GetItemByProduceCode(string Produce_Code)
+        public Items GetItemByProduceCode(int? Produce_Code)
         {
             Regex regex = new Regex("[a-zA-Z0-9]");
             MatchCollection matchCollection = regex.Matches(Produce_Code.ToString());
@@ -22,7 +22,7 @@ namespace HP_BL
             {
                 return null;
             }
-            return IDAL.GetItems(Produce_Code);
+            return IDAL.GetItemByProduceCode(Produce_Code);
         }
     }
 }
