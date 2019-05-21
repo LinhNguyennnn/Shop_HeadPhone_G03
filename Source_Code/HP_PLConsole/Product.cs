@@ -273,8 +273,8 @@ namespace HP_PLConsole
                     break;
                 }
             }
-            
-            switch(number)
+
+            switch (number)
             {
                 case 0:
                     DisplayTradeMark();
@@ -305,8 +305,8 @@ namespace HP_PLConsole
                     break;
                 }
             }
-            
-            switch(number)
+
+            switch (number)
             {
                 case 0:
                     DisplayTradeMark();
@@ -337,8 +337,8 @@ namespace HP_PLConsole
                     break;
                 }
             }
-            
-            switch(number)
+
+            switch (number)
             {
                 case 0:
                     DisplayTradeMark();
@@ -369,8 +369,8 @@ namespace HP_PLConsole
                     break;
                 }
             }
-            
-            switch(number)
+
+            switch (number)
             {
                 case 0:
                     DisplayTradeMark();
@@ -401,8 +401,8 @@ namespace HP_PLConsole
                     break;
                 }
             }
-            
-            switch(number)
+
+            switch (number)
             {
                 case 0:
                     DisplayTradeMark();
@@ -433,8 +433,8 @@ namespace HP_PLConsole
                     break;
                 }
             }
-            
-            switch(number)
+
+            switch (number)
             {
                 case 0:
                     DisplayTradeMark();
@@ -465,8 +465,8 @@ namespace HP_PLConsole
                     break;
                 }
             }
-            
-            switch(number)
+
+            switch (number)
             {
                 case 0:
                     DisplayTradeMark();
@@ -497,8 +497,8 @@ namespace HP_PLConsole
                     break;
                 }
             }
-            
-            switch(number)
+
+            switch (number)
             {
                 case 0:
                     DisplayTradeMark();
@@ -529,8 +529,8 @@ namespace HP_PLConsole
                     break;
                 }
             }
-            
-            switch(number)
+
+            switch (number)
             {
                 case 0:
                     DisplayTradeMark();
@@ -566,8 +566,8 @@ namespace HP_PLConsole
                     break;
                 }
             }
-            
-            switch(number)
+
+            switch (number)
             {
                 case 0:
                     DisplayAttribute();
@@ -598,8 +598,8 @@ namespace HP_PLConsole
                     break;
                 }
             }
-            
-            switch(number)
+
+            switch (number)
             {
                 case 0:
                     DisplayAttribute();
@@ -630,8 +630,8 @@ namespace HP_PLConsole
                     break;
                 }
             }
-            
-            switch(number)
+
+            switch (number)
             {
                 case 0:
                     DisplayAttribute();
@@ -662,8 +662,8 @@ namespace HP_PLConsole
                     break;
                 }
             }
-            
-            switch(number)
+
+            switch (number)
             {
                 case 0:
                     DisplayAttribute();
@@ -694,8 +694,8 @@ namespace HP_PLConsole
                     break;
                 }
             }
-            
-            switch(number)
+
+            switch (number)
             {
                 case 0:
                     DisplayAttribute();

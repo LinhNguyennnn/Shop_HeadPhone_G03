@@ -16,10 +16,10 @@ namespace HP_DAL
             connection = DbHelper.OpenConnection();
         }
 
-        public Items GetItemByProduceCode(string _code)
+        public Items GetItemByProduceCode(int? _code)
         {
             if (_code == null)
-            {   
+            {
                 return null;
             }
             if (connection == null)
@@ -46,7 +46,7 @@ namespace HP_DAL
 
         public Items GetItems(MySqlDataReader reader)
         {
-            string _code = reader.GetString("Produce_Code");
+            int? _code = reader.GetInt16("Produce_Code");
             string _name = reader.GetString("Item_Name");
             string _trade = reader.GetString("Trademark");
             string _attribute = reader.GetString("Attribute");

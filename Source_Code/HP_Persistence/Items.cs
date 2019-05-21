@@ -2,9 +2,9 @@ using System;
 
 namespace HP_Persistence
 {
-        public class Items
+    public class Items
     {
-        public string Produce_Code { get; set; }
+        public int? Produce_Code { get; set; }
 
         public string Item_Name { get; set; }
 
@@ -20,7 +20,7 @@ namespace HP_Persistence
 
         public Items() { }
 
-        public Items(string _code, string _name, string _trade, string _attribute, string _price, string _description, string _quantity)
+        public Items(int? _code, string _name, string _trade, string _attribute, string _price, string _description, string _quantity)
         {
             this.Produce_Code = _code;
 
