@@ -1190,13 +1190,8 @@
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.0": [
       "HP_Persistence >= 1.0.0",
-<<<<<<< HEAD
-      "MySql.Data",
+      "MySql.Data >= 8.0.16",
       "NETStandard.Library >= 2.0.3"
-=======
-      "NETStandard.Library >= 2.0.3",
-      "mysql.data"
->>>>>>> 5fe03f8b7712773beefaea02bc76e12ea910ac93
     ]
   },
   "packageFolders": {
@@ -1206,19 +1201,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-<<<<<<< HEAD
-      "projectUniqueName": "C:\\Users\\lenovo\\Desktop\\Project\\Shop_HeadPhone_G03\\Source_Code\\HP_DAL\\HP_DAL.csproj",
+      "projectUniqueName": "d:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\HP_DAL\\HP_DAL.csproj",
       "projectName": "HP_DAL",
-      "projectPath": "C:\\Users\\lenovo\\Desktop\\Project\\Shop_HeadPhone_G03\\Source_Code\\HP_DAL\\HP_DAL.csproj",
-      "packagesPath": "C:\\Users\\lenovo\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\lenovo\\Desktop\\Project\\Shop_HeadPhone_G03\\Source_Code\\HP_DAL\\obj\\",
-=======
-      "projectUniqueName": "D:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\HP_DAL\\HP_DAL.csproj",
-      "projectName": "HP_DAL",
-      "projectPath": "D:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\HP_DAL\\HP_DAL.csproj",
+      "projectPath": "d:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\HP_DAL\\HP_DAL.csproj",
       "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
-      "outputPath": "D:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\HP_DAL\\obj\\",
->>>>>>> 5fe03f8b7712773beefaea02bc76e12ea910ac93
+      "outputPath": "d:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\HP_DAL\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -1235,13 +1222,8 @@
       "frameworks": {
         "netstandard2.0": {
           "projectReferences": {
-<<<<<<< HEAD
-            "C:\\Users\\lenovo\\Desktop\\Project\\Shop_HeadPhone_G03\\Source_Code\\HP_Persistence\\HP_Persistence.csproj": {
-              "projectPath": "C:\\Users\\lenovo\\Desktop\\Project\\Shop_HeadPhone_G03\\Source_Code\\HP_Persistence\\HP_Persistence.csproj"
-=======
-            "D:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\HP_Persistence\\HP_Persistence.csproj": {
-              "projectPath": "D:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\HP_Persistence\\HP_Persistence.csproj"
->>>>>>> 5fe03f8b7712773beefaea02bc76e12ea910ac93
+            "d:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\HP_Persistence\\HP_Persistence.csproj": {
+              "projectPath": "d:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\HP_Persistence\\HP_Persistence.csproj"
             }
           }
         }
@@ -1257,17 +1239,13 @@
         "dependencies": {
           "MySql.Data": {
             "target": "Package",
-            "version": "(, )"
+            "version": "[8.0.16, )"
           },
           "NETStandard.Library": {
             "suppressParent": "All",
             "target": "Package",
             "version": "[2.0.3, )",
             "autoReferenced": true
-          },
-          "mysql.data": {
-            "target": "Package",
-            "version": "(, )"
           }
         },
         "imports": [
@@ -1277,5 +1255,13 @@
         "warn": true
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file d:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\HP_DAL\\obj\\HP_DAL.csproj.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }
