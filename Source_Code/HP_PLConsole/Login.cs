@@ -131,7 +131,8 @@ namespace HP_PLConsole
             int number;
             Console.WriteLine("======================================= \n");
             Console.WriteLine("1. Menu sản phẩm");
-            Console.WriteLine("2. Đăng xuất");
+            Console.WriteLine("2. Thông tin cá nhân");
+            Console.WriteLine("0. Đăng xuất");
             Console.Write("#chọn: ");
 
             while (true)
@@ -142,7 +143,7 @@ namespace HP_PLConsole
                     Console.WriteLine("Bạn đã nhập sai!");
                     Console.Write("#Chọn: ");
                 }
-                else if (number < 1 || number > 2)
+                else if (number < 0 || number > 3)
                 {
                     Console.WriteLine("Bạn đã nhập sai!");
                     Console.Write("#Chọn: ");
@@ -172,6 +173,22 @@ namespace HP_PLConsole
                     }
                     break;
                 case 2:
+                    Console.Clear();
+                    Profile prodfile = new Profile();
+                    try
+                    {
+                        prodfile.CustomerProfile();
+                    }
+                    catch (System.NullReferenceException)
+                    {
+                        MN.menu("Mất kết nối! \nMời bạn đăng nhập lại!");
+                    }
+                    catch (MySql.Data.MySqlClient.MySqlException)
+                    {
+                        MN.menu("Mất kết nối! \nMời bạn đăng nhập lại!");
+                    }
+                    break;
+                case 0:
                     Console.Clear();
                     MN.menu(null);
                     break;

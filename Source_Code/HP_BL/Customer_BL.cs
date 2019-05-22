@@ -2,6 +2,7 @@ using System;
 using HP_Persistence;
 using HP_DAL;
 using System.Text.RegularExpressions;
+using System.Collections.Generic;
 
 namespace HP_BL
 {
@@ -22,6 +23,20 @@ namespace HP_BL
                 return null;
             }
             return CDAL.Login(username, password);
+        }
+        public Customers GetProfileCus(string username)
+        {
+            if (username == null)
+            {
+                return null;
+            }
+            Regex regex = new Regex("[a-zA-Z0-9_]");
+            MatchCollection matchCollectionUser = regex.Matches(username);
+            if (matchCollectionUser.Count < username.Length)
+            {
+                return null;
+            }
+            return CDAL.GetProfileCus(username);
         }
     }
 }

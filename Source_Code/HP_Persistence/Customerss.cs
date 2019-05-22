@@ -2,9 +2,8 @@ using System;
 
 namespace HP_Persistence
 {
-    public class Customers
+    public class Customerss
     {
-        public int Cus_ID { get; set; }
 
         public string Cus_Name { get; set; }
 
@@ -16,17 +15,10 @@ namespace HP_Persistence
 
         public string Cus_Phone_Numbers { get; set; }
 
-        public string User_Name { get; set; }
+        public Customerss() { }
 
-        public string User_Password { get; set; }
-
-        // public Order Order{get;set;}
-
-        public Customers() { }
-
-        public Customers(int id, string name, DateTime datebirth, string address, string email, string phone, string username, string password)
+        public Customerss( string name, DateTime datebirth, string address, string email, string phone)
         {
-            this.Cus_ID = id;
 
             this.Cus_Name = name;
 
@@ -38,10 +30,6 @@ namespace HP_Persistence
 
             this.Cus_Phone_Numbers = phone;
 
-            this.User_Name = username;
-
-            this.User_Password = password;
-            // this.Order = order;
         }
     }
 }

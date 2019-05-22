@@ -74,19 +74,14 @@ namespace HP_PLConsole
         {
             Console.Clear();
             Console.WriteLine("=====================================================================");
-            Console.WriteLine("-------------------------DANH SÁCH SẢN PHẨM--------------------------");
-            Console.WriteLine("1");
+            Console.WriteLine("------------------------ DANH SÁCH SẢN PHẨM -------------------------");
             Item_BL itemBL = new Item_BL();
             List<Items> items = itemBL.GetAllItems();
-            Console.WriteLine("2");
             var table = new ConsoleTable("Mã sản phẩm", "Tên sản phẩm", "Hãng", "Thuộc tính", "Giá sản phẩm");
-            Console.WriteLine("3");
             foreach (var i in items)
             {
-                Console.WriteLine("4");
                 table.AddRow(i.Produce_Code, i.Item_Name, i.Trademark, i.Attribute, i.Item_Price);
             }
-            Console.WriteLine("5");
             table.Write(Format.Alternative);
             Console.WriteLine("=====================================================================");
             Console.Write("\nChọn mã sản phẩm: ");
@@ -116,6 +111,7 @@ namespace HP_PLConsole
                 }
             }
             item = itemBL.GetItemByProduceCode(order.ItemID);
+            Console.WriteLine("{0}",item);
         }
         public void DisplayTradeMark(Customers Cus)
         {
