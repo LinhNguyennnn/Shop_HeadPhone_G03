@@ -62,10 +62,16 @@ namespace HP_DAL
         {
             string username = reader.GetString("User_Name");
             string password = reader.GetString("User_Password");
+            string name = reader.GetString("Cus_Name");
+            DateTime datebirth = reader.GetDateTime("Cus_DateBirth");
+            string address = reader.GetString("Cus_Address");
+            string email = reader.GetString("Cus_Email");
+            string phone = reader.GetString("Cus_Phone_Numbers");
+            int id = reader.GetInt16("Cus_ID");
+            Order order = new Order(null, null, null, null, null);
 
-            Customers customer = new Customers(username, password);
+            Customers customer = new Customers(id, name, datebirth, address, email, phone, username, password, order);
             return customer;
         }
-        // public Customer Login();
     }
 }

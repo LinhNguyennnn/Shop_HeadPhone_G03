@@ -100,5 +100,6 @@ values('Urbanista Tokyo plus TWS','Urbanista','không dây','2990000','Chíp Blu
       ('Ausdom AH861 Wireless','Ausdom','không dây','790000','Với chức năng chia sẻ nhạc cho một chiếc tai nghe AH861 khác ở cạnh nó, hai người gần nhau có thể cùng nghe chung 1 bài hát mà chỉ cần sử dụng 1 thiết bị phát duy nhất. Ngoài ra cũng được trang bị Bluetooth 4.1, microphone đàm thoại... Thiết kế trẻ trung, năng động, có thể nghe nhạc nhiều giờ liên tục mà không bị mỏi.','100'),
       ('1More EB100 Wireless','1More','thể thao','1500000','Thời lượng pin lên đến 8h, nói chuyện liên tục 10h chỉ mất 2h để sạc đầy pin. Có khả năng chống thấm mồ hôi và nước theo tiêu chuẩn IPX4. Kết nối bluetooth 4.1 và công nghệ giải mã tín hiệu APTX thế hệ mới nhất, với bán kính bắt sóng ổn định là 10m.','100'),
       ('1More iBFree','1More','không dây','1150000','Thời lượng pin lên đến 8h, nói chuyện liên tục 10h chỉ mất 2h để sạc đầy pin. Có khả năng chống thấm mồ hôi và nước theo tiêu chuẩn IPX4. Kết nối bluetooth 4.1 và công nghệ giải mã tín hiệu APTX thế hệ mới nhất, với bán kính bắt sóng ổn định là 10m.','100');
--- CREATE USER if not exists 'HP_User'@'localhost' IDENTIFIED BY '123456';
--- GRANT ALL PRIVILEGES ON * . * TO 'HP_User'@'localhost';
+
+/* CREATE USER if not exists 'HP_User'@'localhost' IDENTIFIED BY '123456';
+GRANT ALL PRIVILEGES ON * . * TO 'HP_User'@'localhost'; */

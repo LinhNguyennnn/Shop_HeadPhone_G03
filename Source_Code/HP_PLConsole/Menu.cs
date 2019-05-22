@@ -4,12 +4,16 @@ namespace HP_PLConsole
 {
     public class Menu
     {
-        public void menu()
+        public void menu(string a)
         {
             Console.Clear();
+            if (a != null)
+            {
+                Console.WriteLine(a);
+            }
             int number;
             Console.WriteLine("--- Chào mừng đến với cửa hàng tai nghe --- \n");
-            Console.WriteLine("======================================= \n");
+            Console.WriteLine("=========================================== \n");
             Console.WriteLine("1. Menu sản phẩm");
             Console.WriteLine("2. Đăng nhập");
             Console.WriteLine("0. Thoát \n");
@@ -37,10 +41,11 @@ namespace HP_PLConsole
             switch (number)
             {
                 case 0:
+                    Environment.Exit(0);
                     break;
                 case 1:
                     Product p = new Product();
-                    p.DisplayProduct();
+                    p.DisplayProduct(null);
                     break;
                 case 2:
                     Login L = new Login();

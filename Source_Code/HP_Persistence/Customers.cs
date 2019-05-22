@@ -8,7 +8,7 @@ namespace HP_Persistence
 
         public string Cus_Name { get; set; }
 
-        public string Cus_DateBirth { get; set; }
+        public DateTime Cus_DateBirth { get; set; }
 
         public string Cus_Address { get; set; }
 
@@ -20,30 +20,34 @@ namespace HP_Persistence
 
         public string User_Password { get; set; }
 
+        public Order Order{get;set;}
+
         public Customers() { }
 
-        // public Customers(int id, string name, string birth, string address, string email, string phone, string username, string password)
-        // {
-        //     this.Cus_ID = id;
+        public Customers(int id, string name, DateTime datebirth, string address, string email, string phone, string username, string password, Order order)
+        {
+            this.Cus_ID = id;
 
-        //     this.Cus_Name = name;
+            this.Cus_Name = name;
 
-        //     this.Cus_DateBirth = birth;
+            this.Cus_DateBirth = datebirth;
 
-        //     this.Cus_Address = address;
+            this.Cus_Address = address;
 
-        //     this.Cus_Email = email;
+            this.Cus_Email = email;
 
-        //     this.Cus_Phone_Numbers = phone;
+            this.Cus_Phone_Numbers = phone;
 
+            this.User_Name = username;
+
+            this.User_Password = password;
+            this.Order = order;
+        }
+        // public Customers(string username, string password) 
+        // { 
         //     this.User_Name = username;
 
         //     this.User_Password = password;
         // }
-        public Customers(string username, string password)
-        {
-            this.User_Name = username;
-            this.User_Password = password;
-        }
     }
 }

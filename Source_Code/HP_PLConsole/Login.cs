@@ -1,17 +1,16 @@
 using System;
 using System.Text;
-using System.Text.RegularExpressions;
 using HP_BL;
 using HP_Persistence;
 namespace HP_PLConsole
 {
-    class Login : Menu
+    class Login
     {
+        Menu MN = new Menu();
         public void ScreenLogin()
         {
             Customer_BL CusBL = new Customer_BL();
             Customers Cus = null;
-            Product Product = new Product();
             string Un = null;
             string Pw = null;
             while (true)
@@ -52,10 +51,10 @@ namespace HP_PLConsole
                         case "y":
                             continue;
                         case "N":
-                            menu();
+                            MN.menu(null);
                             break;
                         case "n":
-                            menu();
+                            MN.menu(null);
                             break;
                         default:
                             continue;
@@ -83,10 +82,10 @@ namespace HP_PLConsole
                         case "y":
                             continue;
                         case "N":
-                            menu();
+                            MN.menu(null);
                             break;
                         case "n":
-                            menu();
+                            MN.menu(null);
                             break;
                         default:
                             continue;
@@ -94,9 +93,9 @@ namespace HP_PLConsole
                 }
                 break;
             }
-            if(Cus != null)
+            if (Cus != null)
             {
-                Product.DisplayProduct();
+                MenuCustomer(Cus);
             }
         }
         public string Password()
@@ -125,6 +124,58 @@ namespace HP_PLConsole
                 sb.Append(CKI.KeyChar);
             }
             return sb.ToString();
+        }
+        public void MenuCustomer(Customers Cus)
+        {
+            Console.Clear();
+            int number;
+            Console.WriteLine("======================================= \n");
+            Console.WriteLine("1. Menu sản phẩm");
+            Console.WriteLine("2. Đăng xuất");
+            Console.Write("#chọn: ");
+
+            while (true)
+            {
+                bool kt = Int32.TryParse(Console.ReadLine(), out number);
+                if (kt == false)
+                {
+                    Console.WriteLine("Bạn đã nhập sai!");
+                    Console.Write("#Chọn: ");
+                }
+                else if (number < 1 || number > 2)
+                {
+                    Console.WriteLine("Bạn đã nhập sai!");
+                    Console.Write("#Chọn: ");
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            switch (number)
+            {
+                case 1:
+                    Console.Clear();
+                    Product product = new Product();
+                    try
+                    {
+                        product.DisplayProduct(Cus);
+                    }
+                    catch (System.NullReferenceException)
+                    {
+                        MN.menu("Mất kết nối! \nMời bạn đăng nhập lại!");
+                    }
+                    catch (MySql.Data.MySqlClient.MySqlException)
+                    {
+                        MN.menu("Mất kết nối! \nMời bạn đăng nhập lại!");
+                    }
+                    break;
+                case 2:
+                    Console.Clear();
+                    MN.menu(null);
+                    break;
+            }
         }
     }
 }
