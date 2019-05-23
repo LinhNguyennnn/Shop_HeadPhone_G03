@@ -15,48 +15,51 @@ namespace HP_PLConsole
         {
             Console.Clear();
             int number;
-            Console.WriteLine("======================================= \n");
-            Console.WriteLine("Menu sản phẩm");
-            Console.WriteLine("1. Xem danh sách sản phẩm");
-            Console.WriteLine("2. Xem danh sách sản phẩm theo hãng");
-            Console.WriteLine("3. Xem danh sách sản phẩm theo loại sản phẩm");
-            Console.WriteLine("0. Trở về MENU chính \n");
-            Console.Write("#Chọn: ");
-
             while (true)
             {
-                bool kt = Int32.TryParse(Console.ReadLine(), out number);
-                if (kt == false)
-                {
-                    Console.WriteLine("Bạn đã nhập sai!");
-                    Console.Write("#Chọn: ");
-                }
-                else if (number < 0 || number > 3)
-                {
-                    Console.WriteLine("Bạn đã nhập sai!");
-                    Console.Write("#Chọn: ");
-                }
-                else
-                {
-                    break;
-                }
-            }
+                Console.WriteLine("======================================= \n");
+                Console.WriteLine("Menu sản phẩm");
+                Console.WriteLine("1. Xem danh sách sản phẩm");
+                Console.WriteLine("2. Xem danh sách sản phẩm theo hãng");
+                Console.WriteLine("3. Xem danh sách sản phẩm theo loại sản phẩm");
+                Console.WriteLine("0. Trở về MENU chính \n");
+                Console.Write("#Chọn: ");
 
-            switch (number)
-            {
-                case 0:
-                    Login login = new Login();
-                    login.MenuCustomer(Cus);
-                    break;
-                case 1:
-                    DisplayAllItems(Cus);
-                    break;
-                case 2:
-                    DisplayTradeMark(null);
-                    break;
-                case 3:
-                    DisplayAttribute(Cus);
-                    break;
+                while (true)
+                {
+                    bool kt = Int32.TryParse(Console.ReadLine(), out number);
+                    if (kt == false)
+                    {
+                        Console.WriteLine("Bạn đã nhập sai!");
+                        Console.Write("#Chọn: ");
+                    }
+                    else if (number < 0 || number > 3)
+                    {
+                        Console.WriteLine("Bạn đã nhập sai!");
+                        Console.Write("#Chọn: ");
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+
+                switch (number)
+                {
+                    case 0:
+                        // Login login = new Login();
+                        // login.MenuCustomer(Cus);
+                        break;
+                    case 1:
+                        DisplayAllItems(Cus);
+                        break;
+                    case 2:
+                        DisplayTradeMark(null);
+                        break;
+                    case 3:
+                        DisplayAttribute(Cus);
+                        break;
+                }
             }
         }
         public int input(string str)
@@ -111,7 +114,7 @@ namespace HP_PLConsole
                 }
             }
             item = itemBL.GetItemByProduceCode(order.ItemID);
-            Console.WriteLine("{0}",item);
+            Console.WriteLine("{0}", item);
         }
         public void DisplayTradeMark(Customers Cus)
         {

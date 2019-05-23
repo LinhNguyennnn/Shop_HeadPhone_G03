@@ -25,7 +25,6 @@ create table if not exists Items(
     Item_Description nvarchar(500) not null,
     Quantity int not null
 );
-
 create table if not exists Orders(
 	Order_ID int not null,
     Cus_ID int not null,
