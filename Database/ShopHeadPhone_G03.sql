@@ -3,8 +3,6 @@ Create database if not exists Headphone_Shop_Gr3;
 
 use Headphone_Shop_Gr3;
 
-
-
 create table if not exists Customers(
 	Cus_ID int auto_increment primary key not null,
     Cus_Name nvarchar(50) not null,
@@ -44,9 +42,9 @@ create table if not exists OrderDetails(
 );
 
 insert into Customers(Cus_Name, Cus_DateBirth, Cus_Address, Cus_Email, Cus_Phone_Numbers, User_Name, User_Password)
-values('Nguyễn Anh Linh','1999/3/18','188 giải phóng','123@gmail.com','013354789712','Linh','nal123'),
-	  ('Lý Bảo Thắng','1998/4/19','253 giải phóng','456@gmail.com','028975048976','Thang','lbt456'),
-      ('Nguyễn Văn Dân','1998/5/20','385 Tam Trinh','789@gmail.com','089327184637','Dan','nvd789');
+values('Nguyễn Anh Linh','1999/03/18','188 giải phóng','123@gmail.com','013354789712','Linh','nal123'),
+	  ('Lý Bảo Thắng','1998/04/19','253 giải phóng','456@gmail.com','028975048976','Thang','lbt456'),
+      ('Nguyễn Văn Dân','1998/05/20','385 Tam Trinh','789@gmail.com','089327184637','Dan','nvd789');
 
 insert into Items( Item_Name, Trademark, Attribute, Item_Price, Item_Description, Quantity)
 values('Urbanista Tokyo plus TWS','Urbanista','Không dây','2990000','Chíp Bluetooth 5.0 và 4h nghe nhạc liên tục cho 1 lần sạc đầy kết hợp cùng hộp đựng giúp tăng thời lượng sử dụng lên đến hơn 16h','100'),

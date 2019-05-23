@@ -37,7 +37,6 @@ namespace HP_PLConsole
                     break;
                 }
             }
-
             switch (number)
             {
                 case 0:

@@ -7,11 +7,12 @@ namespace HP_PLConsole
 {
     class Login
     {
-        Menu MN = new Menu();
+        Customers Cuss = new Customers();
         public void ScreenLogin()
         {
+            Menu MN = new Menu();
             Customer_BL CusBL = new Customer_BL();
-            Customers Cus = null;
+            Customers Cus = new Customers();
             string Un = null;
             string Pw = null;
             while (true)
@@ -20,9 +21,9 @@ namespace HP_PLConsole
                 Console.WriteLine("======================================= \n");
                 Console.WriteLine("ĐĂNG NHẬP\n");
                 Console.Write("Tên đăng nhập: ");
-                Un = Console.ReadLine();
+                Un = Console.ReadLine().Trim();
                 Console.Write("Mật khẩu: ");
-                Pw = Password();
+                Pw = Password().Trim();
                 string select;
 
                 if ((Validate(Un) == false) || (Validate(Pw) == false))
@@ -59,7 +60,7 @@ namespace HP_PLConsole
                 }
                 try
                 {
-                    Cus = CusBL.Login(Un, Pw);
+                    Cuss = Cus = CusBL.Login(Un, Pw);
                 }
                 catch (System.NullReferenceException)
                 {
@@ -125,70 +126,49 @@ namespace HP_PLConsole
                 }
                 else
                 {
-                    Console.Clear();
-                    int number;
-                    Console.WriteLine("======================================= \n");
-                    Console.WriteLine("1. Menu sản phẩm");
-                    Console.WriteLine("2. Thông tin cá nhân");
-                    Console.WriteLine("0. Đăng xuất");
-                    Console.Write("#chọn: ");
-
                     while (true)
                     {
-                        bool kt = Int32.TryParse(Console.ReadLine(), out number);
-                        if (kt == false)
-                        {
-                            Console.WriteLine("Bạn đã nhập sai!");
-                            Console.Write("#Chọn: ");
-                        }
-                        else if (number < 0 || number > 3)
-                        {
-                            Console.WriteLine("Bạn đã nhập sai!");
-                            Console.Write("#Chọn: ");
-                        }
-                        else
-                        {
-                            break;
-                        }
-                    }
+                        Console.Clear();
+                        int number;
+                        Console.WriteLine("======================================= \n");
+                        Console.WriteLine("1. Menu sản phẩm");
+                        Console.WriteLine("2. Thông tin cá nhân");
+                        Console.WriteLine("0. Đăng xuất");
+                        Console.Write("#chọn: ");
 
-                    switch (number)
-                    {
-                        case 1:
-                            Console.Clear();
-                            Product product = new Product();
-                            try
+                        while (true)
+                        {
+                            bool kt = Int32.TryParse(Console.ReadLine(), out number);
+                            if (kt == false)
                             {
-                                product.DisplayProduct(Cus);
+                                Console.WriteLine("Bạn đã nhập sai!");
+                                Console.Write("#Chọn: ");
                             }
-                            catch (System.NullReferenceException)
+                            else if (number < 0 || number > 3)
                             {
-                                MN.menu("Mất kết nối! \nMời bạn đăng nhập lại!");
+                                Console.WriteLine("Bạn đã nhập sai!");
+                                Console.Write("#Chọn: ");
                             }
-                            catch (MySql.Data.MySqlClient.MySqlException)
+                            else
                             {
-                                MN.menu("Mất kết nối! \nMời bạn đăng nhập lại!");
+                                break;
                             }
-                            break;
-                        case 2:
-                            Console.Clear();
-                            try
-                            {
-                                CustomerProfile(Un, Pw);
-                            }
-                            catch (System.NullReferenceException)
-                            {
-                                MN.menu("Mất kết nối! \nMời bạn đăng nhập lại!");
-                            }
-                            catch (MySql.Data.MySqlClient.MySqlException)
-                            {
-                                MN.menu("Mất kết nối! \nMời bạn đăng nhập lại!");
-                            }
-                            break;
-                        case 0:
-                            Console.Clear();
-                            MN.menu(null);
-                            break;
+                        }
+
+                        switch (number)
+                        {
+                            case 1:
+                                Product product = new Product();
+                                    product.DisplayProduct(Cus);
+                                break;
+                            case 2:
+                                    CustomerProfile(Un, Pw);
+                                break;
+                            case 0:
+                                Console.Clear();
+                                MN.menu(null);
+                                break;
+                        }
                     }
                 }
             }
@@ -232,27 +212,31 @@ namespace HP_PLConsole
         }
         public void CustomerProfile(string username, string password)
         {
-            Console.Clear();
-            Console.WriteLine("=====================================================================");
-            Console.WriteLine("------------------------ THÔNG TIN CÁ NHÂN --------------------------");
-            Customer_BL CusBL = new Customer_BL();
-            Customers Cus = new Customers();
-            try
+            while (true)
             {
-                Cus = CusBL.Login(username, password);
-            }
-            catch (System.Exception)
-            {
-                Console.WriteLine("Mất kết nối!");
-            }
+                Console.Clear();
+                Console.WriteLine("=====================================================================");
+                Console.WriteLine("------------------------ THÔNG TIN CÁ NHÂN --------------------------");
+                Customer_BL CusBL = new Customer_BL();
+                Customers Cus = new Customers();
+                try
+                {
+                    Cus = CusBL.Login(username, password);
+                }
+                catch (System.Exception)
+                {
+                    Console.WriteLine("Mất kết nối!");
+                }
+                Console.WriteLine("\nTên khách hàng: {0}", Cus.Cus_Name);
+                Console.WriteLine("Ngày sinh: {0}", Cus.Cus_DateBirth.ToString("dd/MM/yyyy"));
+                Console.WriteLine("Địa chỉ: {0}", Cus.Cus_Address);
+                Console.WriteLine("Email: {0}", Cus.Cus_Email);
+                Console.WriteLine("Số điện thoại: {0}", Cus.Cus_Phone_Numbers);
 
-            Console.WriteLine("Tên khách hàng: {0}", Cus.User_Name);
-            Console.WriteLine("Ngày sinh: {0}", Cus.Cus_DateBirth);
-            Console.WriteLine("Địa chỉ: {0}", Cus.Cus_Address);
-            Console.WriteLine("Email: {0}", Cus.Cus_Email);
-            Console.WriteLine("Số điện thoại: {0}", Cus.Cus_Phone_Numbers);
-
-            Console.ReadKey();
+                Console.Write("\nNhấn ENTER để quay lại!");
+                Console.ReadKey();
+                break;
+            }
         }
     }
 }

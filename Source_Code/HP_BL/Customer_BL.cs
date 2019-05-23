@@ -8,7 +8,11 @@ namespace HP_BL
 {
     public class Customer_BL
     {
-        private Customer_DAL CDAL = new Customer_DAL();
+        private Customer_DAL CDAL ;
+        public Customer_BL()
+        {
+            CDAL = new Customer_DAL();
+        }
         public Customers Login(string username, string password)
         {
             if ((username == null) || (password == null))

@@ -8,7 +8,11 @@ namespace HP_BL
 {
     public class Item_BL
     {
-        private Item_DAL IDAL = new Item_DAL();
+        private Item_DAL IDAL;
+        public Item_BL()
+        {
+            IDAL = new Item_DAL();
+        }
 
         public Items GetItemByProduceCode(int? Produce_Code)
         {

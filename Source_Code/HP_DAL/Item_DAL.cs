@@ -8,14 +8,9 @@ namespace HP_DAL
 {
     public class Item_DAL
     {
-        private MySqlConnection connection;
         private MySqlDataReader reader;
         private string query;
 
-        public Item_DAL()
-        {
-            connection = DbHelper.OpenConnection();
-        }
 
         public Items GetItemByProduceCode(int? _code)
         {
@@ -23,49 +18,43 @@ namespace HP_DAL
             {
                 return null;
             }
-            if (connection == null)
+            try
             {
-                connection = DbHelper.OpenConnection();
+                DbHelper.OpenConnection();
             }
-            if (connection.State == System.Data.ConnectionState.Closed)
+            catch
             {
-                connection.Open();
+                return null;
             }
             query = $"select * from Items where Produce_Code = " + _code + ";";
-            MySqlCommand command = new MySqlCommand(query, connection);
+            reader = DbHelper.ExecQuery(query);
             Items item = null;
-            using (reader = command.ExecuteReader())
+            if (reader.Read())
             {
-                if (reader.Read())
-                {
-                    item = GetItems(reader);
-                }
+                item = GetItems(reader);
             }
-            connection.Close();
+            DbHelper.CloseConnection();
             return item;
         }
         public List<Items> GetAllItems()
         {
-            if (connection == null)
+            try
             {
-                connection = DbHelper.OpenConnection();
+                DbHelper.OpenConnection();
             }
-            if (connection.State == System.Data.ConnectionState.Closed)
+            catch
             {
-                connection.Open();
+                return null;
             }
-            query = $"select Produce_Code, Item_Name, Trademark, Attribute, Item_Price from Items;";
-            MySqlCommand command = new MySqlCommand(query, connection);
+            query = $"select * from Items;";
             List<Items> items = null;
-            using (reader = command.ExecuteReader())
+            reader = DbHelper.ExecQuery(query);
+            items = new List<Items>();
+            while (reader.Read())
             {
-                items = new List<Items>();
-                while (reader.Read())
-                {
-                    items.Add(GetItems(reader));
-                }
+                items.Add(GetItems(reader));
             }
-            connection.Close();
+            DbHelper.CloseConnection();
             return items;
         }
         public List<Items> GetItemByTradeMark(string tradeMark)
@@ -74,26 +63,23 @@ namespace HP_DAL
             {
                 return null;
             }
-            if (connection == null)
+            try
             {
-                connection = DbHelper.OpenConnection();
+                DbHelper.OpenConnection();
             }
-            if (connection.State == System.Data.ConnectionState.Closed)
+            catch
             {
-                connection.Open();
+                return null;
             }
             query = $"select Produce_Code, Item_Name, Trademark, Attribute, Item_Price from Items where TradeMark = " + tradeMark + ";";
-            MySqlCommand command = new MySqlCommand(query, connection);
+            reader = DbHelper.ExecQuery(query);
             List<Items> items = null;
-            using (reader = command.ExecuteReader())
+            items = new List<Items>();
+            while (reader.Read())
             {
-                items = new List<Items>();
-                while (reader.Read())
-                {
-                    items.Add(GetItems(reader));
-                }
+                items.Add(GetItems(reader));
             }
-            connection.Close();
+            DbHelper.CloseConnection();
             return items;
         }
 
@@ -103,48 +89,36 @@ namespace HP_DAL
             {
                 return null;
             }
-            if (connection == null)
+            try
             {
-                connection = DbHelper.OpenConnection();
+                DbHelper.OpenConnection();
             }
-            if (connection.State == System.Data.ConnectionState.Closed)
+            catch
             {
-                connection.Open();
+                return null;
             }
             query = $"select Produce_Code, Item_Name, Trademark, Attribute, Item_Price from Items where Attribute = " + attribute + ";";
-            MySqlCommand command = new MySqlCommand(query, connection);
+            reader = DbHelper.ExecQuery(query);
             List<Items> items = null;
-            using (reader = command.ExecuteReader())
+            items = new List<Items>();
+            while (reader.Read())
             {
-                items = new List<Items>();
-                while (reader.Read())
-                {
-                    items.Add(GetItems(reader));
-                }
+                items.Add(GetItems(reader));
             }
-            connection.Close();
+            DbHelper.CloseConnection();
             return items;
-        }
-        public ItemsDetail GetItemsDetails(MySqlDataReader reader)
-        {
-            int _code = reader.GetInt16("Produce_Code");
-            string _name = reader.GetString("Item_Name");
-            string _trade = reader.GetString("Trademark");
-            string _attribute = reader.GetString("Attribute");
-            string _price = reader.GetString("Item_Price");
-            string _description = reader.GetString("Item_Description");
-            string _quantity = reader.GetString("Quantity");
-            ItemsDetail itemsDetail = new ItemsDetail(_code, _name, _trade, _attribute, _price, _description, _quantity);
-            return itemsDetail;
         }
         public Items GetItems(MySqlDataReader reader)
         {
-            int _code = reader.GetInt16("Produce_Code");
-            string _name = reader.GetString("Item_Name");
-            string _trade = reader.GetString("Trademark");
-            string _attribute = reader.GetString("Attribute");
-            string _price = reader.GetString("Item_Price");
-            Items items = new Items(_code, _name, _trade, _attribute, _price);
+            Items items = new Items();
+            items.Produce_Code = reader.GetInt16("Produce_Code");
+            items.Item_Name = reader.GetString("Item_Name");
+            items.Trademark = reader.GetString("Trademark");
+            items.Attribute = reader.GetString("Attribute");
+            items.Item_Price = reader.GetString("Item_Price");
+            items.Item_Description = reader.GetString("Item_Description");
+            items.Quantity = reader.GetInt32("Quantity");
+
             return items;
         }
     }

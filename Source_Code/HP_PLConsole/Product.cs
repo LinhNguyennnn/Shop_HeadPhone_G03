@@ -7,10 +7,10 @@ namespace HP_PLConsole
 {
     public class Product
     {
-        Menu MN = new Menu();
         Items item = new Items();
         Order order = new Order();
         ConsoleTable table = new ConsoleTable();
+
         public void DisplayProduct(Customers Cus)
         {
             Console.Clear();
@@ -47,8 +47,6 @@ namespace HP_PLConsole
                 switch (number)
                 {
                     case 0:
-                        // Login login = new Login();
-                        // login.MenuCustomer(Cus);
                         break;
                     case 1:
                         DisplayAllItems(Cus);
@@ -77,7 +75,7 @@ namespace HP_PLConsole
         {
             Console.Clear();
             Console.WriteLine("=====================================================================");
-            Console.WriteLine("------------------------ DANH SÁCH SẢN PHẨM -------------------------");
+            Console.WriteLine("------------------------ DANH SÁCH SẢN PHẨM -------------------------\n");
             Item_BL itemBL = new Item_BL();
             List<Items> items = itemBL.GetAllItems();
             var table = new ConsoleTable("Mã sản phẩm", "Tên sản phẩm", "Hãng", "Thuộc tính", "Giá sản phẩm");
@@ -88,8 +86,8 @@ namespace HP_PLConsole
             table.Write(Format.Alternative);
             Console.WriteLine("=====================================================================");
             Console.Write("\nChọn mã sản phẩm: ");
-            order.ItemID = input(Console.ReadLine());
-            while (itemBL.GetItemByProduceCode(order.ItemID) == null)
+            int Id = input(Console.ReadLine());
+            while (itemBL.GetItemByProduceCode(Id) == null)
             {
                 string a;
                 while (true)
@@ -110,11 +108,53 @@ namespace HP_PLConsole
                 if (a == "Y" || a == "y")
                 {
                     Console.Write("\nChọn mã sản phẩm: ");
-                    order.ItemID = input(Console.ReadLine());
+                    Id = input(Console.ReadLine());
                 }
             }
-            item = itemBL.GetItemByProduceCode(order.ItemID);
-            Console.WriteLine("{0}", item);
+            Items PC = itemBL.GetItemByProduceCode(Id);
+            Console.Clear();
+            Console.WriteLine("=====================================================================");
+            Console.WriteLine("------------------------- CHI TIẾT SẢN PHẨM -------------------------\n");
+            table = new ConsoleTable("Mã sản phẩm", "Tên sản phẩm", "Hãng", "Thuộc tính", "Giá sản phẩm");
+            table.AddRow(PC.Produce_Code, PC.Item_Name, PC.Trademark, PC.Attribute, PC.Item_Price);
+            table.Write(Format.Alternative);
+            Console.WriteLine("Mô tả sản phẩm : {0}\n", PC.Item_Description);
+            while (true)
+            {
+                Console.WriteLine("======================================= \n");
+                Console.WriteLine("1. Thêm vào giỏ hàng");
+                Console.WriteLine("2. Quay lại");
+                Console.Write("#Chọn: ");
+                int number;
+                while (true)
+                {
+                    bool kt = Int32.TryParse(Console.ReadLine(), out number);
+                    if (kt == false)
+                    {
+                        Console.WriteLine("Bạn đã nhập sai!");
+                        Console.Write("#Chọn: ");
+                    }
+                    else if (number < 1 || number > 2)
+                    {
+                        Console.WriteLine("Bạn đã nhập sai!");
+                        Console.Write("#Chọn: ");
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                switch (number)
+                {
+                    case 1:
+                        // add to cart
+                        DisplayAllItems(Cus);
+                        break;
+                    case 2:
+                        DisplayAllItems(Cus);
+                        break;
+                }
+            }
         }
         public void DisplayTradeMark(Customers Cus)
         {
@@ -771,6 +811,32 @@ namespace HP_PLConsole
             }
         }
 
-        //==================================================//
+        private static short Menu(string title, string[] menuItems)
+        {
+            short choose = 0;
+            string line = "========================================";
+            Console.WriteLine(line);
+            Console.WriteLine(" " + title);
+            Console.WriteLine(line);
+            for (int i = 0; i < menuItems.Length; i++)
+            {
+                Console.WriteLine(" " + (i + 1) + ". " + menuItems[i]);
+            }
+            Console.WriteLine(line);
+            do
+            {
+                Console.Write("Your choice: ");
+                try
+                {
+                    choose = Int16.Parse(Console.ReadLine());
+                }
+                catch
+                {
+                    Console.WriteLine("Your Choose is wrong!");
+                    continue;
+                }
+            } while (choose <= 0 || choose > menuItems.Length);
+            return choose;
+        }
     }
 }

@@ -9,20 +9,17 @@ namespace HP_Persistence
         public DateTime? Order_Date { get; set; }
         public string Order_Note { get; set; }
 
-        public int? ItemID{get;set;}
-
-        public List<OrderDetail> OrderDetails { get; set; }
+        public List<Items> ListItems { get; set; }
 
         public Order()
         {
         }
-        public Order(int? order_id, DateTime? order_date, string order_note, List<OrderDetail> oDetail, int? itemID)
+        public Order(int? order_id, DateTime? order_date, string order_note, List<Items> listItems)
         {
             this.Order_ID = order_id;
             this.Order_Date = order_date;
             this.Order_Note = order_note;
-            this.OrderDetails = oDetail;
-            this.ItemID = itemID;
+            this.ListItems = listItems;
         }
     }
 }
