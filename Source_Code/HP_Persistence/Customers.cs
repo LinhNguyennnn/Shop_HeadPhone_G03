@@ -20,7 +20,6 @@ namespace HP_Persistence
 
         public string User_Password { get; set; }
 
-        // public Order Order{get;set;}
 
         public Customers() { }
 
@@ -41,7 +40,6 @@ namespace HP_Persistence
             this.User_Name = username;
 
             this.User_Password = password;
-            // this.Order = order;
         }
     }
 }
