@@ -17,9 +17,5 @@ namespace HP_BL_Test
         {
             Assert.Null(IBL.GetItemByProduceCode(0));
         }
-        public void GetItemByProduceCodeTest3()
-        {
-            Assert.Null(IBL.GetItemByProduceCode(null));
-        }
     }
 }

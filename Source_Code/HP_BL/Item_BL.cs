@@ -12,17 +12,53 @@ namespace HP_BL
 
         public Items GetItemByProduceCode(int? Produce_Code)
         {
-            Regex regex = new Regex("[a-zA-Z0-9]");
-            MatchCollection matchCollection = regex.Matches(Produce_Code.ToString());
             if (Produce_Code == null)
             {
                 return null;
             }
-            else if (matchCollection.Count < Produce_Code.ToString().Length)
+            Regex regex = new Regex("[0-9]");
+            MatchCollection matchCollection = regex.Matches(Produce_Code.ToString());
+            if (matchCollection.Count < Produce_Code.ToString().Length)
             {
                 return null;
             }
             return IDAL.GetItemByProduceCode(Produce_Code);
+        }
+        public List<Items> GetAllItems()
+        {
+            return IDAL.GetAllItems();
+        }
+
+        public List<Items> GetItemByTradeMark(string trademark)
+        {
+            if (trademark == null)
+            {
+                return null;
+            }
+
+            Regex regex = new Regex("[a-zA-Z ]");
+            MatchCollection matchCollectionTrademark = regex.Matches(trademark);
+            if (matchCollectionTrademark.Count < trademark.Length)
+            {
+                return null;
+            }
+            return IDAL.GetItemByTradeMark(trademark);
+        }
+
+        public List<Items> GetItemByAttribute(string attribute)
+        {
+            if (attribute == null)
+            {
+                return null;
+            }
+
+            Regex regex = new Regex("[a-zA-Z ]");
+            MatchCollection matchCollectionTrademark = regex.Matches(attribute);
+            if (matchCollectionTrademark.Count < attribute.Length)
+            {
+                return null;
+            }
+            return IDAL.GetItemByAttribute(attribute);
         }
     }
 }

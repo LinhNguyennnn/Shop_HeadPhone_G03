@@ -1,32 +1,152 @@
 using System;
-
+using System.Text;
+using HP_BL;
+using HP_Persistence;
 namespace HP_PLConsole
 {
-    class Login : Menu
+    class Login
     {
+        Menu MN = new Menu();
         public void ScreenLogin()
         {
+            Customer_BL CusBL = new Customer_BL();
+            Customers Cus = null;
+            string Un = null;
+            string Pw = null;
+            while (true)
+            {
+                Console.Clear();
+                Console.WriteLine("======================================= \n");
+                Console.WriteLine("ĐĂNG NHẬP\n");
+                Console.Write("Tên đăng nhập: ");
+                Un = Console.ReadLine();
+                Console.Write("Mật khẩu: ");
+                Pw = Password();
+                string select;
+
+                try
+                {
+                    Cus = CusBL.Login(Un, Pw);
+                }
+                catch (System.Exception)
+                {
+                    Console.WriteLine("Mất kết nối!");
+                    Console.Write("Bạn có muốn đăng nhập lại không? (Y/N): ");
+                    select = Console.ReadLine().ToUpper();
+                    while (true)
+                    {
+                        if (select != "Y" && select != "N")
+                        {
+                            Console.Write("Bạn có muốn đăng nhập lại không? (Y/N): ");
+                            select = Console.ReadLine().ToUpper();
+                            continue;
+                        }
+                        break;
+                    }
+
+                    switch (select)
+                    {
+                        case "Y":
+                            continue;
+                        case "y":
+                            continue;
+                        case "N":
+                            MN.menu(null);
+                            break;
+                        case "n":
+                            MN.menu(null);
+                            break;
+                        default:
+                            continue;
+                    }
+                }
+                if (Cus == null)
+                {
+                    Console.WriteLine("Tên đăng nhập hoặc mật khẩu không đúng!");
+                    Console.Write("Bạn có muốn đăng nhập lại không? (Y/N): ");
+                    select = Console.ReadLine().ToUpper();
+                    while (true)
+                    {
+                        if (select != "Y" && select != "N")
+                        {
+                            Console.Write("Bạn có muốn đăng nhập lại không? (Y/N): ");
+                            select = Console.ReadLine().ToUpper();
+                            continue;
+                        }
+                        break;
+                    }
+                    switch (select)
+                    {
+                        case "Y":
+                            continue;
+                        case "y":
+                            continue;
+                        case "N":
+                            MN.menu(null);
+                            break;
+                        case "n":
+                            MN.menu(null);
+                            break;
+                        default:
+                            continue;
+                    }
+                }
+                break;
+            }
+            if (Cus != null)
+            {
+                MenuCustomer(Cus);
+            }
+        }
+        public string Password()
+        {
+            StringBuilder sb = new StringBuilder();
+            while (true)
+            {
+                ConsoleKeyInfo CKI = Console.ReadKey(true);
+                if (CKI.Key == ConsoleKey.Enter)
+                {
+                    Console.WriteLine();
+                    break;
+                }
+                if (CKI.Key == ConsoleKey.Backspace)
+                {
+                    if (sb.Length > 0)
+                    {
+                        Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop);
+                        Console.Write(" ");
+                        Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop);
+                        sb.Length--;
+                    }
+                    continue;
+                }
+                Console.Write("*");
+                sb.Append(CKI.KeyChar);
+            }
+            return sb.ToString();
+        }
+        public void MenuCustomer(Customers Cus)
+        {
             Console.Clear();
-            Console.WriteLine("======================================= \n");
-            Console.WriteLine("Vui Lòng Điền Thông Tin");
-            Console.WriteLine("Email: ");
-            Console.ReadLine();
-            Console.WriteLine("Password: ");
-            Console.ReadLine();
-            Console.WriteLine("0. Thoát");
             int number;
+            Console.WriteLine("======================================= \n");
+            Console.WriteLine("1. Menu sản phẩm");
+            Console.WriteLine("2. Thông tin cá nhân");
+            Console.WriteLine("0. Đăng xuất");
+            Console.Write("#chọn: ");
+
             while (true)
             {
                 bool kt = Int32.TryParse(Console.ReadLine(), out number);
                 if (kt == false)
                 {
-                    Console.WriteLine("bạn đã nhập sai");
-                    Console.WriteLine("#chọn: ");
+                    Console.WriteLine("Bạn đã nhập sai!");
+                    Console.Write("#Chọn: ");
                 }
-                else if (number < 0 || number > 0)
+                else if (number < 0 || number > 3)
                 {
-                    Console.WriteLine("bạn đã nhập sai");
-                    Console.WriteLine("#chọn: ");
+                    Console.WriteLine("Bạn đã nhập sai!");
+                    Console.Write("#Chọn: ");
                 }
                 else
                 {
@@ -36,8 +156,41 @@ namespace HP_PLConsole
 
             switch (number)
             {
+                case 1:
+                    Console.Clear();
+                    Product product = new Product();
+                    try
+                    {
+                        product.DisplayProduct(Cus);
+                    }
+                    catch (System.NullReferenceException)
+                    {
+                        MN.menu("Mất kết nối! \nMời bạn đăng nhập lại!");
+                    }
+                    catch (MySql.Data.MySqlClient.MySqlException)
+                    {
+                        MN.menu("Mất kết nối! \nMời bạn đăng nhập lại!");
+                    }
+                    break;
+                case 2:
+                    Console.Clear();
+                    Profile prodfile = new Profile();
+                    try
+                    {
+                        prodfile.CustomerProfile();
+                    }
+                    catch (System.NullReferenceException)
+                    {
+                        MN.menu("Mất kết nối! \nMời bạn đăng nhập lại!");
+                    }
+                    catch (MySql.Data.MySqlClient.MySqlException)
+                    {
+                        MN.menu("Mất kết nối! \nMời bạn đăng nhập lại!");
+                    }
+                    break;
                 case 0:
-                    menu();
+                    Console.Clear();
+                    MN.menu(null);
                     break;
             }
         }

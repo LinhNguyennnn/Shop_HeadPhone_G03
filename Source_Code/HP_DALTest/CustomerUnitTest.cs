@@ -9,9 +9,9 @@ namespace HP_DALTest
     {
         Customer_DAL CusDAL = new Customer_DAL();
         [Theory]
-        [InlineData("nal", "nal123")]
-        [InlineData("lbt", "lbt456")]
-        [InlineData("nvd", "nvd789")]
+        [InlineData("Linh", "nal123")]
+        [InlineData("Thang", "lbt456")]
+        [InlineData("Dan", "nvd789")]
         public void LoginTest1(string username, string password)
         {
             Customers Cus = CusDAL.Login(username, password);

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using HP_Persistence;
 using MySql.Data.MySqlClient;
@@ -28,19 +29,29 @@ namespace HP_DAL
             {
                 return null;
             }
-            if (connection == null)
+            try
             {
-                connection = DbHelper.OpenConnection();
+                if (connection == null)
+                {
+                    connection = DbHelper.OpenConnection();
+                }
+                if (connection.State == System.Data.ConnectionState.Closed)
+                {
+                    connection.Open();
+                }
             }
-            if (connection.State == System.Data.ConnectionState.Closed)
+            catch (System.Exception)
             {
-                connection.Open();
+
+                throw;
             }
-            query = @"select * from Customers where User_Name = '" + username + "' and Password = '" + password + "';";
+
+            query = @"select * from Customers where User_Name = '" + username + "' and User_Password = '" + password + "';";
             MySqlCommand command = new MySqlCommand(query, connection);
             Customers customer = null;
             using (reader = command.ExecuteReader())
             {
+                customer = new Customers();
                 if (reader.Read())
                 {
                     customer = GetCustomer(reader);
@@ -49,13 +60,60 @@ namespace HP_DAL
             connection.Close();
             return customer;
         }
+        public Customers GetProfileCus(string username)
+        {
+            if (username == null)
+            {
+                return null;
+            }
+            if (connection == null)
+            {
+                connection = DbHelper.OpenConnection();
+            }
+            if (connection.State == System.Data.ConnectionState.Closed)
+            {
+                connection.Open();
+            }
+            query = $"select Cus_Name, Cus_DateBirth, Cus_Address, Cus_Email, Cus_Phone_Numbers from Customers where User_Name = '" + username + "';";
+            MySqlCommand command = new MySqlCommand(query, connection);
+            Customers Cus = null;
+            using (reader = command.ExecuteReader())
+            {
+                if (reader.Read())
+                {
+                    // Cus = new Customers();
+                    Cus = GetCustomer(reader);
+                }
+            }
+            connection.Close();
+            return Cus;
+        }
         private Customers GetCustomer(MySqlDataReader reader)
         {
             string username = reader.GetString("User_Name");
-            string password = reader.GetString("Password");
+            string password = reader.GetString("User_Password");
+            string name = reader.GetString("Cus_Name");
+            DateTime datebirth = reader.GetDateTime("Cus_DateBirth");
+            string address = reader.GetString("Cus_Address");
+            string email = reader.GetString("Cus_Email");
+            string phone = reader.GetString("Cus_Phone_Numbers");
+            int id = reader.GetInt16("Cus_ID");
+            // Order order = new Order(null, null, null, null, null);
 
-            Customers customer = new Customers(username, password);
+            Customers customer = new Customers(id, name, datebirth, address, email, phone, username, password);
             return customer;
         }
+
+        // private Customerss GetCustomers(MySqlDataReader reader)
+        // {
+        //     string name = reader.GetString("Cus_Name");
+        //     DateTime datebirth = reader.GetDateTime("Cus_DateBirth");
+        //     string address = reader.GetString("Cus_Address");
+        //     string email = reader.GetString("Cus_Email");
+        //     string phone = reader.GetString("Cus_Phone_Numbers");
+
+        //     Customerss customer = new Customerss( name, datebirth, address, email, phone);
+        //     return customer;
+        // }
     }
 }
