@@ -71,7 +71,7 @@ namespace HP_DAL
             {
                 return null;
             }
-            query = $"select Produce_Code, Item_Name, Trademark, Attribute, Item_Price from Items where TradeMark = " + tradeMark + ";";
+            query = $"select * from Items where Trademark = '" + tradeMark + "';";
             reader = DbHelper.ExecQuery(query);
             List<Items> items = null;
             items = new List<Items>();
@@ -97,7 +97,7 @@ namespace HP_DAL
             {
                 return null;
             }
-            query = $"select Produce_Code, Item_Name, Trademark, Attribute, Item_Price from Items where Attribute = " + attribute + ";";
+            query = $"select * from Items where Attribute = '" + attribute + "';";
             reader = DbHelper.ExecQuery(query);
             List<Items> items = null;
             items = new List<Items>();

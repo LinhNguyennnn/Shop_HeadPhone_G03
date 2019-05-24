@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text.RegularExpressions;
 using HP_BL;
 using HP_Persistence;
@@ -28,12 +29,7 @@ namespace HP_PLConsole
                 while (true)
                 {
                     bool kt = Int32.TryParse(Console.ReadLine(), out number);
-                    if (kt == false)
-                    {
-                        Console.WriteLine("Bạn đã nhập sai!");
-                        Console.Write("#Chọn: ");
-                    }
-                    else if (number < 0 || number > 3)
+                    if (kt == false || number < 0 || number > 3)
                     {
                         Console.WriteLine("Bạn đã nhập sai!");
                         Console.Write("#Chọn: ");
@@ -43,7 +39,6 @@ namespace HP_PLConsole
                         break;
                     }
                 }
-
                 switch (number)
                 {
                     case 0:
@@ -71,7 +66,7 @@ namespace HP_PLConsole
             }
             return Convert.ToInt32(str);
         }
-        public void DisplayAllItems(Customers Cus)
+        public int DisplayAllItems(Customers Cus)
         {
             Console.Clear();
             Console.WriteLine("=====================================================================");
@@ -90,28 +85,35 @@ namespace HP_PLConsole
             while (itemBL.GetItemByProduceCode(Id) == null)
             {
                 string a;
+                Console.Write("Mã sản phẩm không tồn tại!");
+                Console.Write("Bạn có muốn nhập lại mã sản phẩm không ? (Y/N): ");
+                a = Console.ReadLine().ToUpper();
                 while (true)
                 {
-                    Console.WriteLine("Mã sản phẩm không tồn tại!");
-                    Console.WriteLine("Bạn có muốn nhập lại mã sản phẩm không? (Y/N): ");
-                    a = Console.ReadLine().ToUpper();
-                    if (a != "Y" || a != "y" || a != "N" || a != "n")
+                    if (a != "Y" && a != "N")
                     {
-                        Console.WriteLine("Bạn đã nhập sai!");
-                        Console.Write("Bạn có muốn nhập lại mã sản phẩm không? (Y/N): ");
+                        Console.Write("Bạn chỉ được nhập (Y/N): ");
+                        a = Console.ReadLine().ToUpper();
+                        continue;
                     }
-                    else
-                    {
-                        break;
-                    }
+                    break;
                 }
                 if (a == "Y" || a == "y")
                 {
                     Console.Write("\nChọn mã sản phẩm: ");
                     Id = input(Console.ReadLine());
                 }
+                else
+                {
+                    DisplayProduct(Cus);
+                }
             }
-            Items PC = itemBL.GetItemByProduceCode(Id);
+            return DisplayItemDetail(Id, Cus);
+        }
+        public int DisplayItemDetail(int id, Customers Cus)
+        {
+            Item_BL itemBL = new Item_BL();
+            Items PC = itemBL.GetItemByProduceCode(id);
             Console.Clear();
             Console.WriteLine("=====================================================================");
             Console.WriteLine("------------------------- CHI TIẾT SẢN PHẨM -------------------------\n");
@@ -123,18 +125,13 @@ namespace HP_PLConsole
             {
                 Console.WriteLine("======================================= \n");
                 Console.WriteLine("1. Thêm vào giỏ hàng");
-                Console.WriteLine("2. Quay lại");
+                Console.WriteLine("0. Quay lại");
                 Console.Write("#Chọn: ");
                 int number;
                 while (true)
                 {
                     bool kt = Int32.TryParse(Console.ReadLine(), out number);
-                    if (kt == false)
-                    {
-                        Console.WriteLine("Bạn đã nhập sai!");
-                        Console.Write("#Chọn: ");
-                    }
-                    else if (number < 1 || number > 2)
+                    if (kt == false || number < 0 || number > 1)
                     {
                         Console.WriteLine("Bạn đã nhập sai!");
                         Console.Write("#Chọn: ");
@@ -147,8 +144,7 @@ namespace HP_PLConsole
                 switch (number)
                 {
                     case 1:
-                        // add to cart
-                        DisplayAllItems(Cus);
+                        FileStream file = new filestream();
                         break;
                     case 2:
                         DisplayAllItems(Cus);
@@ -156,12 +152,13 @@ namespace HP_PLConsole
                 }
             }
         }
-        public void DisplayTradeMark(Customers Cus)
+        public int DisplayTradeMark(Customers Cus)
         {
             Console.Clear();
+            Console.WriteLine("=====================================================================");
+            Console.WriteLine("----------------------Danh sách sản phẩm theo hãng-------------------\n");
             int number;
-            Console.WriteLine("======================================= \n");
-            Console.WriteLine("Danh sách sản phẩm theo hãng");
+            Item_BL itemBL = new Item_BL();
             Console.WriteLine("1. Urbanista");
             Console.WriteLine("2. MEE");
             Console.WriteLine("3. RHA AUDIO");
@@ -173,18 +170,13 @@ namespace HP_PLConsole
             Console.WriteLine("9. Skullcandy");
             Console.WriteLine("10. Ausdom");
             Console.WriteLine("11. 1More");
-            Console.WriteLine("0. Trở về menu sản phẩm \n");
+            Console.WriteLine("0. Trở về Menu sản phẩm \n");
             Console.Write("#chọn: ");
-
+            
             while (true)
             {
                 bool kt = Int32.TryParse(Console.ReadLine(), out number);
-                if (kt == false)
-                {
-                    Console.WriteLine("Bạn đã nhập sai!");
-                    Console.Write("#Chọn: ");
-                }
-                else if (number < 0 || number > 11)
+                if (kt == false || number < 0 || number > 11)
                 {
                     Console.WriteLine("Bạn đã nhập sai!");
                     Console.Write("#Chọn: ");
@@ -194,51 +186,89 @@ namespace HP_PLConsole
                     break;
                 }
             }
-
+            List<Items> items = null;
             switch (number)
             {
                 case 0:
                     DisplayProduct(Cus);
                     break;
                 case 1:
-                    Urbanista();
+                    items = itemBL.GetItemByTradeMark("Urbanista");
                     break;
                 case 2:
-                    MEE();
+                    items = itemBL.GetItemByTradeMark("MEE");
                     break;
                 case 3:
-                    RHAAUDIO();
+                    items = itemBL.GetItemByTradeMark("RHAAUDIO");
                     break;
                 case 4:
-                    jabees();
+                    items = itemBL.GetItemByTradeMark("jabees");
                     break;
                 case 5:
-                    SONY();
+                    items = itemBL.GetItemByTradeMark("SONY");
                     break;
                 case 6:
-                    SOMIC();
+                    items = itemBL.GetItemByTradeMark("SOMIC");
                     break;
                 case 7:
-                    Sennheiser();
+                    items = itemBL.GetItemByTradeMark("Sennheiser");
                     break;
                 case 8:
-                    AudioTechnica();
+                    items = itemBL.GetItemByTradeMark("AudioTechnica");
                     break;
                 case 9:
-                    Skullcandy();
+                    items = itemBL.GetItemByTradeMark("Skullcandy");
                     break;
                 case 10:
-                    Ausdom();
+                    items = itemBL.GetItemByTradeMark("Ausdom");
                     break;
                 case 11:
-                    More();
+                    items = itemBL.GetItemByTradeMark("More");
                     break;
             }
+            Console.Clear();
+            var table = new ConsoleTable("Mã sản phẩm", "Tên sản phẩm", "Hãng", "Thuộc tính", "Giá sản phẩm");
+            foreach (var i in items)
+            {
+                table.AddRow(i.Produce_Code, i.Item_Name, i.Trademark, i.Attribute, i.Item_Price);
+            }
+            table.Write(Format.Alternative);
+            Console.WriteLine("=====================================================================");
+            Console.Write("\nChọn mã sản phẩm: ");
+            int Id = input(Console.ReadLine());
+            while (itemBL.GetItemByProduceCode(Id) == null)
+            {
+                string a;
+                Console.Write("Mã sản phẩm không tồn tại!");
+                Console.Write("Bạn có muốn nhập lại mã sản phẩm không ? (Y/N): ");
+                a = Console.ReadLine().ToUpper();
+                while (true)
+                {
+                    if (a != "Y" && a != "N")
+                    {
+                        Console.Write("Bạn chỉ được nhập (Y/N): ");
+                        a = Console.ReadLine().ToUpper();
+                        continue;
+                    }
+                    break;
+                }
+                if (a == "Y" || a == "y")
+                {
+                    Console.Write("\nChọn mã sản phẩm: ");
+                    Id = input(Console.ReadLine());
+                }
+                else
+                {
+                    DisplayProduct(Cus);
+                }
+            }
+            return DisplayItemDetail(Id, Cus);
         }
 
-        public void DisplayAttribute(Customers Cus)
+        public int DisplayAttribute(Customers Cus)
         {
             Console.Clear();
+            Item_BL itemBL = new Item_BL();
             int number;
             Console.WriteLine("======================================= \n");
             Console.WriteLine("Danh sách sản phẩm theo phân loại sản phẩm");
@@ -253,12 +283,7 @@ namespace HP_PLConsole
             while (true)
             {
                 bool kt = Int32.TryParse(Console.ReadLine(), out number);
-                if (kt == false)
-                {
-                    Console.WriteLine("Bạn đã nhập sai!");
-                    Console.Write("#Chọn: ");
-                }
-                else if (number < 0 || number > 5)
+                if (kt == false || number < 0 || number > 5)
                 {
                     Console.WriteLine("Bạn đã nhập sai!");
                     Console.Write("#Chọn: ");
@@ -268,575 +293,93 @@ namespace HP_PLConsole
                     break;
                 }
             }
-
+            List<Items> items = null;
             switch (number)
             {
                 case 0:
                     DisplayProduct(Cus);
                     break;
                 case 1:
-                    Khongday();
+                    items = itemBL.GetItemByAttribute("Không dây");
                     break;
                 case 2:
-                    Thethao();
+                    items = itemBL.GetItemByAttribute("Thể thao");
                     break;
                 case 3:
-                    InEar();
+                    items = itemBL.GetItemByAttribute("In-Ear");
                     break;
                 case 4:
-                    Gaming();
+                    items = itemBL.GetItemByAttribute("Gaming");
                     break;
                 case 5:
-                    Earbud();
+                    items = itemBL.GetItemByAttribute("Earbud");
                     break;
             }
-        }
-
-        //=================== Hãng =====================//
-        public void Urbanista()
-        {
             Console.Clear();
-            Console.WriteLine("gọi từ database");
-            Console.WriteLine("0. Quay lại danh sách sản phẩm theo hãng \n");
-            int number;
-            while (true)
+            var table = new ConsoleTable("Mã sản phẩm", "Tên sản phẩm", "Hãng", "Thuộc tính", "Giá sản phẩm");
+            foreach (var i in items)
             {
-                bool kt = Int32.TryParse(Console.ReadLine(), out number);
-                if (kt == false)
+                table.AddRow(i.Produce_Code, i.Item_Name, i.Trademark, i.Attribute, i.Item_Price);
+            }
+            table.Write(Format.Alternative);
+            Console.WriteLine("=====================================================================");
+            Console.Write("\nChọn mã sản phẩm: ");
+            int Id = input(Console.ReadLine());
+            while (itemBL.GetItemByProduceCode(Id) == null)
+            {
+                string a;
+                Console.Write("Mã sản phẩm không tồn tại!");
+                Console.Write("Bạn có muốn nhập lại mã sản phẩm không ? (Y/N): ");
+                a = Console.ReadLine().ToUpper();
+                while (true)
                 {
-                    Console.WriteLine("Bạn đã nhập sai!");
-                    Console.Write("#Chọn: ");
+                    if (a != "Y" && a != "N")
+                    {
+                        Console.Write("Bạn chỉ được nhập (Y/N): ");
+                        a = Console.ReadLine().ToUpper();
+                        continue;
+                    }
+                    break;
                 }
-                else if (number < 0 || number > 0)
+                if (a == "Y" || a == "y")
                 {
-                    Console.WriteLine("Bạn đã nhập sai!");
-                    Console.Write("#Chọn: ");
+                    Console.Write("\nChọn mã sản phẩm: ");
+                    Id = input(Console.ReadLine());
                 }
                 else
                 {
-                    break;
+                    DisplayProduct(Cus);
                 }
             }
-
-            switch (number)
-            {
-                case 0:
-                    DisplayTradeMark(null);
-                    break;
-            }
+            return DisplayItemDetail(Id, Cus);
         }
-
-        public void MEE()
-        {
-            Console.Clear();
-            Console.WriteLine("gọi từ database");
-            int number;
-            while (true)
-            {
-                bool kt = Int32.TryParse(Console.ReadLine(), out number);
-                if (kt == false)
-                {
-                    Console.WriteLine("Bạn đã nhập sai!");
-                    Console.Write("#Chọn: ");
-                }
-                else if (number < 0 || number > 0)
-                {
-                    Console.WriteLine("Bạn đã nhập sai!");
-                    Console.Write("#Chọn: ");
-                }
-                else
-                {
-                    break;
-                }
-            }
-
-            switch (number)
-            {
-                case 0:
-                    DisplayTradeMark(null);
-                    break;
-            }
-        }
-
-        public void RHAAUDIO()
-        {
-            Console.Clear();
-            Console.WriteLine("gọi từ database");
-            int number;
-            while (true)
-            {
-                bool kt = Int32.TryParse(Console.ReadLine(), out number);
-                if (kt == false)
-                {
-                    Console.WriteLine("Bạn đã nhập sai!");
-                    Console.Write("#Chọn: ");
-                }
-                else if (number < 0 || number > 0)
-                {
-                    Console.WriteLine("Bạn đã nhập sai!");
-                    Console.Write("#Chọn: ");
-                }
-                else
-                {
-                    break;
-                }
-            }
-
-            switch (number)
-            {
-                case 0:
-                    DisplayTradeMark(null);
-                    break;
-            }
-        }
-
-        public void jabees()
-        {
-            Console.Clear();
-            Console.WriteLine("gọi từ database");
-            int number;
-            while (true)
-            {
-                bool kt = Int32.TryParse(Console.ReadLine(), out number);
-                if (kt == false)
-                {
-                    Console.WriteLine("Bạn đã nhập sai!");
-                    Console.WriteLine("#Chọn: ");
-                }
-                else if (number < 0 || number > 0)
-                {
-                    Console.WriteLine("Bạn đã nhập sai!");
-                    Console.WriteLine("#Chọn: ");
-                }
-                else
-                {
-                    break;
-                }
-            }
-
-            switch (number)
-            {
-                case 0:
-                    DisplayTradeMark(null);
-                    break;
-            }
-        }
-
-        public void SONY()
-        {
-            Console.Clear();
-            Console.WriteLine("gọi từ database");
-            int number;
-            while (true)
-            {
-                bool kt = Int32.TryParse(Console.ReadLine(), out number);
-                if (kt == false)
-                {
-                    Console.WriteLine("Bạn đã nhập sai!");
-                    Console.WriteLine("#Chọn: ");
-                }
-                else if (number < 0 || number > 0)
-                {
-                    Console.WriteLine("Bạn đã nhập sai!");
-                    Console.WriteLine("#Chọn: ");
-                }
-                else
-                {
-                    break;
-                }
-            }
-
-            switch (number)
-            {
-                case 0:
-                    DisplayTradeMark(null);
-                    break;
-            }
-        }
-
-        public void SOMIC()
-        {
-            Console.Clear();
-            Console.WriteLine("gọi từ database");
-            int number;
-            while (true)
-            {
-                bool kt = Int32.TryParse(Console.ReadLine(), out number);
-                if (kt == false)
-                {
-                    Console.WriteLine("Bạn đã nhập sai!");
-                    Console.WriteLine("#Chọn: ");
-                }
-                else if (number < 0 || number > 0)
-                {
-                    Console.WriteLine("Bạn đã nhập sai!");
-                    Console.WriteLine("#Chọn: ");
-                }
-                else
-                {
-                    break;
-                }
-            }
-
-            switch (number)
-            {
-                case 0:
-                    DisplayTradeMark(null);
-                    break;
-            }
-        }
-
-        public void Sennheiser()
-        {
-            Console.Clear();
-            Console.WriteLine("gọi từ database");
-            int number;
-            while (true)
-            {
-                bool kt = Int32.TryParse(Console.ReadLine(), out number);
-                if (kt == false)
-                {
-                    Console.WriteLine("Bạn đã nhập sai!");
-                    Console.WriteLine("#Chọn: ");
-                }
-                else if (number < 0 || number > 0)
-                {
-                    Console.WriteLine("Bạn đã nhập sai!");
-                    Console.WriteLine("#Chọn: ");
-                }
-                else
-                {
-                    break;
-                }
-            }
-
-            switch (number)
-            {
-                case 0:
-                    DisplayTradeMark(null);
-                    break;
-            }
-        }
-
-        public void AudioTechnica()
-        {
-            Console.Clear();
-            Console.WriteLine("gọi từ database");
-            int number;
-            while (true)
-            {
-                bool kt = Int32.TryParse(Console.ReadLine(), out number);
-                if (kt == false)
-                {
-                    Console.WriteLine("Bạn đã nhập sai!");
-                    Console.WriteLine("#Chọn: ");
-                }
-                else if (number < 0 || number > 0)
-                {
-                    Console.WriteLine("Bạn đã nhập sai!");
-                    Console.WriteLine("#Chọn: ");
-                }
-                else
-                {
-                    break;
-                }
-            }
-
-            switch (number)
-            {
-                case 0:
-                    DisplayTradeMark(null);
-                    break;
-            }
-        }
-
-        public void Skullcandy()
-        {
-            Console.Clear();
-            Console.WriteLine("gọi từ database");
-            int number;
-            while (true)
-            {
-                bool kt = Int32.TryParse(Console.ReadLine(), out number);
-                if (kt == false)
-                {
-                    Console.WriteLine("Bạn đã nhập sai!");
-                    Console.WriteLine("#Chọn: ");
-                }
-                else if (number < 0 || number > 0)
-                {
-                    Console.WriteLine("Bạn đã nhập sai!");
-                    Console.WriteLine("#Chọn: ");
-                }
-                else
-                {
-                    break;
-                }
-            }
-
-            switch (number)
-            {
-                case 0:
-                    DisplayTradeMark(null);
-                    break;
-            }
-        }
-
-        public void Ausdom()
-        {
-            Console.Clear();
-            Console.WriteLine("gọi từ database");
-            int number;
-            while (true)
-            {
-                bool kt = Int32.TryParse(Console.ReadLine(), out number);
-                if (kt == false)
-                {
-                    Console.WriteLine("Bạn đã nhập sai!");
-                    Console.WriteLine("#Chọn: ");
-                }
-                else if (number < 0 || number > 0)
-                {
-                    Console.WriteLine("Bạn đã nhập sai!");
-                    Console.WriteLine("#Chọn: ");
-                }
-                else
-                {
-                    break;
-                }
-            }
-
-            switch (number)
-            {
-                case 0:
-                    DisplayTradeMark(null);
-                    break;
-            }
-        }
-
-        public void More()
-        {
-            Console.Clear();
-            Console.WriteLine("gọi từ database");
-            int number;
-            while (true)
-            {
-                bool kt = Int32.TryParse(Console.ReadLine(), out number);
-                if (kt == false)
-                {
-                    Console.WriteLine("Bạn đã nhập sai!");
-                    Console.WriteLine("#Chọn: ");
-                }
-                else if (number < 0 || number > 0)
-                {
-                    Console.WriteLine("Bạn đã nhập sai!");
-                    Console.WriteLine("#Chọn: ");
-                }
-                else
-                {
-                    break;
-                }
-            }
-
-            switch (number)
-            {
-                case 0:
-                    DisplayTradeMark(null);
-                    break;
-            }
-        }
-
-        //================================================//
-
-
-        //================= Phân Loại ====================//
-
-        public void Khongday()
-        {
-            Console.Clear();
-            Console.WriteLine("gọi từ database");
-            int number;
-            while (true)
-            {
-                bool kt = Int32.TryParse(Console.ReadLine(), out number);
-                if (kt == false)
-                {
-                    Console.WriteLine("Bạn đã nhập sai!");
-                    Console.WriteLine("#Chọn: ");
-                }
-                else if (number < 0 || number > 0)
-                {
-                    Console.WriteLine("Bạn đã nhập sai!");
-                    Console.WriteLine("#Chọn: ");
-                }
-                else
-                {
-                    break;
-                }
-            }
-
-            switch (number)
-            {
-                case 0:
-                    DisplayAttribute(null);
-                    break;
-            }
-        }
-
-        public void Thethao()
-        {
-            Console.Clear();
-            Console.WriteLine("gọi từ database");
-            int number;
-            while (true)
-            {
-                bool kt = Int32.TryParse(Console.ReadLine(), out number);
-                if (kt == false)
-                {
-                    Console.WriteLine("Bạn đã nhập sai!");
-                    Console.WriteLine("#Chọn: ");
-                }
-                else if (number < 0 || number > 0)
-                {
-                    Console.WriteLine("Bạn đã nhập sai!");
-                    Console.WriteLine("#Chọn: ");
-                }
-                else
-                {
-                    break;
-                }
-            }
-
-            switch (number)
-            {
-                case 0:
-                    DisplayAttribute(null);
-                    break;
-            }
-        }
-
-        public void InEar()
-        {
-            Console.Clear();
-            Console.WriteLine("gọi từ database");
-            int number;
-            while (true)
-            {
-                bool kt = Int32.TryParse(Console.ReadLine(), out number);
-                if (kt == false)
-                {
-                    Console.WriteLine("Bạn đã nhập sai!");
-                    Console.WriteLine("#Chọn: ");
-                }
-                else if (number < 0 || number > 0)
-                {
-                    Console.WriteLine("Bạn đã nhập sai!");
-                    Console.WriteLine("#Chọn: ");
-                }
-                else
-                {
-                    break;
-                }
-            }
-
-            switch (number)
-            {
-                case 0:
-                    DisplayAttribute(null);
-                    break;
-            }
-        }
-
-        public void Gaming()
-        {
-            Console.Clear();
-            Console.WriteLine("gọi từ database");
-            int number;
-            while (true)
-            {
-                bool kt = Int32.TryParse(Console.ReadLine(), out number);
-                if (kt == false)
-                {
-                    Console.WriteLine("Bạn đã nhập sai!");
-                    Console.WriteLine("#Chọn: ");
-                }
-                else if (number < 0 || number > 0)
-                {
-                    Console.WriteLine("Bạn đã nhập sai!");
-                    Console.WriteLine("#Chọn: ");
-                }
-                else
-                {
-                    break;
-                }
-            }
-
-            switch (number)
-            {
-                case 0:
-                    DisplayAttribute(null);
-                    break;
-            }
-        }
-
-        public void Earbud()
-        {
-            Console.Clear();
-            Console.WriteLine("gọi từ database");
-            int number;
-            while (true)
-            {
-                bool kt = Int32.TryParse(Console.ReadLine(), out number);
-                if (kt == false)
-                {
-                    Console.WriteLine("Bạn đã nhập sai!");
-                    Console.WriteLine("#Chọn: ");
-                }
-                else if (number < 0 || number > 0)
-                {
-                    Console.WriteLine("Bạn đã nhập sai!");
-                    Console.WriteLine("#Chọn: ");
-                }
-                else
-                {
-                    break;
-                }
-            }
-
-            switch (number)
-            {
-                case 0:
-                    DisplayAttribute(null);
-                    break;
-            }
-        }
-
-        private static short Menu(string title, string[] menuItems)
-        {
-            short choose = 0;
-            string line = "========================================";
-            Console.WriteLine(line);
-            Console.WriteLine(" " + title);
-            Console.WriteLine(line);
-            for (int i = 0; i < menuItems.Length; i++)
-            {
-                Console.WriteLine(" " + (i + 1) + ". " + menuItems[i]);
-            }
-            Console.WriteLine(line);
-            do
-            {
-                Console.Write("Your choice: ");
-                try
-                {
-                    choose = Int16.Parse(Console.ReadLine());
-                }
-                catch
-                {
-                    Console.WriteLine("Your Choose is wrong!");
-                    continue;
-                }
-            } while (choose <= 0 || choose > menuItems.Length);
-            return choose;
-        }
+        // private static short Menu(string title, string[] menuItems)
+        // {
+        //     short choose = 0;
+        //     string line = "========================================";
+        //     Console.WriteLine(line);
+        //     Console.WriteLine(" " + title);
+        //     Console.WriteLine(line);
+        //     for (int i = 0; i < menuItems.Length; i++)
+        //     {
+        //         Console.WriteLine(" " + (i + 1) + ". " + menuItems[i]);
+        //     }
+        //     Console.WriteLine(line);
+        //     do
+        //     {
+        //         Console.Write("#Chọn: ");
+        //         try
+        //         {
+        //             choose = Int16.Parse(Console.ReadLine());
+        //         }
+        //         catch
+        //         {
+        //             Console.WriteLine("Bạn đã nhập sai!");
+        //             Console.Write("#Chọn: ");
+        //             continue;
+        //         }
+        //     } while (choose <= 0 || choose > menuItems.Length);
+        //     return choose;
+        // }
     }
 }

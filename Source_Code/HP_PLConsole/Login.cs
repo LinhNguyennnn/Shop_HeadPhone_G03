@@ -139,12 +139,7 @@ namespace HP_PLConsole
                         while (true)
                         {
                             bool kt = Int32.TryParse(Console.ReadLine(), out number);
-                            if (kt == false)
-                            {
-                                Console.WriteLine("Bạn đã nhập sai!");
-                                Console.Write("#Chọn: ");
-                            }
-                            else if (number < 0 || number > 3)
+                            if (kt == false || number < 0 || number > 3)
                             {
                                 Console.WriteLine("Bạn đã nhập sai!");
                                 Console.Write("#Chọn: ");
