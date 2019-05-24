@@ -4,6 +4,8 @@ using System.IO;
 using System.Text.RegularExpressions;
 using HP_BL;
 using HP_Persistence;
+using Newtonsoft.Json;
+
 namespace HP_PLConsole
 {
     public class Product
@@ -18,7 +20,7 @@ namespace HP_PLConsole
             int number;
             while (true)
             {
-                Console.WriteLine("======================================= \n");
+                Console.WriteLine("============================================= \n");
                 Console.WriteLine("Menu sản phẩm");
                 Console.WriteLine("1. Xem danh sách sản phẩm");
                 Console.WriteLine("2. Xem danh sách sản phẩm theo hãng");
@@ -113,14 +115,14 @@ namespace HP_PLConsole
         public int DisplayItemDetail(int id, Customers Cus)
         {
             Item_BL itemBL = new Item_BL();
-            Items PC = itemBL.GetItemByProduceCode(id);
+            Items item = itemBL.GetItemByProduceCode(id);
             Console.Clear();
             Console.WriteLine("=====================================================================");
             Console.WriteLine("------------------------- CHI TIẾT SẢN PHẨM -------------------------\n");
             table = new ConsoleTable("Mã sản phẩm", "Tên sản phẩm", "Hãng", "Thuộc tính", "Giá sản phẩm");
-            table.AddRow(PC.Produce_Code, PC.Item_Name, PC.Trademark, PC.Attribute, PC.Item_Price);
+            table.AddRow(item.Produce_Code, item.Item_Name, item.Trademark, item.Attribute, item.Item_Price);
             table.Write(Format.Alternative);
-            Console.WriteLine("Mô tả sản phẩm : {0}\n", PC.Item_Description);
+            Console.WriteLine("Mô tả sản phẩm : {0}\n", item.Item_Description);
             while (true)
             {
                 Console.WriteLine("======================================= \n");
@@ -144,10 +146,10 @@ namespace HP_PLConsole
                 switch (number)
                 {
                     case 1:
-                        FileStream file = new filestream();
+                        AddToCart(item);
                         break;
-                    case 2:
-                        DisplayAllItems(Cus);
+                    case 0:
+                        DisplayProduct(Cus);
                         break;
                 }
             }
@@ -172,7 +174,7 @@ namespace HP_PLConsole
             Console.WriteLine("11. 1More");
             Console.WriteLine("0. Trở về Menu sản phẩm \n");
             Console.Write("#chọn: ");
-            
+
             while (true)
             {
                 bool kt = Int32.TryParse(Console.ReadLine(), out number);
@@ -352,6 +354,27 @@ namespace HP_PLConsole
                 }
             }
             return DisplayItemDetail(Id, Cus);
+        }
+
+        public void AddToCart(Items item)
+        {
+            List<Items> ListItems = new List<Items>();
+            ListItems.Add(item);
+            string sJSONReponse = JsonConvert.SerializeObject(ListItems);
+            string fileName = "CartOf" +  ".dat";
+            BinaryWriter bw;
+            try
+            {
+                FileStream fs = new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.ReadWrite);
+                bw = new BinaryWriter(fs);
+                bw.Write((string)(object)sJSONReponse);
+                fs.Close();
+            }
+            catch (System.Exception)
+            {
+                Console.WriteLine("Mất kết nối!");
+            }
+            Console.WriteLine("Đã thêm vào giỏ hàng!");
         }
         // private static short Menu(string title, string[] menuItems)
         // {

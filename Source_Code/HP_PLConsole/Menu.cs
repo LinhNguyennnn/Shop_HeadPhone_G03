@@ -12,8 +12,8 @@ namespace HP_PLConsole
                 Console.WriteLine(a);
             }
             int number;
-            Console.WriteLine("--- Chào mừng đến với cửa hàng tai nghe --- \n");
-            Console.WriteLine("=========================================== \n");
+            Console.WriteLine("----- Chào mừng đến với cửa hàng tai nghe ----- \n");
+            Console.WriteLine("=============================================== \n");
             Console.WriteLine("1. Menu sản phẩm");
             Console.WriteLine("2. Đăng nhập");
             Console.WriteLine("0. Thoát \n");

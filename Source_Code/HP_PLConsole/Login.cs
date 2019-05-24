@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 using HP_BL;
@@ -7,7 +8,6 @@ namespace HP_PLConsole
 {
     class Login
     {
-        Customers Cuss = new Customers();
         public void ScreenLogin()
         {
             Menu MN = new Menu();
@@ -60,7 +60,7 @@ namespace HP_PLConsole
                 }
                 try
                 {
-                    Cuss = Cus = CusBL.Login(Un, Pw);
+                    Cus = CusBL.Login(Un, Pw);
                 }
                 catch (System.NullReferenceException)
                 {
@@ -128,6 +128,7 @@ namespace HP_PLConsole
                 {
                     while (true)
                     {
+                        FileStream  fs = new FileStream("CartOf{'Cus.Cus_Name'}.txt",FileMode.OpenOrCreate, FileAccess.ReadWrite);
                         Console.Clear();
                         int number;
                         Console.WriteLine("======================================= \n");
@@ -216,7 +217,7 @@ namespace HP_PLConsole
                 Customers Cus = new Customers();
                 try
                 {
-                    Cus = CusBL.Login(username, password);
+                   Cus = CusBL.Login(username, password);
                 }
                 catch (System.Exception)
                 {
