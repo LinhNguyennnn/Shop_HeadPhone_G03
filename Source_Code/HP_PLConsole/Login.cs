@@ -6,7 +6,7 @@ using HP_BL;
 using HP_Persistence;
 namespace HP_PLConsole
 {
-    class Login
+    class Login : Product
     {
         public void ScreenLogin()
         {
@@ -128,39 +128,21 @@ namespace HP_PLConsole
                 {
                     while (true)
                     {
-                        FileStream  fs = new FileStream("CartOf{'Cus.Cus_Name'}.txt",FileMode.OpenOrCreate, FileAccess.ReadWrite);
                         Console.Clear();
-                        int number;
-                        Console.WriteLine("======================================= \n");
-                        Console.WriteLine("1. Menu sản phẩm");
-                        Console.WriteLine("2. Thông tin cá nhân");
-                        Console.WriteLine("0. Đăng xuất");
-                        Console.Write("#chọn: ");
-
-                        while (true)
-                        {
-                            bool kt = Int32.TryParse(Console.ReadLine(), out number);
-                            if (kt == false || number < 0 || number > 3)
-                            {
-                                Console.WriteLine("Bạn đã nhập sai!");
-                                Console.Write("#Chọn: ");
-                            }
-                            else
-                            {
-                                break;
-                            }
-                        }
-
+                        string[] choice = { "Menu sản phẩm", "Thông tin cá nhân", "Xem giỏ hàng", "Đăng xuất" };
+                        int number = SubMenu(null, choice);
                         switch (number)
                         {
                             case 1:
-                                Product product = new Product();
-                                    product.DisplayProduct(Cus);
+                                DisplayProduct(Cus);
                                 break;
                             case 2:
-                                    CustomerProfile(Un, Pw);
+                                CustomerProfile(Un, Pw);
                                 break;
-                            case 0:
+                            case 3:
+                                DisplayCart();
+                                break;
+                            case 4:
                                 Console.Clear();
                                 MN.menu(null);
                                 break;
@@ -217,7 +199,7 @@ namespace HP_PLConsole
                 Customers Cus = new Customers();
                 try
                 {
-                   Cus = CusBL.Login(username, password);
+                    Cus = CusBL.Login(username, password);
                 }
                 catch (System.Exception)
                 {
@@ -229,7 +211,7 @@ namespace HP_PLConsole
                 Console.WriteLine("Email: {0}", Cus.Cus_Email);
                 Console.WriteLine("Số điện thoại: {0}", Cus.Cus_Phone_Numbers);
 
-                Console.Write("\nNhấn ENTER để quay lại!");
+                Console.Write("\nNhấn phím bất kỳ để quay lại!");
                 Console.ReadKey();
                 break;
             }

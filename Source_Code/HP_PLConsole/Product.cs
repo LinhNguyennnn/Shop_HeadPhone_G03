@@ -13,48 +13,26 @@ namespace HP_PLConsole
         Items item = new Items();
         Order order = new Order();
         ConsoleTable table = new ConsoleTable();
-
         public void DisplayProduct(Customers Cus)
         {
             Console.Clear();
-            int number;
-            while (true)
+            string[] choice = { "Xem danh sách sản phẩm", "Xem danh sách sản phẩm theo hãng", "Xem danh sách sản phẩm theo loại sản phẩm", "Trở về MENU chính" };
+            int number = SubMenu("MENU SẢN PHẨM", choice);
+            switch (number)
             {
-                Console.WriteLine("============================================= \n");
-                Console.WriteLine("Menu sản phẩm");
-                Console.WriteLine("1. Xem danh sách sản phẩm");
-                Console.WriteLine("2. Xem danh sách sản phẩm theo hãng");
-                Console.WriteLine("3. Xem danh sách sản phẩm theo loại sản phẩm");
-                Console.WriteLine("0. Trở về MENU chính \n");
-                Console.Write("#Chọn: ");
-
-                while (true)
-                {
-                    bool kt = Int32.TryParse(Console.ReadLine(), out number);
-                    if (kt == false || number < 0 || number > 3)
-                    {
-                        Console.WriteLine("Bạn đã nhập sai!");
-                        Console.Write("#Chọn: ");
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }
-                switch (number)
-                {
-                    case 0:
-                        break;
-                    case 1:
-                        DisplayAllItems(Cus);
-                        break;
-                    case 2:
-                        DisplayTradeMark(null);
-                        break;
-                    case 3:
-                        DisplayAttribute(Cus);
-                        break;
-                }
+                case 4:
+                    Menu MN = new Menu();
+                    MN.menu(null);
+                    break;
+                case 1:
+                    DisplayAllItems(Cus);
+                    break;
+                case 2:
+                    DisplayTradeMark(null);
+                    break;
+                case 3:
+                    DisplayAttribute(Cus);
+                    break;
             }
         }
         public int input(string str)
@@ -146,7 +124,7 @@ namespace HP_PLConsole
                 switch (number)
                 {
                     case 1:
-                        AddToCart(item);
+                        AddToCart(item, Cus);
                         break;
                     case 0:
                         DisplayProduct(Cus);
@@ -157,41 +135,13 @@ namespace HP_PLConsole
         public int DisplayTradeMark(Customers Cus)
         {
             Console.Clear();
-            Console.WriteLine("=====================================================================");
-            Console.WriteLine("----------------------Danh sách sản phẩm theo hãng-------------------\n");
-            int number;
+            string[] choice = { "Urbanista", "MEE", "RHA AUDIO", "jabees", "SONY", "SOMIC", "Sennheiser", "Audio Technica", "Skullcandy", "Ausdom", "1More", "Trở về Menu sản phẩm", };
+            int number = SubMenu("Danh sách sản phẩm theo hãng", choice);
             Item_BL itemBL = new Item_BL();
-            Console.WriteLine("1. Urbanista");
-            Console.WriteLine("2. MEE");
-            Console.WriteLine("3. RHA AUDIO");
-            Console.WriteLine("4. jabees");
-            Console.WriteLine("5. SONY");
-            Console.WriteLine("6. SOMIC");
-            Console.WriteLine("7. Sennheiser");
-            Console.WriteLine("8. Audio Technica");
-            Console.WriteLine("9. Skullcandy");
-            Console.WriteLine("10. Ausdom");
-            Console.WriteLine("11. 1More");
-            Console.WriteLine("0. Trở về Menu sản phẩm \n");
-            Console.Write("#chọn: ");
-
-            while (true)
-            {
-                bool kt = Int32.TryParse(Console.ReadLine(), out number);
-                if (kt == false || number < 0 || number > 11)
-                {
-                    Console.WriteLine("Bạn đã nhập sai!");
-                    Console.Write("#Chọn: ");
-                }
-                else
-                {
-                    break;
-                }
-            }
             List<Items> items = null;
             switch (number)
             {
-                case 0:
+                case 12:
                     DisplayProduct(Cus);
                     break;
                 case 1:
@@ -271,34 +221,12 @@ namespace HP_PLConsole
         {
             Console.Clear();
             Item_BL itemBL = new Item_BL();
-            int number;
-            Console.WriteLine("======================================= \n");
-            Console.WriteLine("Danh sách sản phẩm theo phân loại sản phẩm");
-            Console.WriteLine("1. Không dây");
-            Console.WriteLine("2. Thể thao");
-            Console.WriteLine("3. In-Ear");
-            Console.WriteLine("4. Gaming");
-            Console.WriteLine("5. Earbud");
-            Console.WriteLine("0. Trở về menu sản phẩm \n");
-            Console.Write("#Chọn: ");
-
-            while (true)
-            {
-                bool kt = Int32.TryParse(Console.ReadLine(), out number);
-                if (kt == false || number < 0 || number > 5)
-                {
-                    Console.WriteLine("Bạn đã nhập sai!");
-                    Console.Write("#Chọn: ");
-                }
-                else
-                {
-                    break;
-                }
-            }
+            string[] choice = { "Không dây", "Thể thao", "In-Ear", "Gaming", "Earbud", "Trở về MENU sản phẩm" };
+            int number = SubMenu("Danh sách sản phẩm theo phân loại sản phẩm", choice);
             List<Items> items = null;
             switch (number)
             {
-                case 0:
+                case 6:
                     DisplayProduct(Cus);
                     break;
                 case 1:
@@ -356,53 +284,87 @@ namespace HP_PLConsole
             return DisplayItemDetail(Id, Cus);
         }
 
-        public void AddToCart(Items item)
+        public void AddToCart(Items item, Customers Cus)
         {
             List<Items> ListItems = new List<Items>();
             ListItems.Add(item);
             string sJSONReponse = JsonConvert.SerializeObject(ListItems);
-            string fileName = "CartOf" +  ".dat";
             BinaryWriter bw;
+            string fileName = "CartOf.dat";
             try
             {
-                FileStream fs = new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.ReadWrite);
+                FileStream fs = new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite);
                 bw = new BinaryWriter(fs);
                 bw.Write((string)(object)sJSONReponse);
                 fs.Close();
             }
             catch (System.Exception)
             {
-                Console.WriteLine("Mất kết nối!");
+                Console.WriteLine("Không thêm được sản phẩm vào giỏ hàng!");
             }
             Console.WriteLine("Đã thêm vào giỏ hàng!");
+            while (true)
+            {
+                string[] choice = { "Xem giỏ hàng", "Menu sản phẩm" };
+                int number = SubMenu(null, choice);
+                switch (number)
+                {
+                    case 2:
+                        DisplayProduct(Cus);
+                        break;
+                    case 1:
+                        DisplayCart();
+                        break;
+                }
+            }
         }
-        // private static short Menu(string title, string[] menuItems)
-        // {
-        //     short choose = 0;
-        //     string line = "========================================";
-        //     Console.WriteLine(line);
-        //     Console.WriteLine(" " + title);
-        //     Console.WriteLine(line);
-        //     for (int i = 0; i < menuItems.Length; i++)
-        //     {
-        //         Console.WriteLine(" " + (i + 1) + ". " + menuItems[i]);
-        //     }
-        //     Console.WriteLine(line);
-        //     do
-        //     {
-        //         Console.Write("#Chọn: ");
-        //         try
-        //         {
-        //             choose = Int16.Parse(Console.ReadLine());
-        //         }
-        //         catch
-        //         {
-        //             Console.WriteLine("Bạn đã nhập sai!");
-        //             Console.Write("#Chọn: ");
-        //             continue;
-        //         }
-        //     } while (choose <= 0 || choose > menuItems.Length);
-        //     return choose;
-        // }
+        public void DisplayCart()
+        {
+            List<Items> ListItems = new List<Items>();
+            object StringResponse = new object();
+            StringResponse.ToString();
+            FileStream fs = new FileStream("CartOf.dat", FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            try
+            {
+                BinaryReader br = new BinaryReader(fs);
+                // br.ReadDataFromFile("CartOf.dat");
+            }
+            catch (System.Exception)
+            {
+                Console.WriteLine("Không đọc được dữ liệu trong giỏ hàng!");
+            }
+        }
+        interface IConverter
+        {
+            bool Convert(string str, out object val);
+        }
+        public static short SubMenu(string title, string[] menuItems)
+        {
+            short choose = 0;
+            string line = "========================================";
+            Console.WriteLine(line);
+            Console.WriteLine(" " + title);
+            Console.WriteLine(line);
+            for (int i = 0; i < menuItems.Length; i++)
+            {
+                Console.WriteLine(" " + (i + 1) + ". " + menuItems[i]);
+            }
+            Console.WriteLine(line);
+            do
+            {
+                Console.Write("#Chọn: ");
+                try
+                {
+                    choose = Int16.Parse(Console.ReadLine());
+                }
+                catch
+                {
+                    Console.WriteLine("Bạn đã nhập sai!");
+                    Console.Write("#Chọn: ");
+                    continue;
+                }
+            } while (choose <= 0 || choose > menuItems.Length);
+            return choose;
+        }
     }
 }
