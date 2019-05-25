@@ -103,30 +103,14 @@ namespace HP_PLConsole
             Console.WriteLine("Mô tả sản phẩm : {0}\n", item.Item_Description);
             while (true)
             {
-                Console.WriteLine("======================================= \n");
-                Console.WriteLine("1. Thêm vào giỏ hàng");
-                Console.WriteLine("0. Quay lại");
-                Console.Write("#Chọn: ");
-                int number;
-                while (true)
-                {
-                    bool kt = Int32.TryParse(Console.ReadLine(), out number);
-                    if (kt == false || number < 0 || number > 1)
-                    {
-                        Console.WriteLine("Bạn đã nhập sai!");
-                        Console.Write("#Chọn: ");
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }
+                string[] choice = { "Thêm vào giỏ hàng", "MENU sản phẩm" };
+                int number = SubMenu(null, choice);
                 switch (number)
                 {
                     case 1:
                         AddToCart(item, Cus);
                         break;
-                    case 0:
+                    case 2:
                         DisplayProduct(Cus);
                         break;
                 }
