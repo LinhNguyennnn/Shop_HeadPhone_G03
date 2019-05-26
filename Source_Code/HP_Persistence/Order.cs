@@ -7,6 +7,7 @@ namespace HP_Persistence
     {
         public int? Order_ID { get; set; }
         public DateTime? Order_Date { get; set; }
+        public Customers OrderCustomer { set; get; }
         public string Order_Note { get; set; }
 
         public List<Items> ListItems { get; set; }

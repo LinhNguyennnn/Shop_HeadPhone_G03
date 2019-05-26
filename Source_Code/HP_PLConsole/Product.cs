@@ -20,10 +20,6 @@ namespace HP_PLConsole
             int number = SubMenu("MENU SẢN PHẨM", choice);
             switch (number)
             {
-                case 4:
-                    Menu MN = new Menu();
-                    MN.menu(null);
-                    break;
                 case 1:
                     DisplayAllItems(Cus);
                     break;
@@ -33,8 +29,12 @@ namespace HP_PLConsole
                 case 3:
                     DisplayAttribute(Cus);
                     break;
+                case 4:
+                    DisplayProduct(Cus);
+                    break;
             }
         }
+        
         public int input(string str)
         {
             Regex regex = new Regex("[0-9]");
@@ -46,6 +46,7 @@ namespace HP_PLConsole
             }
             return Convert.ToInt32(str);
         }
+        
         public int DisplayAllItems(Customers Cus)
         {
             Console.Clear();
@@ -90,6 +91,7 @@ namespace HP_PLConsole
             }
             return DisplayItemDetail(Id, Cus);
         }
+
         public int DisplayItemDetail(int id, Customers Cus)
         {
             Item_BL itemBL = new Item_BL();
@@ -108,8 +110,8 @@ namespace HP_PLConsole
                 switch (number)
                 {
                     case 1:
-                        Login LG = new Login();
-                        LG.AddToCart(item, Cus);
+                        User U = new User();
+                        U.AddToCart(item, Cus);
                         break;
                     case 2:
                         DisplayProduct(Cus);
@@ -117,6 +119,7 @@ namespace HP_PLConsole
                 }
             }
         }
+        
         public int DisplayTradeMark(Customers Cus)
         {
             Console.Clear();
@@ -126,9 +129,6 @@ namespace HP_PLConsole
             List<Items> items = null;
             switch (number)
             {
-                case 12:
-                    DisplayProduct(Cus);
-                    break;
                 case 1:
                     items = itemBL.GetItemByTradeMark("Urbanista");
                     break;
@@ -161,6 +161,9 @@ namespace HP_PLConsole
                     break;
                 case 11:
                     items = itemBL.GetItemByTradeMark("More");
+                    break;
+                case 12:
+                    DisplayProduct(Cus);
                     break;
             }
             Console.Clear();
@@ -211,9 +214,6 @@ namespace HP_PLConsole
             List<Items> items = null;
             switch (number)
             {
-                case 6:
-                    DisplayProduct(Cus);
-                    break;
                 case 1:
                     items = itemBL.GetItemByAttribute("Không dây");
                     break;
@@ -228,6 +228,9 @@ namespace HP_PLConsole
                     break;
                 case 5:
                     items = itemBL.GetItemByAttribute("Earbud");
+                    break;
+                case 6:
+                    DisplayProduct(Cus);
                     break;
             }
             Console.Clear();
@@ -269,23 +272,6 @@ namespace HP_PLConsole
             return DisplayItemDetail(Id, Cus);
         }
 
-
-        public void DisplayCart()
-        {
-            List<Items> ListItems = new List<Items>();
-            object StringResponse = new object();
-            StringResponse.ToString();
-            FileStream fs = new FileStream("CartOf.dat", FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-            try
-            {
-                BinaryReader br = new BinaryReader(fs);
-                br.Read();
-            }
-            catch (System.Exception)
-            {
-                Console.WriteLine("Không đọc được dữ liệu trong giỏ hàng!");
-            }
-        }
         public static short SubMenu(string title, string[] menuItems)
         {
             short choose = 0;
