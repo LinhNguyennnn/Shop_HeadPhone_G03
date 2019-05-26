@@ -6,12 +6,19 @@ namespace HP_DAL
 {
     public class DbHelper
     {
-        private static string connection_String = "server=localhost;user id=HP_User;password=123456;port=3306;database=Headphone_Shop_Gr3;SslMode=None";
-        public static MySqlConnection OpenDefaultConnection()
+        private static MySqlConnection connection;
+        public static MySqlConnection OpenConnection()
         {
             try
             {
-                MySqlConnection connection = new MySqlConnection
+                string connection_String;
+                FileStream fileStream = File.OpenRead("ConnectionString.txt");
+                using (StreamReader reader = new StreamReader(fileStream))
+                {
+                    connection_String = reader.ReadLine();
+                }
+                fileStream.Close();
+                connection = new MySqlConnection
                 {
                     ConnectionString = connection_String
                 };
@@ -20,47 +27,20 @@ namespace HP_DAL
             }
             catch (System.Exception)
             {
-
                 return null;
             }
         }
-
-        public static MySqlConnection OpenConnection()
+        public static void CloseConnection()
         {
-            try
+            if (connection != null)
             {
-                string connectionString;
-                FileStream fileStream = File.OpenRead("ConnectionString.txt");
-                using (StreamReader reader = new StreamReader(fileStream))
-                {
-                    connectionString = reader.ReadLine();
-                }
-                fileStream.Close();
-                return OpenConnection(connectionString);
-            }
-            catch (System.Exception)
-            {
-
-                return null;
+                connection.Close();
             }
         }
-
-        public static MySqlConnection OpenConnection(string connectionString)
+        public static MySqlDataReader ExecQuery(string query)
         {
-            try
-            {
-                MySqlConnection connection = new MySqlConnection
-                {
-                    ConnectionString = connectionString
-                };
-                connection.Open();
-                return connection;
-            }
-            catch (System.Exception)
-            {
-
-                return null;
-            }
+            MySqlCommand command = new MySqlCommand(query, connection);
+            return command.ExecuteReader();
         }
     }
 }

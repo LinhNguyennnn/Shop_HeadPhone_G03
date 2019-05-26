@@ -1,17 +1,21 @@
 using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 using HP_BL;
 using HP_Persistence;
+using Newtonsoft.Json;
+
 namespace HP_PLConsole
 {
-    class Login
+    class User : Product
     {
-        Menu MN = new Menu();
         public void ScreenLogin()
         {
+            Menu MN = new Menu();
             Customer_BL CusBL = new Customer_BL();
-            Customers Cus = null;
+            Customers Cus = new Customers();
             string Un = null;
             string Pw = null;
             while (true)
@@ -20,11 +24,10 @@ namespace HP_PLConsole
                 Console.WriteLine("======================================= \n");
                 Console.WriteLine("ĐĂNG NHẬP\n");
                 Console.Write("Tên đăng nhập: ");
-                Un = Console.ReadLine();
+                Un = Console.ReadLine().Trim();
                 Console.Write("Mật khẩu: ");
-                Pw = Password();
+                Pw = Password().Trim();
                 string select;
-
                 if ((Validate(Un) == false) || (Validate(Pw) == false))
                 {
                     Console.Write("Tên đăng nhập hoặc mật khẩu không được chứa kí tự đặc biệt\nBạn có muốn nhập lại không? (Y/N): ");
@@ -125,74 +128,32 @@ namespace HP_PLConsole
                 }
                 else
                 {
-                    Console.Clear();
-                    int number;
-                    Console.WriteLine("======================================= \n");
-                    Console.WriteLine("1. Menu sản phẩm");
-                    Console.WriteLine("2. Thông tin cá nhân");
-                    Console.WriteLine("0. Đăng xuất");
-                    Console.Write("#chọn: ");
-
                     while (true)
                     {
-                        bool kt = Int32.TryParse(Console.ReadLine(), out number);
-                        if (kt == false)
+                        Console.Clear();
+                        string[] choice = { "Menu sản phẩm", "Thông tin cá nhân", "Xem giỏ hàng", "Đăng xuất" };
+                        int number = SubMenu($"Chào mừng {Cus.User_Name} đến với của hàng", choice);
+                        switch (number)
                         {
-                            Console.WriteLine("Bạn đã nhập sai!");
-                            Console.Write("#Chọn: ");
-                        }
-                        else if (number < 0 || number > 3)
-                        {
-                            Console.WriteLine("Bạn đã nhập sai!");
-                            Console.Write("#Chọn: ");
-                        }
-                        else
-                        {
-                            break;
-                        }
-                    }
-
-                    switch (number)
-                    {
-                        case 1:
-                            Console.Clear();
-                            Product product = new Product();
-                            try
-                            {
-                                product.DisplayProduct(Cus);
-                            }
-                            catch (System.NullReferenceException)
-                            {
-                                MN.menu("Mất kết nối! \nMời bạn đăng nhập lại!");
-                            }
-                            catch (MySql.Data.MySqlClient.MySqlException)
-                            {
-                                MN.menu("Mất kết nối! \nMời bạn đăng nhập lại!");
-                            }
-                            break;
-                        case 2:
-                            Console.Clear();
-                            try
-                            {
+                            case 1:
+                                DisplayProduct(Cus);
+                                break;
+                            case 2:
                                 CustomerProfile(Un, Pw);
-                            }
-                            catch (System.NullReferenceException)
-                            {
-                                MN.menu("Mất kết nối! \nMời bạn đăng nhập lại!");
-                            }
-                            catch (MySql.Data.MySqlClient.MySqlException)
-                            {
-                                MN.menu("Mất kết nối! \nMời bạn đăng nhập lại!");
-                            }
-                            break;
-                        case 0:
-                            Console.Clear();
-                            MN.menu(null);
-                            break;
+                                break;
+                            case 3:
+                                DisplayCart(Cus);
+                                break;
+                            case 4:
+                                Console.Clear();
+                                MN.menu(null);
+                                break;
+                        }
                     }
                 }
             }
         }
+
         public bool Validate(string str)
         {
             Regex regex = new Regex("[a-zA-Z0-9_]");
@@ -203,6 +164,7 @@ namespace HP_PLConsole
             }
             return true;
         }
+
         public string Password()
         {
             StringBuilder sb = new StringBuilder();
@@ -230,6 +192,7 @@ namespace HP_PLConsole
             }
             return sb.ToString();
         }
+
         public void CustomerProfile(string username, string password)
         {
             Console.Clear();
@@ -245,14 +208,102 @@ namespace HP_PLConsole
             {
                 Console.WriteLine("Mất kết nối!");
             }
-
-            Console.WriteLine("Tên khách hàng: {0}", Cus.User_Name);
-            Console.WriteLine("Ngày sinh: {0}", Cus.Cus_DateBirth);
+            Console.WriteLine("\nTên khách hàng: {0}", Cus.Cus_Name);
+            Console.WriteLine("Ngày sinh: {0}", Cus.Cus_DateBirth.ToString("dd/MM/yyyy"));
             Console.WriteLine("Địa chỉ: {0}", Cus.Cus_Address);
             Console.WriteLine("Email: {0}", Cus.Cus_Email);
             Console.WriteLine("Số điện thoại: {0}", Cus.Cus_Phone_Numbers);
-
+            Console.Write("\nNhấn phím bất kỳ để quay lại!");
             Console.ReadKey();
+        }
+
+        public void AddToCart(Items item, Customers Cus)
+        {
+            Console.Clear();
+            List<Items> ListItems = new List<Items>();
+            ListItems.Add(item);
+            string sJSONReponse = JsonConvert.SerializeObject(ListItems);
+            BinaryWriter bw;
+            try
+            {
+                FileStream fs = new FileStream($"CartOf{Cus.User_Name}.dat", FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite);
+                bw = new BinaryWriter(fs);
+                bw.Write((string)(object)sJSONReponse);
+                bw.Close();
+            }
+            catch (System.Exception)
+            {
+                Console.WriteLine("Không thêm được sản phẩm vào giỏ hàng!");
+            }
+            Console.WriteLine("Đã thêm vào giỏ hàng!");
+            while (true)
+            {
+                string[] choice = { "Xem giỏ hàng", "Menu sản phẩm" };
+                int number = SubMenu(null, choice);
+                switch (number)
+                {
+                    case 1:
+                        DisplayCart(Cus);
+                        break;
+                    case 2:
+                        DisplayProduct(Cus);
+                        break;
+                }
+            }
+        }
+
+        public void DisplayCart(Customers Cus)
+        {
+            Console.Clear();
+            ConsoleTable table = new ConsoleTable();
+            List<Items> ListItems = new List<Items>();
+            Items item = new Items();
+            BinaryReader br;
+            try
+            {
+                if (File.Exists($"CartOf{Cus.User_Name}.dat"))
+                {
+                    FileStream fs = new FileStream($"CartOf{Cus.User_Name}.dat", FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+                    br = new BinaryReader(fs);
+                    string str = br.ReadString();
+                    ListItems = JsonConvert.DeserializeObject<List<Items>>(str);
+                    br.Close();
+                    table = new ConsoleTable("Mã sản phẩm", "Tên sản phẩm", "Hãng", "Thuộc tính", "Giá sản phẩm");
+                    foreach (var i in ListItems)
+                    {
+                        table.AddRow(i.Produce_Code, i.Item_Name, i.Trademark, i.Attribute, i.Item_Price);
+                    }
+                    table.Write(Format.Alternative);
+                    while (true)
+                    {
+                        string[] choice = { "Đặt hàng", "Quay lại" };
+                        int number = SubMenu(null, choice);
+                        switch (number)
+                        {
+                            case 1:
+                                CreateOrder();
+                                break;
+                            case 2:
+                                DisplayProduct(Cus);
+                                break;
+                        }
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Giỏ hàng trống!");
+                    Console.Write("\nNhấn phím bất kỳ để quay lại!");
+                    Console.ReadKey();
+                }
+            }
+            catch (System.Exception)
+            {
+                Console.WriteLine("Mất kết nối !");
+            }
+        }
+        public void CreateOrder()
+        {
+            
         }
     }
 }

@@ -8,14 +8,8 @@ namespace HP_DAL
 {
     public class Customer_DAL
     {
-        private MySqlConnection connection;
         private MySqlDataReader reader;
         private string query;
-        public Customer_DAL()
-        {
-            connection = DbHelper.OpenConnection();
-        }
-
         public Customers Login(string username, string password)
         {
             if ((username == null) || (password == null))
@@ -31,45 +25,34 @@ namespace HP_DAL
             }
             try
             {
-                if (connection == null)
-                {
-                    connection = DbHelper.OpenConnection();
-                }
-                if (connection.State == System.Data.ConnectionState.Closed)
-                {
-                    connection.Open();
-                }
+                DbHelper.OpenConnection();
             }
             catch
             {
                 return null;
             }
-
             query = $"select * from Customers where User_Name = '" + username + "' and User_Password = '" + password + "';";
-            MySqlCommand command = new MySqlCommand(query, connection);
+            reader = DbHelper.ExecQuery(query);
             Customers customer = null;
-            using (reader = command.ExecuteReader())
+            if (reader.Read())
             {
-                if (reader.Read())
-                {
-                    customer = GetCustomer(reader);
-                }
+                customer = GetCustomer(reader);
             }
-            connection.Close();
+            DbHelper.CloseConnection();
             return customer;
         }
         private Customers GetCustomer(MySqlDataReader reader)
         {
-            string username = reader.GetString("User_Name");
-            string password = reader.GetString("User_Password");
-            string name = reader.GetString("Cus_Name");
-            DateTime datebirth = reader.GetDateTime("Cus_DateBirth");
-            string address = reader.GetString("Cus_Address");
-            string email = reader.GetString("Cus_Email");
-            string phone = reader.GetString("Cus_Phone_Numbers");
-            int id = reader.GetInt16("Cus_ID");
-
             Customers customer = new Customers();
+            customer.User_Name = reader.GetString("User_Name");
+            customer.User_Password = reader.GetString("User_Password");
+            customer.Cus_Name = reader.GetString("Cus_Name");
+            customer.Cus_DateBirth = reader.GetDateTime("Cus_DateBirth");
+            customer.Cus_Address = reader.GetString("Cus_Address");
+            customer.Cus_Email = reader.GetString("Cus_Email");
+            customer.Cus_Phone_Numbers = reader.GetString("Cus_Phone_Numbers");
+            customer.Cus_ID = reader.GetInt16("Cus_ID");
+
             return customer;
         }
     }

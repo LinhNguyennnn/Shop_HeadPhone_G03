@@ -8,7 +8,11 @@ namespace HP_BL
 {
     public class Item_BL
     {
-        private Item_DAL IDAL = new Item_DAL();
+        private Item_DAL IDAL;
+        public Item_BL()
+        {
+            IDAL = new Item_DAL();
+        }
 
         public Items GetItemByProduceCode(int? Produce_Code)
         {
@@ -31,33 +35,11 @@ namespace HP_BL
 
         public List<Items> GetItemByTradeMark(string trademark)
         {
-            if (trademark == null)
-            {
-                return null;
-            }
-
-            Regex regex = new Regex("[a-zA-Z ]");
-            MatchCollection matchCollectionTrademark = regex.Matches(trademark);
-            if (matchCollectionTrademark.Count < trademark.Length)
-            {
-                return null;
-            }
             return IDAL.GetItemByTradeMark(trademark);
         }
 
         public List<Items> GetItemByAttribute(string attribute)
         {
-            if (attribute == null)
-            {
-                return null;
-            }
-
-            Regex regex = new Regex("[a-zA-Z ]");
-            MatchCollection matchCollectionTrademark = regex.Matches(attribute);
-            if (matchCollectionTrademark.Count < attribute.Length)
-            {
-                return null;
-            }
             return IDAL.GetItemByAttribute(attribute);
         }
     }
