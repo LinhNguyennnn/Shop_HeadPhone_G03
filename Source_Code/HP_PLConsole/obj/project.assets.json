@@ -1739,11 +1739,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "d:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\HP_PLConsole\\HP_PLConsole.csproj",
+      "projectUniqueName": "D:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\HP_PLConsole\\HP_PLConsole.csproj",
       "projectName": "HP_PLConsole",
-      "projectPath": "d:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\HP_PLConsole\\HP_PLConsole.csproj",
+      "projectPath": "D:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\HP_PLConsole\\HP_PLConsole.csproj",
       "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
-      "outputPath": "d:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\HP_PLConsole\\obj\\",
+      "outputPath": "D:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\HP_PLConsole\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -1760,11 +1760,11 @@
       "frameworks": {
         "netcoreapp2.2": {
           "projectReferences": {
-            "d:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\HP_BL\\HP_BL.csproj": {
-              "projectPath": "d:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\HP_BL\\HP_BL.csproj"
+            "D:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\HP_BL\\HP_BL.csproj": {
+              "projectPath": "D:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\HP_BL\\HP_BL.csproj"
             },
-            "d:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\HP_Persistence\\HP_Persistence.csproj": {
-              "projectPath": "d:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\HP_Persistence\\HP_Persistence.csproj"
+            "D:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\HP_Persistence\\HP_Persistence.csproj": {
+              "projectPath": "D:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\HP_Persistence\\HP_Persistence.csproj"
             }
           }
         }
@@ -1792,13 +1792,5 @@
         "warn": true
       }
     }
-  },
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problem reading the cache file d:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\HP_PLConsole\\obj\\HP_PLConsole.csproj.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
-    }
-  ]
+  }
 }
