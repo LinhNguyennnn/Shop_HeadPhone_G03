@@ -1,9 +1,12 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 using HP_BL;
 using HP_Persistence;
+using Newtonsoft.Json;
+
 namespace HP_PLConsole
 {
     class Login : Product
@@ -214,6 +217,40 @@ namespace HP_PLConsole
                 Console.Write("\nNhấn phím bất kỳ để quay lại!");
                 Console.ReadKey();
                 break;
+            }
+        }
+        public void AddToCart(Items item, Customers Cus)
+        {
+            List<Items> ListItems = new List<Items>();
+            ListItems.Add(item);
+            string sJSONReponse = JsonConvert.SerializeObject(ListItems);
+            BinaryWriter bw;
+            string fileName = $"CartOf{Cus.User_Name}.dat";
+            try
+            {
+                FileStream fs = new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite);
+                bw = new BinaryWriter(fs);
+                bw.Write((string)(object)sJSONReponse);
+                fs.Close();
+            }
+            catch (System.Exception)
+            {
+                Console.WriteLine("Không thêm được sản phẩm vào giỏ hàng!");
+            }
+            Console.WriteLine("Đã thêm vào giỏ hàng!");
+            while (true)
+            {
+                string[] choice = { "Xem giỏ hàng", "Menu sản phẩm" };
+                int number = SubMenu(null, choice);
+                switch (number)
+                {
+                    case 2:
+                        DisplayProduct(Cus);
+                        break;
+                    case 1:
+                        DisplayCart();
+                        break;
+                }
             }
         }
     }

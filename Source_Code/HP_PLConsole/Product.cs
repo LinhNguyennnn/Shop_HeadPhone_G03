@@ -108,7 +108,8 @@ namespace HP_PLConsole
                 switch (number)
                 {
                     case 1:
-                        AddToCart(item, Cus);
+                        Login LG = new Login();
+                        LG.AddToCart(item, Cus);
                         break;
                     case 2:
                         DisplayProduct(Cus);
@@ -268,40 +269,7 @@ namespace HP_PLConsole
             return DisplayItemDetail(Id, Cus);
         }
 
-        public void AddToCart(Items item, Customers Cus)
-        {
-            List<Items> ListItems = new List<Items>();
-            ListItems.Add(item);
-            string sJSONReponse = JsonConvert.SerializeObject(ListItems);
-            BinaryWriter bw;
-            string fileName = "CartOf.dat";
-            try
-            {
-                FileStream fs = new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite);
-                bw = new BinaryWriter(fs);
-                bw.Write((string)(object)sJSONReponse);
-                fs.Close();
-            }
-            catch (System.Exception)
-            {
-                Console.WriteLine("Không thêm được sản phẩm vào giỏ hàng!");
-            }
-            Console.WriteLine("Đã thêm vào giỏ hàng!");
-            while (true)
-            {
-                string[] choice = { "Xem giỏ hàng", "Menu sản phẩm" };
-                int number = SubMenu(null, choice);
-                switch (number)
-                {
-                    case 2:
-                        DisplayProduct(Cus);
-                        break;
-                    case 1:
-                        DisplayCart();
-                        break;
-                }
-            }
-        }
+
         public void DisplayCart()
         {
             List<Items> ListItems = new List<Items>();
@@ -311,16 +279,12 @@ namespace HP_PLConsole
             try
             {
                 BinaryReader br = new BinaryReader(fs);
-                // br.ReadDataFromFile("CartOf.dat");
+                br.Read();
             }
             catch (System.Exception)
             {
                 Console.WriteLine("Không đọc được dữ liệu trong giỏ hàng!");
             }
-        }
-        interface IConverter
-        {
-            bool Convert(string str, out object val);
         }
         public static short SubMenu(string title, string[] menuItems)
         {
