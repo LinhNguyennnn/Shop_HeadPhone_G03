@@ -102,7 +102,7 @@ namespace HP_PLConsole
             table = new ConsoleTable("Mã sản phẩm", "Tên sản phẩm", "Hãng", "Thuộc tính", "Giá sản phẩm");
             table.AddRow(item.Produce_Code, item.Item_Name, item.Trademark, item.Attribute, item.Item_Price);
             table.Write(Format.Alternative);
-            Console.WriteLine("Mô tả sản phẩm : {0}\n", item.IItem_Description);
+            Console.WriteLine("Mô tả sản phẩm : {0}\n", item.Item_Description);
             while (true)
             {
                 string[] choice = { "Thêm vào giỏ hàng", "MENU sản phẩm" };
