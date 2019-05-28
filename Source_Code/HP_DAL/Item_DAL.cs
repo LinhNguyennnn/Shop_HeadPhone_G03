@@ -11,7 +11,6 @@ namespace HP_DAL
         private MySqlDataReader reader;
         private string query;
 
-
         public Items GetItemByProduceCode(int? _code)
         {
             if (_code == null)
@@ -36,6 +35,54 @@ namespace HP_DAL
             DbHelper.CloseConnection();
             return item;
         }
+        // public Items GetItemByProduceCodeAndAttribute(int? _code, string Attribute)
+        // {
+        //     if (_code == null)
+        //     {
+        //         return null;
+        //     }
+        //     try
+        //     {
+        //         DbHelper.OpenConnection();
+        //     }
+        //     catch
+        //     {
+        //         return null;
+        //     }
+        //     query = $"select * from Items where Produce_Code = " + _code + " and Trademark = '" + Attribute + "';";
+        //     reader = DbHelper.ExecQuery(query);
+        //     Items item = null;
+        //     if (reader.Read())
+        //     {
+        //         item = GetItems(reader);
+        //     }
+        //     DbHelper.CloseConnection();
+        //     return item;
+        // }
+        // public Items GetItemByProduceCodeAndTradeMark(int? _code, string TradeMark)
+        // {
+        //     if (_code == null)
+        //     {
+        //         return null;
+        //     }
+        //     try
+        //     {
+        //         DbHelper.OpenConnection();
+        //     }
+        //     catch
+        //     {
+        //         return null;
+        //     }
+        //     query = $"select * from Items where Produce_Code = " + _code + " and Trademark = '" + TradeMark + "';";
+        //     reader = DbHelper.ExecQuery(query);
+        //     Items item = null;
+        //     if (reader.Read())
+        //     {
+        //         item = GetItems(reader);
+        //     }
+        //     DbHelper.CloseConnection();
+        //     return item;
+        // }
         public List<Items> GetAllItems()
         {
             try
@@ -115,7 +162,7 @@ namespace HP_DAL
             items.Item_Name = reader.GetString("Item_Name");
             items.Trademark = reader.GetString("Trademark");
             items.Attribute = reader.GetString("Attribute");
-            items.Item_Price = reader.GetString("Item_Price");
+            items.Item_Price = reader.GetDecimal("Item_Price");
             items.Item_Description = reader.GetString("Item_Description");
             items.Quantity = reader.GetInt32("Quantity");
 
