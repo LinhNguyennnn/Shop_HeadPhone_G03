@@ -12,9 +12,7 @@ namespace HP_Persistence
 
         public List<Items> ListItems { get; set; }
 
-        public Order()
-        {
-        }
+        public Order() { }
         public Order(int? order_id, DateTime? order_date, string order_note, List<Items> listItems)
         {
             this.Order_ID = order_id;
