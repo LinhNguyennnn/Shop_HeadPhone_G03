@@ -6,7 +6,7 @@ namespace HP_PLConsole
     {
         public void menu(string a)
         {
-            Console.Clear();
+            //Console.Clear();
             if (a != null)
             {
                 Console.WriteLine(a);

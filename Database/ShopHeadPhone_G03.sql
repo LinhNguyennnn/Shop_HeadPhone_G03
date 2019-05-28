@@ -19,12 +19,13 @@ create table if not exists Items(
     Item_Name nvarchar(50) not null,
     Trademark nvarchar(50) not null,
     Attribute nvarchar(50) not null,
-    Item_Price decimal(10) not null,
+    Item_Price int not null,
     Item_Description nvarchar(500) not null
 );
 create table if not exists Orders(
-	Order_ID int not null,
+	Order_ID int not null auto_increment,
     Cus_ID int not null,
+    Order_Status nvarchar(50),
     Order_Date  timestamp,
     Note nvarchar(500),
     primary key(Order_ID, Cus_ID),
@@ -34,7 +35,6 @@ create table if not exists Orders(
 create table if not exists OrderDetails(
 	Order_ID int,
     Produce_Code int,
-    Order_Count int not null,
     primary key(Order_ID, Produce_Code),
     foreign key (Order_ID) references Orders(Order_ID),
     foreign key (Produce_Code) references Items(Produce_Code)
@@ -67,5 +67,5 @@ values('Urbanista Tokyo plus TWS','Urbanista','Không dây','2990000','Chíp Blu
       ('1More EB100 Wireless','1More','Thể thao','1500000','Thời lượng pin lên đến 8h, nói chuyện liên tục 10h chỉ mất 2h để sạc đầy pin. Có khả năng chống thấm mồ hôi và nước theo tiêu chuẩn IPX4. Kết nối bluetooth 4.1 và công nghệ giải mã tín hiệu APTX thế hệ mới nhất, với bán kính bắt sóng ổn định là 10m.'),
       ('1More iBFree','1More','Không dây','1150000','Thời lượng pin lên đến 8h, nói chuyện liên tục 10h chỉ mất 2h để sạc đầy pin. Có khả năng chống thấm mồ hôi và nước theo tiêu chuẩn IPX4. Kết nối bluetooth 4.1 và công nghệ giải mã tín hiệu APTX thế hệ mới nhất, với bán kính bắt sóng ổn định là 10m.');
 -- select * from Items where Produce_Code = '1' and Trademark = '';
-/* CREATE USER if not exists 'HP_User'@'localhost' IDENTIFIED BY '123456';
-GRANT ALL PRIVILEGES ON * . * TO 'HP_User'@'localhost'; */
+CREATE USER if not exists 'HP_User'@'localhost' IDENTIFIED BY '123456';
+GRANT ALL PRIVILEGES ON * . * TO 'HP_User'@'localhost'; 
