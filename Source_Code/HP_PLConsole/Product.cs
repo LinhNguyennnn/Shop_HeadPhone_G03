@@ -17,7 +17,7 @@ namespace HP_PLConsole
         public void DisplayProduct(Customers Cus)
         {
             User U = new User();
-            Console.Clear();
+            //Console.Clear();
             try
             {
                 string[] choice = { "Xem danh sách sản phẩm", "Xem danh sách sản phẩm theo hãng", "Xem danh sách sản phẩm theo loại sản phẩm", "Trở về MENU chính" };
@@ -59,12 +59,12 @@ namespace HP_PLConsole
 
         public int DisplayAllItems(Customers Cus)
         {
-            Console.Clear();
+            //Console.Clear();
             Console.WriteLine("=====================================================================");
             Console.WriteLine("------------------------ DANH SÁCH SẢN PHẨM -------------------------\n");
             Item_BL itemBL = new Item_BL();
             List<Items> items = itemBL.GetAllItems();
-            var table = new ConsoleTable("Mã sản phẩm", "Tên sản phẩm", "Hãng", "Thuộc tính", "Giá sản phẩm");
+            table = new ConsoleTable("Mã sản phẩm", "Tên sản phẩm", "Hãng", "Thuộc tính", "Giá sản phẩm");
             foreach (Items i in items)
             {
                 table.AddRow(i.Produce_Code, i.Item_Name, i.Trademark, i.Attribute, i.Item_Price);
@@ -107,7 +107,7 @@ namespace HP_PLConsole
         {
             Item_BL itemBL = new Item_BL();
             Items item = itemBL.GetItemByProduceCode(id);
-            Console.Clear();
+            //Console.Clear();
             Console.WriteLine("=====================================================================");
             Console.WriteLine("------------------------- CHI TIẾT SẢN PHẨM -------------------------\n");
             table = new ConsoleTable("Mã sản phẩm", "Tên sản phẩm", "Hãng", "Thuộc tính", "Giá sản phẩm");
@@ -133,61 +133,73 @@ namespace HP_PLConsole
 
         public int DisplayTradeMark(Customers Cus)
         {
-            Console.Clear();
+            //Console.Clear();
             string[] choice = { "Urbanista", "MEE", "RHA AUDIO", "jabees", "SONY", "SOMIC", "Sennheiser", "Audio Technica", "Skullcandy", "Ausdom", "1More", "Trở về Menu sản phẩm", };
             int number = SubMenu("Danh sách sản phẩm theo hãng", choice);
-            Item_BL itemBL = new Item_BL();
+            Item_BL IBL = new Item_BL();
             List<Items> items = null;
+            string trade = null;
             switch (number)
             {
                 case 1:
-                    items = itemBL.GetItemByTradeMark("Urbanista");
+                    items = IBL.GetItemByTradeMark("Urbanista");
+                    trade = "Urbanista";
                     break;
                 case 2:
-                    items = itemBL.GetItemByTradeMark("MEE");
+                    items = IBL.GetItemByTradeMark("MEE");
+                    trade = "MEE";
                     break;
                 case 3:
-                    items = itemBL.GetItemByTradeMark("RHAAUDIO");
+                    items = IBL.GetItemByTradeMark("RHAAUDIO");
+                    trade = "RHAAUDIO";
                     break;
                 case 4:
-                    items = itemBL.GetItemByTradeMark("jabees");
+                    items = IBL.GetItemByTradeMark("jabees");
+                    trade = "jabees";
                     break;
                 case 5:
-                    items = itemBL.GetItemByTradeMark("SONY");
+                    items = IBL.GetItemByTradeMark("SONY");
+                    trade = "SONY";
                     break;
                 case 6:
-                    items = itemBL.GetItemByTradeMark("SOMIC");
+                    items = IBL.GetItemByTradeMark("SOMIC");
+                    trade = "SOMIC";
                     break;
                 case 7:
-                    items = itemBL.GetItemByTradeMark("Sennheiser");
+                    items = IBL.GetItemByTradeMark("Sennheiser");
+                    trade = "Sennheiser";
                     break;
                 case 8:
-                    items = itemBL.GetItemByTradeMark("AudioTechnica");
+                    items = IBL.GetItemByTradeMark("AudioTechnica");
+                    trade = "AudioTechnica";
                     break;
                 case 9:
-                    items = itemBL.GetItemByTradeMark("Skullcandy");
+                    items = IBL.GetItemByTradeMark("Skullcandy");
+                    trade = "Skullcandy";
                     break;
                 case 10:
-                    items = itemBL.GetItemByTradeMark("Ausdom");
+                    items = IBL.GetItemByTradeMark("Ausdom");
+                    trade = "Ausdom";
                     break;
                 case 11:
-                    items = itemBL.GetItemByTradeMark("More");
+                    items = IBL.GetItemByTradeMark("More");
+                    trade = "More";
                     break;
                 case 12:
                     DisplayProduct(Cus);
                     break;
             }
-            Console.Clear();
-            var table = new ConsoleTable("Mã sản phẩm", "Tên sản phẩm", "Hãng", "Thuộc tính", "Giá sản phẩm");
+            //Console.Clear();
+            table = new ConsoleTable("Mã sản phẩm", "Tên sản phẩm", "Hãng", "Thuộc tính", "Giá sản phẩm");
             foreach (Items i in items)
             {
-                table.AddRow(i.Produce_Code, i.Item_Name, i.Trademark, i.Attribute);
+                table.AddRow(i.Produce_Code, i.Item_Name, i.Trademark, i.Attribute, i.Item_Price);
             }
             table.Write(Format.Alternative);
             Console.WriteLine("=====================================================================");
             Console.Write("\nChọn mã sản phẩm: ");
             int Id = input(Console.ReadLine());
-            while (itemBL.GetItemByProduceCode(Id) == null)
+            while (IBL.GetItemByProduceCodeAndTradeMark(Id, trade) == null)
             {
                 string a;
                 Console.Write("Mã sản phẩm không tồn tại!");
@@ -218,34 +230,40 @@ namespace HP_PLConsole
 
         public int DisplayAttribute(Customers Cus)
         {
-            Console.Clear();
+            //Console.Clear();
             Item_BL itemBL = new Item_BL();
             string[] choice = { "Không dây", "Thể thao", "In-Ear", "Gaming", "Earbud", "Trở về MENU sản phẩm" };
             int number = SubMenu("Danh sách sản phẩm theo phân loại sản phẩm", choice);
             List<Items> items = null;
+            string ab = null;
             switch (number)
             {
                 case 1:
                     items = itemBL.GetItemByAttribute("Không dây");
+                    ab = "Không dây";
                     break;
                 case 2:
                     items = itemBL.GetItemByAttribute("Thể thao");
+                    ab = "Thể thao";
                     break;
                 case 3:
                     items = itemBL.GetItemByAttribute("In-Ear");
+                    ab = "In-Ear";
                     break;
                 case 4:
                     items = itemBL.GetItemByAttribute("Gaming");
+                    ab = "Gaming";
                     break;
                 case 5:
                     items = itemBL.GetItemByAttribute("Earbud");
+                    ab = "Earbud";
                     break;
                 case 6:
                     DisplayProduct(Cus);
                     break;
             }
-            Console.Clear();
-            var table = new ConsoleTable("Mã sản phẩm", "Tên sản phẩm", "Hãng", "Thuộc tính", "Giá sản phẩm");
+            //Console.Clear();
+            table = new ConsoleTable("Mã sản phẩm", "Tên sản phẩm", "Hãng", "Thuộc tính", "Giá sản phẩm");
             foreach (Items i in items)
             {
                 table.AddRow(i.Produce_Code, i.Item_Name, i.Trademark, i.Attribute, i.Item_Price);
@@ -254,7 +272,7 @@ namespace HP_PLConsole
             Console.WriteLine("=====================================================================");
             Console.Write("\nChọn mã sản phẩm: ");
             int Id = input(Console.ReadLine());
-            while (itemBL.GetItemByProduceCode(Id) == null)
+            while (itemBL.GetItemByProduceCodeAndAttribute(Id, ab) == null)
             {
                 string a;
                 Console.Write("Mã sản phẩm không tồn tại!");
@@ -331,15 +349,15 @@ namespace HP_PLConsole
         }
         public void Pay()
         {
-            Console.Clear();
-            Customer_BL CBL = new Customer_BL();
-            decimal Amount;
-            order.Customer = new Customers();
-            Console.WriteLine("============================================================================");
-            Console.WriteLine("Thanh toán");
-            Console.WriteLine("============================================================================");
-            Console.Write("Nhập số tiền : ");
-            
+            // //Console.Clear();
+            // Customer_BL CBL = new Customer_BL();
+            // decimal Amount;
+            // order.Customer = new Customers();
+            // Console.WriteLine("============================================================================");
+            // Console.WriteLine("Thanh toán");
+            // Console.WriteLine("============================================================================");
+            // Console.Write("Nhập số tiền : ");
+
         }
         public static short SubMenu(string title, string[] menuItems)
         {

@@ -23,7 +23,7 @@ namespace HP_PLConsole
             string Pw = null;
             while (true)
             {
-                Console.Clear();
+                //Console.Clear();
                 Console.WriteLine("======================================= \n");
                 Console.WriteLine("ĐĂNG NHẬP\n");
                 Console.Write("Tên đăng nhập: ");
@@ -129,19 +129,12 @@ namespace HP_PLConsole
                             continue;
                     }
                 }
-                // else
-                // {
-                //     while (true)
-                //     {
-
-                //     }
-                // }
                 UserMenu(Cus, Un, Pw);
             }
         }
         public void UserMenu(Customers Cus, string Un, string Pw)
         {
-            Console.Clear();
+            //Console.Clear();
             Menu MN = new Menu();
             string[] choice = { "Menu sản phẩm", "Thông tin cá nhân", "Xem giỏ hàng", "Đăng xuất" };
             int number = Product.SubMenu($"Chào mừng {Cus.User_Name} đến với của hàng", choice);
@@ -157,7 +150,7 @@ namespace HP_PLConsole
                     DisplayCart(Cus);
                     break;
                 case 4:
-                    Console.Clear();
+                    //Console.Clear();
                     MN.menu(null);
                     break;
             }
@@ -203,7 +196,7 @@ namespace HP_PLConsole
 
         public void CustomerProfile(string username, string password)
         {
-            Console.Clear();
+            //Console.Clear();
             Console.WriteLine("=====================================================================");
             Console.WriteLine("------------------------ THÔNG TIN CÁ NHÂN --------------------------");
             Customer_BL CusBL = new Customer_BL();
@@ -256,31 +249,18 @@ namespace HP_PLConsole
 
         public void AddToCart(Items item, Customers Cus)
         {
-            Console.Clear();
+            //Console.Clear();
 
             ListItems.Add(item);
             string sJSONReponse = JsonConvert.SerializeObject(ListItems);
             BinaryWriter bw;
             try
             {
-                // if (!File.Exists($"CartOf{Cus.User_Name}.dat"))
-                // {
                     FileStream fs = new FileStream($"CartOf{Cus.User_Name}.dat", FileMode.OpenOrCreate, FileAccess.Write);
                     bw = new BinaryWriter(fs);
-                    bw.Write((string)(object)sJSONReponse);
-                    // bw.Close();
+                    bw.Write((string)(object)sJSONReponse + Environment.NewLine);
                     fs.Close();
                     Console.WriteLine("Đã thêm vào giỏ hàng!");
-                // }
-                // else
-                // {
-                //     FileStream fs = new FileStream($"CartOf{Cus.User_Name}.dat", FileMode.Append, FileAccess.Write, FileShare.ReadWrite);
-                //     bw = new BinaryWriter(fs);
-                //     bw.Write((string)(object)sJSONReponse + Environment.NewLine);
-                //     bw.Close();
-                //     fs.Close();
-                //     Console.WriteLine("Đã thêm vào giỏ hàng!");
-                // }
                 while (true)
                 {
                     string[] choice = { "Xem giỏ hàng", "Menu sản phẩm" };
@@ -305,7 +285,7 @@ namespace HP_PLConsole
 
         public void DisplayCart(Customers Cus)
         {
-            Console.Clear();
+            //Console.Clear();
          
             List<Items> Items = null;
             BinaryReader br;
@@ -320,8 +300,8 @@ namespace HP_PLConsole
 
                     fs.Close();
                     br.Close();
-                    Console.WriteLine("==================================================================================\n");
-                    Console.WriteLine($"Giỏ hảng của {Cus.User_Name}");
+                    Console.WriteLine("==================================================================================");
+                    Console.WriteLine($"                    Giỏ hảng của {Cus.User_Name}");
                     Console.WriteLine("==================================================================================\n");
 
                     var table = new ConsoleTable("Mã sản phẩm", "Tên sản phẩm", "Hãng", "Thuộc tính", "Giá sản phẩm");
