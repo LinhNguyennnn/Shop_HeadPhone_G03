@@ -164,7 +164,7 @@ namespace HP_DAL
             items.Item_Name = reader.GetString("Item_Name");
             items.Trademark = reader.GetString("Trademark");
             items.Attribute = reader.GetString("Attribute");
-            items.Item_Price = reader.GetDecimal("Item_Price");
+            items.Item_Price = reader.GetInt32("Item_Price");
             items.Item_Description = reader.GetString("Item_Description");
 
             return items;

@@ -13,8 +13,6 @@ namespace HP_PLConsole
     {
         private static Product Product = new Product();
         private static List<Items> ListItems = new List<Items>();
-        decimal amount = 0;
-        int itemCount = 0;
         public void ScreenLogin()
         {
             Menu MN = new Menu();
@@ -151,7 +149,6 @@ namespace HP_PLConsole
                     DisplayCart(Cus);
                     break;
                 case 4:
-                    //Console.Clear();
                     MN.menu(null);
                     break;
             }
@@ -284,7 +281,7 @@ namespace HP_PLConsole
             }
         }
 
-        public void DisplayCart(Customers Cus)
+        public void DisplayCart(Customers Cus )
         {
             //Console.Clear();
 
@@ -304,13 +301,12 @@ namespace HP_PLConsole
                     Console.WriteLine("==================================================================================");
                     Console.WriteLine($"                    Giỏ hảng của {Cus.User_Name}");
                     Console.WriteLine("==================================================================================\n");
-
-                    var table = new ConsoleTable("Mã sản phẩm", "Tên sản phẩm", "Hãng", "Thuộc tính", "Giá sản phẩm");
+                    var table = new ConsoleTable("Mã sản phẩm", "Tên sản phẩm", "Hãng", "Thuộc tính", "Giá sản phẩm", "Số lượng", "Tổng tiền");
+                    int amount = 0;
                     foreach (Items i in Items)
                     {
-
-                        table.AddRow(i.Produce_Code, i.Item_Name, i.Trademark, i.Attribute, i.Item_Price);
-                        // amount += i.Item_Price * i.Quantity;
+                        amount += i.Item_Price * i.Quantity;
+                        table.AddRow(i.Produce_Code, i.Item_Name, i.Trademark, i.Attribute, i.Item_Price, i.Quantity, amount);
                     }
 
                     table.Write(Format.Alternative);
@@ -321,7 +317,49 @@ namespace HP_PLConsole
                         switch (number)
                         {
                             case 1:
-                                Product.CreateOrder(Items, amount);
+                                bool check = true;
+                                Order order = new Order();
+                                Order_BL OBL = new Order_BL();
+                                Console.Write("Nhập ghi chú: ");
+                                string note = Console.ReadLine().Trim();
+                                order.Note = note;
+                                order.Order_Date = DateTime.Now;
+                                order.Status = "Không thành công";
+                                order.Amount = amount;
+                                order.Customer = Cus;
+                                Item_BL IBL = new Item_BL();
+                                foreach (Items item in Items)
+                                {
+                                    order.ItemsList = new List<Items>();
+                                    order.ItemsList.Add(IBL.GetItemByProduceCode(item.Produce_Code));
+                                }
+                                check = OBL.CreateOrder(order);
+                                if (check == true)
+                                {
+                                    Console.WriteLine("Đặt hàng thành công!");
+                                    while (true)
+                                    {
+                                        string[] a = { "Thanh toán", "Hủy đơn hàng" };
+                                        int b = Product.SubMenu(null, a);
+                                        switch (b)
+                                        {
+                                            case 1:
+                                                Product.Pay(amount);
+                                                break;
+                                            case 2:
+                                                check = OBL.DeleteOrder(order.Order_ID);
+                                                DisplayCart(Cus);
+                                                break;
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    Console.WriteLine("\n Đặt hàng thất bại!\n");
+                                    Console.WriteLine("Nhấn phím bất kỳ để quay lại");
+                                    Console.ReadKey();
+                                    DisplayCart(Cus);
+                                }
                                 break;
                             case 2:
                                 Product.DisplayProduct(Cus);

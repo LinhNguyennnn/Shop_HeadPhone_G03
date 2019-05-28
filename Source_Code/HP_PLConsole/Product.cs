@@ -51,7 +51,8 @@ namespace HP_PLConsole
             MatchCollection matchCollection = regex.Matches(str);
             while ((matchCollection.Count < str.Length) || (str == ""))
             {
-                Console.Write("Dữ liệu nhập vào phải là số tự nhiên!\nMời bạn nhập lại: "); str = Console.ReadLine();
+                Console.Write("Dữ liệu nhập vào phải là số tự nhiên!\nMời bạn nhập lại: ");
+                str = Console.ReadLine();
                 matchCollection = regex.Matches(str);
             }
             return Convert.ToInt32(str);
@@ -62,8 +63,8 @@ namespace HP_PLConsole
             //Console.Clear();
             Console.WriteLine("=====================================================================");
             Console.WriteLine("------------------------ DANH SÁCH SẢN PHẨM -------------------------\n");
-            Item_BL itemBL = new Item_BL();
-            List<Items> items = itemBL.GetAllItems();
+            Item_BL IBL = new Item_BL();
+            List<Items> items = IBL.GetAllItems();
             table = new ConsoleTable("Mã sản phẩm", "Tên sản phẩm", "Hãng", "Thuộc tính", "Giá sản phẩm");
             foreach (Items i in items)
             {
@@ -74,7 +75,7 @@ namespace HP_PLConsole
             Console.Write("\nChọn mã sản phẩm: ");
             int Id = input(Console.ReadLine());
 
-            while (itemBL.GetItemByProduceCode(Id) == null)
+            while (IBL.GetItemByProduceCode(Id) == null)
             {
                 string a;
                 Console.Write("Mã sản phẩm không tồn tại!");
@@ -105,8 +106,8 @@ namespace HP_PLConsole
 
         public int DisplayItemDetail(int id, Customers Cus)
         {
-            Item_BL itemBL = new Item_BL();
-            Items item = itemBL.GetItemByProduceCode(id);
+            Item_BL IBL = new Item_BL();
+            Items item = IBL.GetItemByProduceCode(id);
             //Console.Clear();
             Console.WriteLine("=====================================================================");
             Console.WriteLine("------------------------- CHI TIẾT SẢN PHẨM -------------------------\n");
@@ -121,7 +122,23 @@ namespace HP_PLConsole
                 switch (number)
                 {
                     case 1:
-
+                        Console.Write("Nhập số lượng sản phẩm: ");
+                        int itemQuantity = input(Console.ReadLine());
+                        while (true)
+                        {
+                            if (itemQuantity > 0 && itemQuantity <= 10)
+                            {
+                                break;
+                            }
+                            else
+                            {
+                                Console.WriteLine("Số lượng sản phẩm phải lớn hơn 0 và nhỏ 10 !");
+                                Console.Write("Nhập số lượng sản phẩm: ");
+                                itemQuantity = input(Console.ReadLine());
+                                continue;
+                            }
+                        }
+                        item.Quantity = itemQuantity;
                         U.AddToCart(item, Cus);
                         break;
                     case 2:
@@ -231,7 +248,7 @@ namespace HP_PLConsole
         public int DisplayAttribute(Customers Cus)
         {
             //Console.Clear();
-            Item_BL itemBL = new Item_BL();
+            Item_BL IBL = new Item_BL();
             string[] choice = { "Không dây", "Thể thao", "In-Ear", "Gaming", "Earbud", "Trở về MENU sản phẩm" };
             int number = SubMenu("Danh sách sản phẩm theo phân loại sản phẩm", choice);
             List<Items> items = null;
@@ -239,23 +256,23 @@ namespace HP_PLConsole
             switch (number)
             {
                 case 1:
-                    items = itemBL.GetItemByAttribute("Không dây");
+                    items = IBL.GetItemByAttribute("Không dây");
                     ab = "Không dây";
                     break;
                 case 2:
-                    items = itemBL.GetItemByAttribute("Thể thao");
+                    items = IBL.GetItemByAttribute("Thể thao");
                     ab = "Thể thao";
                     break;
                 case 3:
-                    items = itemBL.GetItemByAttribute("In-Ear");
+                    items = IBL.GetItemByAttribute("In-Ear");
                     ab = "In-Ear";
                     break;
                 case 4:
-                    items = itemBL.GetItemByAttribute("Gaming");
+                    items = IBL.GetItemByAttribute("Gaming");
                     ab = "Gaming";
                     break;
                 case 5:
-                    items = itemBL.GetItemByAttribute("Earbud");
+                    items = IBL.GetItemByAttribute("Earbud");
                     ab = "Earbud";
                     break;
                 case 6:
@@ -272,7 +289,7 @@ namespace HP_PLConsole
             Console.WriteLine("=====================================================================");
             Console.Write("\nChọn mã sản phẩm: ");
             int Id = input(Console.ReadLine());
-            while (itemBL.GetItemByProduceCodeAndAttribute(Id, ab) == null)
+            while (IBL.GetItemByProduceCodeAndAttribute(Id, ab) == null)
             {
                 string a;
                 Console.Write("Mã sản phẩm không tồn tại!");
@@ -300,64 +317,43 @@ namespace HP_PLConsole
             }
             return DisplayItemDetail(Id, Cus);
         }
-        public void CreateOrder(List<Items> ListItems, decimal amount)
-        {
-            bool check = true;
-            Order order = new Order();
-            Customers Cus = new Customers();
-            Order_BL OBL = new Order_BL();
-            Console.Write("Nhập ghi chú: ");
-            string note = Console.ReadLine().Trim();
-            order.Note = note;
-            order.Order_Date = DateTime.Now;
-            order.Status = "Không thành công";
-            order.Amount = amount;
-            order.Customer = Cus;
-            Item_BL IBL = new Item_BL();
-            foreach (Items item in ListItems)
-            {
-                order.ItemsList = new List<Items>();
-                order.ItemsList.Add(IBL.GetItemByProduceCode(item.Produce_Code));
-            }
-            check = OBL.CreateOrder(order);
-            if (check == true)
-            {
-                Console.WriteLine("Đặt hàng thành công!");
-                while (true)
-                {
-                    string[] choice = { "Thanh toán", "Quay lại" };
-                    int number = SubMenu(null, choice);
-                    switch (number)
-                    {
-                        case 1:
-                            Pay();
-                            break;
-                        case 2:
-                            check = OBL.DeleteOrder(order.Order_ID);
-                            U.DisplayCart(Cus);
-                            break;
-                    }
-                }
-            }
-            else
-            {
-                Console.WriteLine("\n Đặt hàng thất bại!\n");
-                Console.WriteLine("Nhấn phím bất kỳ để quay lại");
-                Console.ReadKey();
-                U.DisplayCart(Cus);
-            }
-        }
-        public void Pay()
+        public void Pay(int amount)
         {
             // //Console.Clear();
-            // Customer_BL CBL = new Customer_BL();
-            // decimal Amount;
-            // order.Customer = new Customers();
-            // Console.WriteLine("============================================================================");
-            // Console.WriteLine("Thanh toán");
-            // Console.WriteLine("============================================================================");
-            // Console.Write("Nhập số tiền : ");
-
+            Customer_BL CBL = new Customer_BL();
+            order.Customer = new Customers();
+            Console.WriteLine("============================================================================");
+            Console.WriteLine("                                  Thanh toán");
+            Console.WriteLine("============================================================================");
+            Console.Write("Nhập số tiền : ");
+            int money = input(Console.ReadLine());
+            while (true)
+            {
+                if (money >= 500 && money <= 10000000 && money % 500 == 0)
+                {
+                    if (money < amount)
+                    {
+                        Console.WriteLine("Số tiền bạn nhập vào nhỏ hơn tổng tiền phải thanh toán !");
+                        Console.Write("Nhập số tiền : ");
+                        money = input(Console.ReadLine());
+                        continue;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Số tiền nhập vào không hợp lệ ! ");
+                    Console.Write("Nhập số tiền : ");
+                    money = input(Console.ReadLine());
+                    continue;
+                }
+            }
+            Console.WriteLine("Thanh toán thành công !");
+            Console.ReadKey();
+            U.UserMenu(order.Customer, null, null);
         }
         public static short SubMenu(string title, string[] menuItems)
         {

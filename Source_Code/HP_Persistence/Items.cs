@@ -12,13 +12,13 @@ namespace HP_Persistence
 
         public string Attribute { get; set; }
 
-        public decimal Item_Price { get; set; }
+        public int Item_Price { get; set; }
         public string Item_Description { get; set; }
         public int Quantity { get; set; }
 
         public Items() { }
 
-        public Items(int _code, string _name, string _trade, string _attribute, decimal _price, string _Description, int _Quantity)
+        public Items(int _code, string _name, string _trade, string _attribute, int _price, string _Description, int _Quantity)
         {
             this.Produce_Code = _code;
 

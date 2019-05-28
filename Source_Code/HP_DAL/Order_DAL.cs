@@ -14,30 +14,27 @@ namespace HP_DAL
         public bool CreateOrder(Order order)
         {
             bool result = false;
-            try
-            {
-                DbHelper.OpenConnection();
-            }
-            catch (System.Exception)
-            {
-                result = false;
-            }
+
+            connection = DbHelper.OpenConnection();
+
             MySqlCommand command = new MySqlCommand();
             command.Connection = connection;
+
             command.CommandText = @"lock tables Items write, Orders write,OrderDetails write;";
             command.ExecuteNonQuery();
+
             MySqlTransaction transaction = connection.BeginTransaction();
             command.Transaction = transaction;
             try
             {
                 int? orderId = 0;
 
-                command.CommandText = $"insert into Orders(Order_Date,Note,Order_Status,Cus_ID) values ({order.Customer.Cus_ID},{order.Status},{order.Order_Note},{order.Order_Date});";
-                // command.Parameters.Clear();
-                // command.Parameters.AddWithValue("@Cus_ID", order.Customer.Cus_ID);
-                // command.Parameters.AddWithValue("@Order_Status", order.Status);
-                // command.Parameters.AddWithValue("@Note", order.Order_Note);
-                // command.Parameters.AddWithValue("@Order_Date", order.Order_Date);
+                command.CommandText = @"insert into Orders(Cus_ID, Order_Status, Order_Date, Note) values (@Cus_ID, @Order_Status, @Order_Date,@Note);";
+                command.Parameters.Clear();
+                command.Parameters.AddWithValue("@Cus_ID", order.Customer.Cus_ID);
+                command.Parameters.AddWithValue("@Order_Status", order.Status);
+                command.Parameters.AddWithValue("@Note", order.Order_Note);
+                command.Parameters.AddWithValue("@Order_Date", order.Order_Date);
                 command.ExecuteNonQuery();
                 command.CommandText = @"select LAST_INSERT_ID() as Order_ID";
                 using (reader = command.ExecuteReader())
@@ -50,8 +47,7 @@ namespace HP_DAL
                 order.Order_ID = orderId;
                 foreach (var item in order.ItemsList)
                 {
-                    command.Parameters.Clear();
-                    command.CommandText = @"insert into OrderDetail(Order_ID,Produce_Code) values(" + order.Order_ID + ", " + item.Produce_Code + ");";
+                    command.CommandText = @"insert into OrderDetails(Order_ID,Produce_Code) values (" + order.Order_ID + ", " + item.Produce_Code + ");";
                     command.ExecuteNonQuery();
                 }
                 transaction.Commit();
@@ -110,13 +106,9 @@ namespace HP_DAL
             command.Transaction = transaction;
             try
             {
-                // command.Parameters.Clear();
                 command.CommandText = $"delete from OrderDetails where order_ID = {orderId};";
-                // command.Parameters.AddWithValue("@Order_ID", orderId);
                 command.ExecuteNonQuery();
-                // command.Parameters.Clear();
                 command.CommandText = $"delete from Orders where order_ID = {orderId};";
-                // command.Parameters.AddWithValue("@Order_ID", orderId);
                 command.ExecuteNonQuery();
                 transaction.Commit();
                 result = true;
