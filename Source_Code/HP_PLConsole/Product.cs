@@ -17,7 +17,7 @@ namespace HP_PLConsole
         public void DisplayProduct(Customers Cus)
         {
             User U = new User();
-            //Console.Clear();
+            Console.Clear();
             try
             {
                 string[] choice = { "Xem danh sách sản phẩm", "Xem danh sách sản phẩm theo hãng", "Xem danh sách sản phẩm theo loại sản phẩm", "Trở về MENU chính" };
@@ -38,8 +38,9 @@ namespace HP_PLConsole
                         break;
                 }
             }
-            catch (System.Exception)
+            catch (System.Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 Console.WriteLine("Mất kết nối !");
                 Console.ReadKey();
             }
@@ -60,7 +61,7 @@ namespace HP_PLConsole
 
         public int DisplayAllItems(Customers Cus)
         {
-            //Console.Clear();
+            Console.Clear();
             Console.WriteLine("=====================================================================");
             Console.WriteLine("------------------------ DANH SÁCH SẢN PHẨM -------------------------\n");
             Item_BL IBL = new Item_BL();
@@ -108,7 +109,7 @@ namespace HP_PLConsole
         {
             Item_BL IBL = new Item_BL();
             Items item = IBL.GetItemByProduceCode(id);
-            //Console.Clear();
+            Console.Clear();
             Console.WriteLine("=====================================================================");
             Console.WriteLine("------------------------- CHI TIẾT SẢN PHẨM -------------------------\n");
             table = new ConsoleTable("Mã sản phẩm", "Tên sản phẩm", "Hãng", "Thuộc tính", "Giá sản phẩm");
@@ -123,10 +124,11 @@ namespace HP_PLConsole
                 {
                     case 1:
                         Console.Write("Nhập số lượng sản phẩm: ");
-                        int itemQuantity = input(Console.ReadLine());
+                        int itemQuantity;
                         while (true)
                         {
-                            if (itemQuantity > 0 && itemQuantity <= 10)
+                            itemQuantity = input(Console.ReadLine());
+                            if (itemQuantity >= 1 && itemQuantity <= 10)
                             {
                                 break;
                             }
@@ -134,7 +136,6 @@ namespace HP_PLConsole
                             {
                                 Console.WriteLine("Số lượng sản phẩm phải lớn hơn 0 và nhỏ 10 !");
                                 Console.Write("Nhập số lượng sản phẩm: ");
-                                itemQuantity = input(Console.ReadLine());
                                 continue;
                             }
                         }
@@ -150,7 +151,7 @@ namespace HP_PLConsole
 
         public int DisplayTradeMark(Customers Cus)
         {
-            //Console.Clear();
+            Console.Clear();
             string[] choice = { "Urbanista", "MEE", "RHA AUDIO", "jabees", "SONY", "SOMIC", "Sennheiser", "Audio Technica", "Skullcandy", "Ausdom", "1More", "Trở về Menu sản phẩm", };
             int number = SubMenu("Danh sách sản phẩm theo hãng", choice);
             Item_BL IBL = new Item_BL();
@@ -206,7 +207,7 @@ namespace HP_PLConsole
                     DisplayProduct(Cus);
                     break;
             }
-            //Console.Clear();
+            Console.Clear();
             table = new ConsoleTable("Mã sản phẩm", "Tên sản phẩm", "Hãng", "Thuộc tính", "Giá sản phẩm");
             foreach (Items i in items)
             {
@@ -247,7 +248,7 @@ namespace HP_PLConsole
 
         public int DisplayAttribute(Customers Cus)
         {
-            //Console.Clear();
+            Console.Clear();
             Item_BL IBL = new Item_BL();
             string[] choice = { "Không dây", "Thể thao", "In-Ear", "Gaming", "Earbud", "Trở về MENU sản phẩm" };
             int number = SubMenu("Danh sách sản phẩm theo phân loại sản phẩm", choice);
@@ -279,7 +280,7 @@ namespace HP_PLConsole
                     DisplayProduct(Cus);
                     break;
             }
-            //Console.Clear();
+            Console.Clear();
             table = new ConsoleTable("Mã sản phẩm", "Tên sản phẩm", "Hãng", "Thuộc tính", "Giá sản phẩm");
             foreach (Items i in items)
             {
@@ -319,7 +320,7 @@ namespace HP_PLConsole
         }
         public void Pay(int amount)
         {
-            // //Console.Clear();
+            Console.Clear();
             Customer_BL CBL = new Customer_BL();
             order.Customer = new Customers();
             Console.WriteLine("============================================================================");

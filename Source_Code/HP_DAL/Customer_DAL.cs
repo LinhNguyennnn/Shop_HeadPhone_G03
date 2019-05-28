@@ -27,8 +27,9 @@ namespace HP_DAL
             {
                 DbHelper.OpenConnection();
             }
-            catch
+            catch (System.Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 return null;
             }
             query = $"select * from Customers where User_Name = '" + username + "' and User_Password = '" + password + "';";

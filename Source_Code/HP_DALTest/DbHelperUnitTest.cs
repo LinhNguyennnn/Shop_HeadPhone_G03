@@ -5,12 +5,12 @@ using MySql.Data.MySqlClient;
 
 namespace HP_DALTest
 {
-    // public class DbhelperUnitTest
-    // {
-    //     [Fact]
-    //     public void OpenConnectionTest()
-    //     {
-    //         Assert.NotNull(DbHelper.OpenConnection());
-    //     }
-    // }
+    public class DbhelperUnitTest
+    {
+        [Fact]
+        public void OpenConnectionTest()
+        {
+            Assert.NotNull(DbHelper.OpenConnection());
+        }
+    }
 }

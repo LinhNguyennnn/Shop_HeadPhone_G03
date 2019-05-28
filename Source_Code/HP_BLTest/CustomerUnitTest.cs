@@ -2,27 +2,26 @@ using System;
 using Xunit;
 using HP_BL;
 
-namespace HP_BL_Test
+namespace HP_BLTest
 {
-    // public class CustomerUnitTest
-    // {
-    //     [Fact]
-    //     public void LoginTest1()
-    //     {
-    //         Customer_BL cusBL = new Customer_BL();
-    //         Assert.NotNull(cusBL.Login("NAL", "nal123"));
-    //     }
-    //     [Fact]
-    //     public void LoginTest2()
-    //     {
-    //         Customer_BL cusBL = new Customer_BL();
-    //         Assert.NotNull(cusBL.Login("LBT", "lbt456"));
-    //     }
-    //     [Fact]
-    //     public void LoginTest3()
-    //     {
-    //         Customer_BL cusBL = new Customer_BL();
-    //         Assert.NotNull(cusBL.Login("NVD", "nvd789"));
-    //     }
-    // }
+    public class CustomerUnitTest
+    {
+        Customer_BL cusBL = new Customer_BL();
+        [Theory]
+        [InlineData("Linh", "nal123")]
+        [InlineData("Thang", "lbt456")]
+        [InlineData("Dan", "nvd789")]
+        public void LoginTest(string Un, string Pw)
+        {
+            Assert.NotNull(cusBL.Login(Un, Pw));
+        }
+        [Theory]
+        [InlineData("ascasc", "412412e")]
+        [InlineData("dd1", "35435fdd")]
+        [InlineData("24v14v", "12412312")]
+        public void LoginTest1(string Un, string Pw)
+        {
+            Assert.Null(cusBL.Login(Un, Pw));
+        }
+    }
 }

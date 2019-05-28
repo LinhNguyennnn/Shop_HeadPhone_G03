@@ -8,26 +8,24 @@ namespace HP_Persistence
         public int? Order_ID { get; set; }
         public int ItemId { get; set; }
         public DateTime Order_Date { get; set; }
-        public int ItemCount { set; get; }
+        public int ItemQuantity { set; get; }
         public Customers Customer { get; set; }
         public string Status { get; set; }
         public string Address_Shipping { get; set; }
-        public decimal Amount { set; get; }
-        public string Order_Note { get; set; }
+        public int Amount { set; get; }
 
         public List<Items> ItemsList { get; set; }
 
         public Order()
         {
         }
-        public Order(int? order_id,string address_Shipping, DateTime order_date, int itemId, string order_note, string status, List<Items> itemsList, int itemCount, decimal amount)
+        public Order(int? order_id, string address_Shipping, DateTime order_date, int itemId, string status, List<Items> itemsList, int itemQuantity, int amount)
         {
             this.Order_ID = order_id;
             this.Order_Date = order_date;
             this.Address_Shipping = address_Shipping;
-            this.Order_Note = order_note;
             this.ItemsList = itemsList;
-            this.ItemCount = itemCount;
+            this.ItemQuantity = itemQuantity;
             this.Amount = amount;
             this.Status = status;
             this.ItemId = itemId;
@@ -40,7 +38,7 @@ namespace HP_Persistence
 
         public override int GetHashCode()
         {
-            return (Order_ID + Status + Customer + Order_Note + Order_Date + ItemsList).GetHashCode();
+            return (Order_ID + Status + Customer + Address_Shipping + Order_Date + ItemsList).GetHashCode();
         }
     }
 }
