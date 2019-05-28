@@ -28,6 +28,34 @@ namespace HP_BL
             }
             return IDAL.GetItemByProduceCode(Produce_Code);
         }
+        // public Items GetItemByProduceCodeAndTradeMark(int? Produce_Code, string trademark)
+        // {
+        //     if (Produce_Code == null)
+        //     {
+        //         return null;
+        //     }
+        //     Regex regex = new Regex("[0-9]");
+        //     MatchCollection matchCollection = regex.Matches(Produce_Code.ToString());
+        //     if (matchCollection.Count < Produce_Code.ToString().Length)
+        //     {
+        //         return null;
+        //     }
+        //     return IDAL.GetItemByProduceCodeAndTradeMark(Produce_Code, trademark);
+        // }
+        // public Items GetItemByProduceCodeAndAttribute(int? Produce_Code, string attribute)
+        // {
+        //     if (Produce_Code == null)
+        //     {
+        //         return null;
+        //     }
+        //     Regex regex = new Regex("[0-9]");
+        //     MatchCollection matchCollection = regex.Matches(Produce_Code.ToString());
+        //     if (matchCollection.Count < Produce_Code.ToString().Length)
+        //     {
+        //         return null;
+        //     }
+        //     return IDAL.GetItemByProduceCodeAndAttribute(Produce_Code, attribute);
+        // }
         public List<Items> GetAllItems()
         {
             return IDAL.GetAllItems();

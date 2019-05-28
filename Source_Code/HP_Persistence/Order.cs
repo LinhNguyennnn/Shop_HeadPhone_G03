@@ -6,19 +6,46 @@ namespace HP_Persistence
     public class Order
     {
         public int? Order_ID { get; set; }
-        public DateTime? Order_Date { get; set; }
-        public Customers OrderCustomer { set; get; }
+        public int ItemId { get; set; }
+        public DateTime Order_Date { get; set; }
+        public int ItemCount { set; get; }
+        public Customers Customer { get; set; }
+        public string Status { get; set; }
+        public string Note { get; set; }
+        public decimal Amount { set; get; }
         public string Order_Note { get; set; }
 
-        public List<Items> ListItems { get; set; }
+        public List<Items> ItemsList { get; set; }
 
+<<<<<<< HEAD
         public Order() { }
         public Order(int? order_id, DateTime? order_date, string order_note, List<Items> listItems)
+=======
+        public Order()
+        {
+        }
+        public Order(int? order_id,string note, DateTime order_date, int itemId, string order_note, string status, List<Items> itemsList, int itemCount, decimal amount)
+>>>>>>> b64bf9dd057536c06e96f5ff700f46f6672d04e8
         {
             this.Order_ID = order_id;
             this.Order_Date = order_date;
+            this.Note = note;
             this.Order_Note = order_note;
-            this.ListItems = listItems;
+            this.ItemsList = itemsList;
+            this.ItemCount = itemCount;
+            this.Amount = amount;
+            this.Status = status;
+            this.ItemId = itemId;
+        }
+        public override bool Equals(object obj)
+        {
+            return obj is Order order &&
+                   Order_ID == order.Order_ID;
+        }
+
+        public override int GetHashCode()
+        {
+            return (Order_ID + Status + Customer + Order_Note + Order_Date + ItemsList).GetHashCode();
         }
     }
 }

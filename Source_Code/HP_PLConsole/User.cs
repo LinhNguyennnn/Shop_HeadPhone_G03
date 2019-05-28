@@ -9,8 +9,11 @@ using Newtonsoft.Json;
 
 namespace HP_PLConsole
 {
-    class User : Product
+    class User
     {
+        private static Product Product = new Product();
+        private static List<Items> ListItems = new List<Items>();
+        decimal amount = 0;
         public void ScreenLogin()
         {
             Menu MN = new Menu();
@@ -126,34 +129,39 @@ namespace HP_PLConsole
                             continue;
                     }
                 }
-                else
-                {
-                    while (true)
-                    {
-                        Console.Clear();
-                        string[] choice = { "Menu sản phẩm", "Thông tin cá nhân", "Xem giỏ hàng", "Đăng xuất" };
-                        int number = SubMenu($"Chào mừng {Cus.User_Name} đến với của hàng", choice);
-                        switch (number)
-                        {
-                            case 1:
-                                DisplayProduct(Cus);
-                                break;
-                            case 2:
-                                CustomerProfile(Un, Pw);
-                                break;
-                            case 3:
-                                DisplayCart(Cus);
-                                break;
-                            case 4:
-                                Console.Clear();
-                                MN.menu(null);
-                                break;
-                        }
-                    }
-                }
+                // else
+                // {
+                //     while (true)
+                //     {
+
+                //     }
+                // }
+                UserMenu(Cus, Un, Pw);
             }
         }
-
+        public void UserMenu(Customers Cus, string Un, string Pw)
+        {
+            Console.Clear();
+            Menu MN = new Menu();
+            string[] choice = { "Menu sản phẩm", "Thông tin cá nhân", "Xem giỏ hàng", "Đăng xuất" };
+            int number = Product.SubMenu($"Chào mừng {Cus.User_Name} đến với của hàng", choice);
+            switch (number)
+            {
+                case 1:
+                    Product.DisplayProduct(Cus);
+                    break;
+                case 2:
+                    CustomerProfile(Un, Pw);
+                    break;
+                case 3:
+                    DisplayCart(Cus);
+                    break;
+                case 4:
+                    Console.Clear();
+                    MN.menu(null);
+                    break;
+            }
+        }
         public bool Validate(string str)
         {
             Regex regex = new Regex("[a-zA-Z0-9_]");
@@ -204,9 +212,37 @@ namespace HP_PLConsole
             {
                 Cus = CusBL.Login(username, password);
             }
-            catch (System.Exception)
+            catch
             {
+                Menu MN = new Menu();
                 Console.WriteLine("Mất kết nối!");
+                Console.Write("Bạn có muốn đăng nhập lại không? (Y/N): ");
+                string select = Console.ReadLine().ToUpper();
+                while (true)
+                {
+                    if (select != "Y" && select != "N")
+                    {
+                        Console.Write("Bạn có muốn đăng nhập lại không? (Y/N): ");
+                        select = Console.ReadLine().ToUpper();
+                        continue;
+                    }
+                    break;
+                }
+                switch (select)
+                {
+                    case "Y":
+                        ScreenLogin();
+                        break;
+                    case "y":
+                        ScreenLogin();
+                        break;
+                    case "N":
+                        MN.menu(null);
+                        break;
+                    case "n":
+                        MN.menu(null);
+                        break;
+                }
             }
             Console.WriteLine("\nTên khách hàng: {0}", Cus.Cus_Name);
             Console.WriteLine("Ngày sinh: {0}", Cus.Cus_DateBirth.ToString("dd/MM/yyyy"));
@@ -215,40 +251,54 @@ namespace HP_PLConsole
             Console.WriteLine("Số điện thoại: {0}", Cus.Cus_Phone_Numbers);
             Console.Write("\nNhấn phím bất kỳ để quay lại!");
             Console.ReadKey();
+            UserMenu(Cus, username, password);
         }
 
         public void AddToCart(Items item, Customers Cus)
         {
             Console.Clear();
-            List<Items> ListItems = new List<Items>();
+
             ListItems.Add(item);
             string sJSONReponse = JsonConvert.SerializeObject(ListItems);
             BinaryWriter bw;
             try
             {
-                FileStream fs = new FileStream($"CartOf{Cus.User_Name}.dat", FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite);
-                bw = new BinaryWriter(fs);
-                bw.Write((string)(object)sJSONReponse);
-                bw.Close();
+                if (!File.Exists($"CartOf{Cus.User_Name}.dat"))
+                {
+                    FileStream fs = new FileStream($"CartOf{Cus.User_Name}.dat", FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite);
+                    bw = new BinaryWriter(fs);
+                    bw.Write((string)(object)sJSONReponse);
+                    bw.Close();
+                    fs.Close();
+                    Console.WriteLine("Đã thêm vào giỏ hàng!");
+                }
+                else
+                {
+                    FileStream fs = new FileStream($"CartOf{Cus.User_Name}.dat", FileMode.Append, FileAccess.Write, FileShare.ReadWrite);
+                    bw = new BinaryWriter(fs);
+                    bw.Write((string)(object)sJSONReponse + Environment.NewLine);
+                    bw.Close();
+                    Console.WriteLine("Đã thêm vào giỏ hàng!");
+                }
+                while (true)
+                {
+                    string[] choice = { "Xem giỏ hàng", "Menu sản phẩm" };
+                    int number = Product.SubMenu(null, choice);
+                    switch (number)
+                    {
+                        case 1:
+                            DisplayCart(Cus);
+                            break;
+                        case 2:
+                            Product.DisplayProduct(Cus);
+                            break;
+                    }
+                }
             }
             catch (System.Exception)
             {
                 Console.WriteLine("Không thêm được sản phẩm vào giỏ hàng!");
-            }
-            Console.WriteLine("Đã thêm vào giỏ hàng!");
-            while (true)
-            {
-                string[] choice = { "Xem giỏ hàng", "Menu sản phẩm" };
-                int number = SubMenu(null, choice);
-                switch (number)
-                {
-                    case 1:
-                        DisplayCart(Cus);
-                        break;
-                    case 2:
-                        DisplayProduct(Cus);
-                        break;
-                }
+                Console.ReadKey();
             }
         }
 
@@ -256,35 +306,41 @@ namespace HP_PLConsole
         {
             Console.Clear();
             ConsoleTable table = new ConsoleTable();
-            List<Items> ListItems = new List<Items>();
-            Items item = new Items();
+            List<Items> ListItems = null;
             BinaryReader br;
             try
             {
                 if (File.Exists($"CartOf{Cus.User_Name}.dat"))
                 {
-                    FileStream fs = new FileStream($"CartOf{Cus.User_Name}.dat", FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+                    FileStream fs = new FileStream($"CartOf{Cus.User_Name}.dat", FileMode.OpenOrCreate, FileAccess.ReadWrite);
                     br = new BinaryReader(fs);
                     string str = br.ReadString();
                     ListItems = JsonConvert.DeserializeObject<List<Items>>(str);
+
+                    fs.Close();
                     br.Close();
+                    Console.WriteLine("==================================================================================\n");
+                    Console.WriteLine($"Giỏ hảng của {Cus.User_Name}");
+                    Console.WriteLine("==================================================================================\n");
+
                     table = new ConsoleTable("Mã sản phẩm", "Tên sản phẩm", "Hãng", "Thuộc tính", "Giá sản phẩm");
-                    foreach (var i in ListItems)
+                    foreach (Items i in ListItems)
                     {
                         table.AddRow(i.Produce_Code, i.Item_Name, i.Trademark, i.Attribute, i.Item_Price);
+                        // amount += i.Item_Price * i.Quantity;
                     }
                     table.Write(Format.Alternative);
                     while (true)
                     {
                         string[] choice = { "Đặt hàng", "Quay lại" };
-                        int number = SubMenu(null, choice);
+                        int number = Product.SubMenu(null, choice);
                         switch (number)
                         {
                             case 1:
-                                CreateOrder();
+                                Product.CreateOrder(ListItems, amount);
                                 break;
                             case 2:
-                                DisplayProduct(Cus);
+                                Product.DisplayProduct(Cus);
                                 break;
                         }
                     }
@@ -294,16 +350,14 @@ namespace HP_PLConsole
                     Console.WriteLine("Giỏ hàng trống!");
                     Console.Write("\nNhấn phím bất kỳ để quay lại!");
                     Console.ReadKey();
+                    UserMenu(Cus, null, null);
                 }
             }
             catch (System.Exception)
             {
                 Console.WriteLine("Mất kết nối !");
+                Console.ReadKey();
             }
-        }
-        public void CreateOrder()
-        {
-            
         }
     }
 }
