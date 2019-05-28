@@ -135,7 +135,7 @@ namespace HP_PLConsole
         {
             //Console.Clear();
             Menu MN = new Menu();
-            string[] choice = { "Menu sản phẩm", "Thông tin cá nhân", "Xem giỏ hàng", "Đăng xuất" };
+            string[] choice = { "Menu sản phẩm", "Thông tin cá nhân", "Xem giỏ hàng", "Đã mua", "Đăng xuất" };
             int number = Product.SubMenu($"Chào mừng {Cus.User_Name} đến với của hàng", choice);
             switch (number)
             {
@@ -149,6 +149,9 @@ namespace HP_PLConsole
                     DisplayCart(Cus);
                     break;
                 case 4:
+                    Userhasbought(Cus);
+                    break;
+                case 5:
                     MN.menu(null);
                     break;
             }
@@ -281,7 +284,7 @@ namespace HP_PLConsole
             }
         }
 
-        public void DisplayCart(Customers Cus )
+        public void DisplayCart(Customers Cus)
         {
             //Console.Clear();
 
@@ -320,9 +323,9 @@ namespace HP_PLConsole
                                 bool check = true;
                                 Order order = new Order();
                                 Order_BL OBL = new Order_BL();
-                                Console.Write("Nhập ghi chú: ");
-                                string note = Console.ReadLine().Trim();
-                                order.Note = note;
+                                Console.Write("Địa chỉ giao hàng: ");
+                                string address_Shipping = Console.ReadLine().Trim();
+                                order.Address_Shipping = address_Shipping;
                                 order.Order_Date = DateTime.Now;
                                 order.Status = "Không thành công";
                                 order.Amount = amount;
@@ -379,6 +382,46 @@ namespace HP_PLConsole
             {
                 Console.WriteLine("Mất kết nối !");
                 Console.ReadKey();
+            }
+        }
+        public void Userhasbought(Customers Cus)
+        {
+            while (true)
+            {
+                Console.WriteLine("===========================================================");
+                Console.WriteLine("                             Đã mua");
+                Console.WriteLine("===========================================================");
+                List<Order> ListOrder;
+                try
+                {
+                    Order_BL OBL = new Order_BL();
+                    ListOrder = OBL.GetOrderByCustomerId(Cus.Cus_ID);
+                }
+                catch (System.Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    Console.ReadKey();
+                    break;
+                }
+                if (ListOrder == null)
+                {
+                    Console.WriteLine("Danh sách trống !\n");
+                    Console.ReadKey();
+                    break;
+                }
+                var table = new ConsoleTable("Mã đặt hàng", "Ngày đặt hàng", "Địa chỉ giao hàng", "Trạng thái");
+                foreach (Order order in ListOrder)
+                {
+                    if (order.Address_Shipping.Length <= 0)
+                    {
+                        order.Address_Shipping = Cus.Cus_Address;
+                    }
+                    table.AddRow(order.Order_ID, order.Order_Date, order.Address_Shipping, order.Status);
+                }
+                table.Write(Format.Alternative);
+                Console.WriteLine("Nhấn phím bất kỳ để quay lại! ");
+                Console.ReadKey();
+                break;
             }
         }
     }

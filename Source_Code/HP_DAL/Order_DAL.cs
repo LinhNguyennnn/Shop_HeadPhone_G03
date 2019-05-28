@@ -29,11 +29,11 @@ namespace HP_DAL
             {
                 int? orderId = 0;
 
-                command.CommandText = @"insert into Orders(Cus_ID, Order_Status, Order_Date, Note) values (@Cus_ID, @Order_Status, @Order_Date,@Note);";
+                command.CommandText = @"insert into Orders(Cus_ID, Order_Status, Order_Date, Address_Shipping) values (@Cus_ID, @Order_Status, @Order_Date,@Address_Shipping);";
                 command.Parameters.Clear();
                 command.Parameters.AddWithValue("@Cus_ID", order.Customer.Cus_ID);
                 command.Parameters.AddWithValue("@Order_Status", order.Status);
-                command.Parameters.AddWithValue("@Note", order.Order_Note);
+                command.Parameters.AddWithValue("@Address_Shipping", order.Order_Note);
                 command.Parameters.AddWithValue("@Order_Date", order.Order_Date);
                 command.ExecuteNonQuery();
                 command.CommandText = @"select LAST_INSERT_ID() as Order_ID";
@@ -145,7 +145,7 @@ namespace HP_DAL
             Order order = new Order();
             order.Order_ID = reader.GetInt32("Order_ID");
             order.Order_Date = reader.GetDateTime("Order_Date");
-            order.Note = reader.GetString("Note");
+            order.Address_Shipping = reader.GetString("Address_Shipping");
             order.Status = reader.GetString("Order_Status");
             order.Customer = new Customers();
             order.Customer.Cus_ID = reader.GetInt32("Cus_ID");

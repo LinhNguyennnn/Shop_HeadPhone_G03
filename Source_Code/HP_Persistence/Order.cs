@@ -11,7 +11,7 @@ namespace HP_Persistence
         public int ItemCount { set; get; }
         public Customers Customer { get; set; }
         public string Status { get; set; }
-        public string Note { get; set; }
+        public string Address_Shipping { get; set; }
         public decimal Amount { set; get; }
         public string Order_Note { get; set; }
 
@@ -20,11 +20,11 @@ namespace HP_Persistence
         public Order()
         {
         }
-        public Order(int? order_id,string note, DateTime order_date, int itemId, string order_note, string status, List<Items> itemsList, int itemCount, decimal amount)
+        public Order(int? order_id,string address_Shipping, DateTime order_date, int itemId, string order_note, string status, List<Items> itemsList, int itemCount, decimal amount)
         {
             this.Order_ID = order_id;
             this.Order_Date = order_date;
-            this.Note = note;
+            this.Address_Shipping = address_Shipping;
             this.Order_Note = order_note;
             this.ItemsList = itemsList;
             this.ItemCount = itemCount;

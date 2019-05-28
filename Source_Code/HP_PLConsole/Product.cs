@@ -352,6 +352,21 @@ namespace HP_PLConsole
                 }
             }
             Console.WriteLine("Thanh toán thành công !");
+            try
+            {
+                if (File.Exists("CartOf" + order.Customer + ".dat"))
+                {
+                    File.Delete("CartOf" + order.Customer + ".dat");
+                }
+                else
+                {
+                    Console.WriteLine("Giỏ hàng không tồn tại");
+                }
+            }
+            catch (IOException ioExp)
+            {
+                Console.WriteLine(ioExp.Message);
+            }
             Console.ReadKey();
             U.UserMenu(order.Customer, null, null);
         }
