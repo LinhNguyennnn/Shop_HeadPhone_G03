@@ -306,7 +306,7 @@ namespace HP_PLConsole
             Order order = new Order();
             Customers Cus = new Customers();
             Order_BL OBL = new Order_BL();
-            Console.Write("Nhập : ");
+            Console.Write("Nhập ghi chú: ");
             string note = Console.ReadLine().Trim();
             order.Note = note;
             order.Order_Date = DateTime.Now;

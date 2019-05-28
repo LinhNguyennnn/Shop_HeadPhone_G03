@@ -14,6 +14,7 @@ namespace HP_PLConsole
         private static Product Product = new Product();
         private static List<Items> ListItems = new List<Items>();
         decimal amount = 0;
+        int itemCount = 0;
         public void ScreenLogin()
         {
             Menu MN = new Menu();
@@ -256,11 +257,11 @@ namespace HP_PLConsole
             BinaryWriter bw;
             try
             {
-                    FileStream fs = new FileStream($"CartOf{Cus.User_Name}.dat", FileMode.OpenOrCreate, FileAccess.Write);
-                    bw = new BinaryWriter(fs);
-                    bw.Write((string)(object)sJSONReponse + Environment.NewLine);
-                    fs.Close();
-                    Console.WriteLine("Đã thêm vào giỏ hàng!");
+                FileStream fs = new FileStream($"CartOf{Cus.User_Name}.dat", FileMode.OpenOrCreate, FileAccess.Write);
+                bw = new BinaryWriter(fs);
+                bw.Write((string)(object)sJSONReponse + Environment.NewLine);
+                fs.Close();
+                Console.WriteLine("Đã thêm vào giỏ hàng!");
                 while (true)
                 {
                     string[] choice = { "Xem giỏ hàng", "Menu sản phẩm" };
@@ -286,7 +287,7 @@ namespace HP_PLConsole
         public void DisplayCart(Customers Cus)
         {
             //Console.Clear();
-         
+
             List<Items> Items = null;
             BinaryReader br;
             try
@@ -307,11 +308,11 @@ namespace HP_PLConsole
                     var table = new ConsoleTable("Mã sản phẩm", "Tên sản phẩm", "Hãng", "Thuộc tính", "Giá sản phẩm");
                     foreach (Items i in Items)
                     {
-                        
+
                         table.AddRow(i.Produce_Code, i.Item_Name, i.Trademark, i.Attribute, i.Item_Price);
                         // amount += i.Item_Price * i.Quantity;
                     }
-              
+
                     table.Write(Format.Alternative);
                     while (true)
                     {
