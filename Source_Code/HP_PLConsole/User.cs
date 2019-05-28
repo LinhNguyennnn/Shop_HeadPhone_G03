@@ -263,23 +263,24 @@ namespace HP_PLConsole
             BinaryWriter bw;
             try
             {
-                if (!File.Exists($"CartOf{Cus.User_Name}.dat"))
-                {
-                    FileStream fs = new FileStream($"CartOf{Cus.User_Name}.dat", FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite);
+                // if (!File.Exists($"CartOf{Cus.User_Name}.dat"))
+                // {
+                    FileStream fs = new FileStream($"CartOf{Cus.User_Name}.dat", FileMode.OpenOrCreate, FileAccess.Write);
                     bw = new BinaryWriter(fs);
                     bw.Write((string)(object)sJSONReponse);
-                    bw.Close();
+                    // bw.Close();
                     fs.Close();
                     Console.WriteLine("Đã thêm vào giỏ hàng!");
-                }
-                else
-                {
-                    FileStream fs = new FileStream($"CartOf{Cus.User_Name}.dat", FileMode.Append, FileAccess.Write, FileShare.ReadWrite);
-                    bw = new BinaryWriter(fs);
-                    bw.Write((string)(object)sJSONReponse + Environment.NewLine);
-                    bw.Close();
-                    Console.WriteLine("Đã thêm vào giỏ hàng!");
-                }
+                // }
+                // else
+                // {
+                //     FileStream fs = new FileStream($"CartOf{Cus.User_Name}.dat", FileMode.Append, FileAccess.Write, FileShare.ReadWrite);
+                //     bw = new BinaryWriter(fs);
+                //     bw.Write((string)(object)sJSONReponse + Environment.NewLine);
+                //     bw.Close();
+                //     fs.Close();
+                //     Console.WriteLine("Đã thêm vào giỏ hàng!");
+                // }
                 while (true)
                 {
                     string[] choice = { "Xem giỏ hàng", "Menu sản phẩm" };
@@ -305,8 +306,8 @@ namespace HP_PLConsole
         public void DisplayCart(Customers Cus)
         {
             Console.Clear();
-            ConsoleTable table = new ConsoleTable();
-            List<Items> ListItems = null;
+         
+            List<Items> Items = null;
             BinaryReader br;
             try
             {
@@ -315,7 +316,7 @@ namespace HP_PLConsole
                     FileStream fs = new FileStream($"CartOf{Cus.User_Name}.dat", FileMode.OpenOrCreate, FileAccess.ReadWrite);
                     br = new BinaryReader(fs);
                     string str = br.ReadString();
-                    ListItems = JsonConvert.DeserializeObject<List<Items>>(str);
+                    Items = JsonConvert.DeserializeObject<List<Items>>(str);
 
                     fs.Close();
                     br.Close();
@@ -323,12 +324,14 @@ namespace HP_PLConsole
                     Console.WriteLine($"Giỏ hảng của {Cus.User_Name}");
                     Console.WriteLine("==================================================================================\n");
 
-                    table = new ConsoleTable("Mã sản phẩm", "Tên sản phẩm", "Hãng", "Thuộc tính", "Giá sản phẩm");
-                    foreach (Items i in ListItems)
+                    var table = new ConsoleTable("Mã sản phẩm", "Tên sản phẩm", "Hãng", "Thuộc tính", "Giá sản phẩm");
+                    foreach (Items i in Items)
                     {
+                        
                         table.AddRow(i.Produce_Code, i.Item_Name, i.Trademark, i.Attribute, i.Item_Price);
                         // amount += i.Item_Price * i.Quantity;
                     }
+              
                     table.Write(Format.Alternative);
                     while (true)
                     {
@@ -337,7 +340,7 @@ namespace HP_PLConsole
                         switch (number)
                         {
                             case 1:
-                                Product.CreateOrder(ListItems, amount);
+                                Product.CreateOrder(Items, amount);
                                 break;
                             case 2:
                                 Product.DisplayProduct(Cus);
