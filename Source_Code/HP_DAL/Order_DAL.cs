@@ -16,7 +16,6 @@ namespace HP_DAL
             bool result = false;
 
             connection = DbHelper.OpenConnection();
-
             MySqlCommand command = new MySqlCommand();
             command.Connection = connection;
 
@@ -63,13 +62,14 @@ namespace HP_DAL
             {
                 command.CommandText = @"unlock tables;";
                 command.ExecuteNonQuery();
+                connection.Close();
                 DbHelper.CloseConnection();
             }
             return result;
         }
         public List<Order> GetOrderByCustomerId(int customerId)
         {
-            DbHelper.OpenConnection();
+            connection = DbHelper.OpenConnection();
             query = @"select * from Orders where Cus_ID = " + customerId + ";";
             reader = DbHelper.ExecQuery(query);
             List<Order> order = null;
@@ -84,7 +84,7 @@ namespace HP_DAL
         public bool DeleteOrder(int? orderId)
         {
             bool result = false;
-            DbHelper.OpenConnection();
+            connection = DbHelper.OpenConnection();
             MySqlCommand command = new MySqlCommand();
             command.Connection = connection;
             command.CommandText = @"lock tables Customers write, Items write, Orders write,OrderDetails write;";
@@ -111,8 +111,8 @@ namespace HP_DAL
                 command.CommandText = @"unlock tables;";
                 command.ExecuteNonQuery();
                 connection.Close();
+                DbHelper.CloseConnection();
             }
-            DbHelper.CloseConnection();
             return result;
         }
         private List<Order> GetListOrderInfo(MySqlDataReader reader)
@@ -140,7 +140,7 @@ namespace HP_DAL
         public bool UpdateStatusOrder(int? orderId)
         {
             bool result = false;
-            DbHelper.OpenConnection();
+            connection = DbHelper.OpenConnection();
             MySqlCommand command = new MySqlCommand();
             command.Connection = connection;
             command.CommandText = @"lock tables Customers write, Items write, Orders write,OrderDetails write;";
