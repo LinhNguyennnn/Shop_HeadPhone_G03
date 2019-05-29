@@ -17,15 +17,8 @@ namespace HP_Persistence
 
         public List<Items> ItemsList { get; set; }
 
-<<<<<<< HEAD
         public Order() { }
-        public Order(int? order_id,string note, DateTime order_date, int itemId, string order_note, string status, List<Items> itemsList, int itemCount, decimal amount)
-=======
-        public Order()
-        {
-        }
         public Order(int? order_id,string address_Shipping, DateTime order_date, int itemId, string order_note, string status, List<Items> itemsList, int itemCount, decimal amount)
->>>>>>> 9918ba7f48a5450a324db4d0cae75ec67b9aa8dc
         {
             this.Order_ID = order_id;
             this.Order_Date = order_date;
@@ -39,8 +32,7 @@ namespace HP_Persistence
         }
         public override bool Equals(object obj)
         {
-            return obj is Order order &&
-                   Order_ID == order.Order_ID;
+            return obj is Order order && Order_ID == order.Order_ID;
         }
 
         public override int GetHashCode()
