@@ -21,8 +21,9 @@ namespace HP_DAL
             {
                 DbHelper.OpenConnection();
             }
-            catch (System.Exception)
+            catch (System.Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 return null;
             }
             query = $"select * from Items where Produce_Code = " + _code + ";";
@@ -45,11 +46,12 @@ namespace HP_DAL
             {
                 DbHelper.OpenConnection();
             }
-            catch
+            catch (System.Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 return null;
             }
-            query = $"select * from Items where Produce_Code = " + _code + " and Trademark = '" + Attribute + "';";
+            query = $"select * from Items where Produce_Code = " + _code + " and Attribute = '" + Attribute + "';";
             reader = DbHelper.ExecQuery(query);
             Items item = null;
             if (reader.Read())
@@ -69,8 +71,9 @@ namespace HP_DAL
             {
                 DbHelper.OpenConnection();
             }
-            catch
+            catch (System.Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 return null;
             }
             query = $"select * from Items where Produce_Code = " + _code + " and Trademark = '" + TradeMark + "';";
@@ -120,13 +123,18 @@ namespace HP_DAL
                 Console.WriteLine(ex.Message);
                 return null;
             }
-            query = $"select * from Items where Trademark = '" + tradeMark + "';";
-            reader = DbHelper.ExecQuery(query);
+            query = @"select * from Items where Trademark = '" + tradeMark + "';";
             List<Items> items = null;
+            reader = DbHelper.ExecQuery(query);
             items = new List<Items>();
+           
             while (reader.Read())
             {
                 items.Add(GetItems(reader));
+            }
+             if (items.Count <= 0)
+            {
+                return null;
             }
             DbHelper.CloseConnection();
             return items;
@@ -142,17 +150,23 @@ namespace HP_DAL
             {
                 DbHelper.OpenConnection();
             }
-            catch (System.Exception)
+            catch (System.Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 return null;
             }
             query = $"select * from Items where Attribute = '" + attribute + "';";
-            reader = DbHelper.ExecQuery(query);
             List<Items> items = null;
+            reader = DbHelper.ExecQuery(query);
             items = new List<Items>();
+           
             while (reader.Read())
             {
                 items.Add(GetItems(reader));
+            }
+             if (items.Count <= 0)
+            {
+                return null;
             }
             DbHelper.CloseConnection();
             return items;

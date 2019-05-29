@@ -27,7 +27,7 @@ create table if not exists Orders(
     Cus_ID int not null,
     Order_Status nvarchar(50),
     Order_Date  timestamp,
-    Note nvarchar(500),
+    Address_Shipping nvarchar(500),
     primary key(Order_ID, Cus_ID),
     foreign key (Cus_ID) references Customers(Cus_ID)
 );

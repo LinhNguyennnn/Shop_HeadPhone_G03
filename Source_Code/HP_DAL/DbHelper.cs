@@ -25,8 +25,9 @@ namespace HP_DAL
                 connection.Open();
                 return connection;
             }
-            catch (System.Exception)
+            catch (System.Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 return null;
             }
         }

@@ -33,7 +33,7 @@ namespace HP_DAL
                 command.Parameters.Clear();
                 command.Parameters.AddWithValue("@Cus_ID", order.Customer.Cus_ID);
                 command.Parameters.AddWithValue("@Order_Status", order.Status);
-                command.Parameters.AddWithValue("@Address_Shipping", order.Order_Note);
+                command.Parameters.AddWithValue("@Address_Shipping", order.Address_Shipping);
                 command.Parameters.AddWithValue("@Order_Date", order.Order_Date);
                 command.ExecuteNonQuery();
                 command.CommandText = @"select LAST_INSERT_ID() as Order_ID";
@@ -53,8 +53,9 @@ namespace HP_DAL
                 transaction.Commit();
                 result = true;
             }
-            catch (System.Exception)
+            catch (System.Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 transaction.Rollback();
                 throw;
             }
@@ -72,11 +73,12 @@ namespace HP_DAL
             {
                 DbHelper.OpenConnection();
             }
-            catch (System.Exception)
+            catch (System.Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 return null;
             }
-            query = @"select * from Order where Cus_ID = " + customerId + ";";
+            query = @"select * from Orders where Cus_ID = " + customerId + ";";
             reader = DbHelper.ExecQuery(query);
             List<Order> order = null;
             if (reader != null)
@@ -94,8 +96,9 @@ namespace HP_DAL
             {
                 DbHelper.OpenConnection();
             }
-            catch (System.Exception)
+            catch (System.Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 result = false;
             }
             MySqlCommand command = new MySqlCommand();
@@ -113,9 +116,9 @@ namespace HP_DAL
                 transaction.Commit();
                 result = true;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Console.WriteLine(e.Message);
+                Console.WriteLine(ex.Message);
                 result = false;
                 transaction.Rollback();
             }
@@ -135,7 +138,6 @@ namespace HP_DAL
             {
                 Order od = GetOrder(reader);
                 ListOrders.Add(od);
-
             }
             return ListOrders;
         }
@@ -158,8 +160,9 @@ namespace HP_DAL
             {
                 DbHelper.OpenConnection();
             }
-            catch (System.Exception)
+            catch (System.Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 result = false;
             }
 
@@ -178,9 +181,9 @@ namespace HP_DAL
                 transaction.Commit();
                 result = true;
             }
-            catch (Exception e)
+            catch (System.Exception ex)
             {
-                Console.WriteLine(e.Message);
+                Console.WriteLine(ex.Message);
                 result = false;
                 transaction.Rollback();
             }

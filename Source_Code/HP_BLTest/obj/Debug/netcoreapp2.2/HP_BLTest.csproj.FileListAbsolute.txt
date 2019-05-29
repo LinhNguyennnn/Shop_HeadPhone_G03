@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 D:\PROJECT\Shop_HeadPhone_G03\Source_Code\HP_BLTest\bin\Debug\netcoreapp2.2\xunit.runner.visualstudio.dotnetcore.testadapter.dll
 D:\PROJECT\Shop_HeadPhone_G03\Source_Code\HP_BLTest\bin\Debug\netcoreapp2.2\xunit.runner.reporters.netcoreapp10.dll
 D:\PROJECT\Shop_HeadPhone_G03\Source_Code\HP_BLTest\bin\Debug\netcoreapp2.2\xunit.runner.utility.netcoreapp10.dll
@@ -20,3 +21,27 @@ D:\PROJECT\Shop_HeadPhone_G03\Source_Code\HP_BLTest\obj\Debug\netcoreapp2.2\HP_B
 D:\PROJECT\Shop_HeadPhone_G03\Source_Code\HP_BLTest\obj\Debug\netcoreapp2.2\HP_BLTest.csproj.CopyComplete
 D:\PROJECT\Shop_HeadPhone_G03\Source_Code\HP_BLTest\obj\Debug\netcoreapp2.2\HP_BLTest.dll
 D:\PROJECT\Shop_HeadPhone_G03\Source_Code\HP_BLTest\obj\Debug\netcoreapp2.2\HP_BLTest.pdb
+=======
+c:\Users\lenovo\Desktop\Project\Shop_HeadPhone_G03\Source_Code\HP_BLTest\bin\Debug\netcoreapp2.2\xunit.runner.visualstudio.dotnetcore.testadapter.dll
+c:\Users\lenovo\Desktop\Project\Shop_HeadPhone_G03\Source_Code\HP_BLTest\bin\Debug\netcoreapp2.2\xunit.runner.reporters.netcoreapp10.dll
+c:\Users\lenovo\Desktop\Project\Shop_HeadPhone_G03\Source_Code\HP_BLTest\bin\Debug\netcoreapp2.2\xunit.runner.utility.netcoreapp10.dll
+c:\Users\lenovo\Desktop\Project\Shop_HeadPhone_G03\Source_Code\HP_BLTest\bin\Debug\netcoreapp2.2\ConnectionString.txt
+c:\Users\lenovo\Desktop\Project\Shop_HeadPhone_G03\Source_Code\HP_BLTest\bin\Debug\netcoreapp2.2\HP_BLTest.deps.json
+c:\Users\lenovo\Desktop\Project\Shop_HeadPhone_G03\Source_Code\HP_BLTest\bin\Debug\netcoreapp2.2\HP_BLTest.runtimeconfig.json
+c:\Users\lenovo\Desktop\Project\Shop_HeadPhone_G03\Source_Code\HP_BLTest\bin\Debug\netcoreapp2.2\HP_BLTest.runtimeconfig.dev.json
+c:\Users\lenovo\Desktop\Project\Shop_HeadPhone_G03\Source_Code\HP_BLTest\bin\Debug\netcoreapp2.2\HP_BLTest.dll
+c:\Users\lenovo\Desktop\Project\Shop_HeadPhone_G03\Source_Code\HP_BLTest\bin\Debug\netcoreapp2.2\HP_BLTest.pdb
+c:\Users\lenovo\Desktop\Project\Shop_HeadPhone_G03\Source_Code\HP_BLTest\bin\Debug\netcoreapp2.2\HP_BL.dll
+c:\Users\lenovo\Desktop\Project\Shop_HeadPhone_G03\Source_Code\HP_BLTest\bin\Debug\netcoreapp2.2\HP_DAL.dll
+c:\Users\lenovo\Desktop\Project\Shop_HeadPhone_G03\Source_Code\HP_BLTest\bin\Debug\netcoreapp2.2\HP_Persistence.dll
+c:\Users\lenovo\Desktop\Project\Shop_HeadPhone_G03\Source_Code\HP_BLTest\bin\Debug\netcoreapp2.2\HP_BL.pdb
+c:\Users\lenovo\Desktop\Project\Shop_HeadPhone_G03\Source_Code\HP_BLTest\bin\Debug\netcoreapp2.2\HP_Persistence.pdb
+c:\Users\lenovo\Desktop\Project\Shop_HeadPhone_G03\Source_Code\HP_BLTest\bin\Debug\netcoreapp2.2\HP_DAL.pdb
+c:\Users\lenovo\Desktop\Project\Shop_HeadPhone_G03\Source_Code\HP_BLTest\obj\Debug\netcoreapp2.2\HP_BLTest.csprojAssemblyReference.cache
+c:\Users\lenovo\Desktop\Project\Shop_HeadPhone_G03\Source_Code\HP_BLTest\obj\Debug\netcoreapp2.2\HP_BLTest.csproj.CoreCompileInputs.cache
+c:\Users\lenovo\Desktop\Project\Shop_HeadPhone_G03\Source_Code\HP_BLTest\obj\Debug\netcoreapp2.2\HP_BLTest.AssemblyInfoInputs.cache
+c:\Users\lenovo\Desktop\Project\Shop_HeadPhone_G03\Source_Code\HP_BLTest\obj\Debug\netcoreapp2.2\HP_BLTest.AssemblyInfo.cs
+c:\Users\lenovo\Desktop\Project\Shop_HeadPhone_G03\Source_Code\HP_BLTest\obj\Debug\netcoreapp2.2\HP_BLTest.csproj.CopyComplete
+c:\Users\lenovo\Desktop\Project\Shop_HeadPhone_G03\Source_Code\HP_BLTest\obj\Debug\netcoreapp2.2\HP_BLTest.dll
+c:\Users\lenovo\Desktop\Project\Shop_HeadPhone_G03\Source_Code\HP_BLTest\obj\Debug\netcoreapp2.2\HP_BLTest.pdb
+>>>>>>> 3c743ca3c5155f7656eaaef6dbe2852195541234
