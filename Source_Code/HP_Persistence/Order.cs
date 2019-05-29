@@ -16,15 +16,8 @@ namespace HP_Persistence
 
         public List<Items> ItemsList { get; set; }
 
-<<<<<<< HEAD
         public Order() { }
-        public Order(int? order_id,string address_Shipping, DateTime order_date, int itemId, string order_note, string status, List<Items> itemsList, int itemCount, decimal amount)
-=======
-        public Order()
-        {
-        }
         public Order(int? order_id, string address_Shipping, DateTime order_date, int itemId, string status, List<Items> itemsList, int itemQuantity, int amount)
->>>>>>> 3c743ca3c5155f7656eaaef6dbe2852195541234
         {
             this.Order_ID = order_id;
             this.Order_Date = order_date;

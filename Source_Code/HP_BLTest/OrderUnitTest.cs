@@ -15,13 +15,13 @@ namespace HP_BLTest
         //     Assert.NotNull(OBL.CreateOrder());
         // }
         // Test Delete Order
-        [Theory]
-        [InlineData(0)]
-        [InlineData(1)]
-        [InlineData(2)]
-        public void DeleteOrder(Oid)
-        {
-            Assert.Null(OBL.DeleteOrder(Oid));
-        }
+        // [Theory]
+        // [InlineData(0)]
+        // [InlineData(1)]
+        // [InlineData(2)]
+        // public void DeleteOrder(Oid)
+        // {
+        //     Assert.Null(OBL.DeleteOrder(Oid));
+        // }
     }
 }
