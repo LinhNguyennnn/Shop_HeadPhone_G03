@@ -127,14 +127,18 @@ namespace HP_PLConsole
                         int itemQuantity;
                         while (true)
                         {
-                            itemQuantity = input(Console.ReadLine());
-                            if (itemQuantity >= 1 && itemQuantity <= 10)
+                            try
                             {
-                                break;
+                                itemQuantity = int.Parse(Console.ReadLine());
+                                if (itemQuantity >= 1 && itemQuantity <= 10)
+                                {
+                                    break;
+                                }
                             }
-                            else
+                            catch (System.Exception)
                             {
-                                Console.WriteLine("Số lượng sản phẩm phải lớn hơn 0 và nhỏ 10 !");
+
+                                Console.WriteLine("Số lượng sản phẩm phải là số lớn hơn 0 và nhỏ 10 !");
                                 Console.Write("Nhập số lượng sản phẩm: ");
                                 continue;
                             }
@@ -168,8 +172,8 @@ namespace HP_PLConsole
                     trade = "MEE";
                     break;
                 case 3:
-                    items = IBL.GetItemByTradeMark("RHAAUDIO");
-                    trade = "RHAAUDIO";
+                    items = IBL.GetItemByTradeMark("RHA AUDIO");
+                    trade = "RHA AUDIO";
                     break;
                 case 4:
                     items = IBL.GetItemByTradeMark("jabees");
@@ -188,8 +192,8 @@ namespace HP_PLConsole
                     trade = "Sennheiser";
                     break;
                 case 8:
-                    items = IBL.GetItemByTradeMark("AudioTechnica");
-                    trade = "AudioTechnica";
+                    items = IBL.GetItemByTradeMark("Audio Technica");
+                    trade = "Audio Technica";
                     break;
                 case 9:
                     items = IBL.GetItemByTradeMark("Skullcandy");
@@ -200,8 +204,8 @@ namespace HP_PLConsole
                     trade = "Ausdom";
                     break;
                 case 11:
-                    items = IBL.GetItemByTradeMark("More");
-                    trade = "More";
+                    items = IBL.GetItemByTradeMark("1More");
+                    trade = "1More";
                     break;
                 case 12:
                     DisplayProduct(Cus);
@@ -318,59 +322,6 @@ namespace HP_PLConsole
             }
             return DisplayItemDetail(Id, Cus);
         }
-        public void Pay(int amount)
-        {
-            Console.Clear();
-            Customer_BL CBL = new Customer_BL();
-            order.Customer = new Customers();
-            Console.WriteLine("============================================================================");
-            Console.WriteLine("                                  Thanh toán");
-            Console.WriteLine("============================================================================");
-            Console.Write("Nhập số tiền : ");
-            int money = input(Console.ReadLine());
-            while (true)
-            {
-                if (money >= 500 && money <= 10000000 && money % 500 == 0)
-                {
-                    if (money < amount)
-                    {
-                        Console.WriteLine("Số tiền bạn nhập vào nhỏ hơn tổng tiền phải thanh toán !");
-                        Console.Write("Nhập số tiền : ");
-                        money = input(Console.ReadLine());
-                        continue;
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("Số tiền nhập vào không hợp lệ ! ");
-                    Console.Write("Nhập số tiền : ");
-                    money = input(Console.ReadLine());
-                    continue;
-                }
-            }
-            Console.WriteLine("Thanh toán thành công !");
-            try
-            {
-                if (File.Exists("CartOf" + order.Customer + ".dat"))
-                {
-                    File.Delete("CartOf" + order.Customer + ".dat");
-                }
-                else
-                {
-                    Console.WriteLine("Giỏ hàng không tồn tại");
-                }
-            }
-            catch (IOException ioExp)
-            {
-                Console.WriteLine(ioExp.Message);
-            }
-            Console.ReadKey();
-            U.UserMenu(order.Customer, null, null);
-        }
         public static short SubMenu(string title, string[] menuItems)
         {
             short choose = 0;
@@ -393,7 +344,6 @@ namespace HP_PLConsole
                 catch
                 {
                     Console.WriteLine("Bạn đã nhập sai!");
-                    Console.Write("#Chọn: ");
                     continue;
                 }
             } while (choose <= 0 || choose > menuItems.Length);

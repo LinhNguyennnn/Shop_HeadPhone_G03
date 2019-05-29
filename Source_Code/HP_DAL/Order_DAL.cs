@@ -69,15 +69,7 @@ namespace HP_DAL
         }
         public List<Order> GetOrderByCustomerId(int customerId)
         {
-            try
-            {
-                DbHelper.OpenConnection();
-            }
-            catch (System.Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                return null;
-            }
+            DbHelper.OpenConnection();
             query = @"select * from Orders where Cus_ID = " + customerId + ";";
             reader = DbHelper.ExecQuery(query);
             List<Order> order = null;
@@ -92,15 +84,7 @@ namespace HP_DAL
         public bool DeleteOrder(int? orderId)
         {
             bool result = false;
-            try
-            {
-                DbHelper.OpenConnection();
-            }
-            catch (System.Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                result = false;
-            }
+            DbHelper.OpenConnection();
             MySqlCommand command = new MySqlCommand();
             command.Connection = connection;
             command.CommandText = @"lock tables Customers write, Items write, Orders write,OrderDetails write;";
@@ -156,27 +140,19 @@ namespace HP_DAL
         public bool UpdateStatusOrder(int? orderId)
         {
             bool result = false;
-            try
-            {
-                DbHelper.OpenConnection();
-            }
-            catch (System.Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                result = false;
-            }
-
+            DbHelper.OpenConnection();
             MySqlCommand command = new MySqlCommand();
             command.Connection = connection;
-            command.CommandText = @"lock tables Customers write, Items write, Orders write,OrderDetails write;"; command.ExecuteNonQuery();
+            command.CommandText = @"lock tables Customers write, Items write, Orders write,OrderDetails write;";
+            command.ExecuteNonQuery();
             MySqlTransaction transaction = connection.BeginTransaction();
             command.Transaction = transaction;
 
             try
             {
-                // command.Parameters.Clear();
-                command.CommandText = $"Update Orders set Order_Status = 'Thành công' where Order_ID = {orderId}";
-                //command.Parameters.AddWithValue("@OrderId", orderId);
+                command.Parameters.Clear();
+                command.CommandText = $"Update Orders set Order_Status = 'Thành công' where Order_ID = @Order_Id";
+                command.Parameters.AddWithValue("@Order", orderId);
                 command.ExecuteNonQuery();
                 transaction.Commit();
                 result = true;
@@ -189,7 +165,7 @@ namespace HP_DAL
             }
             finally
             {
-                command.CommandText = "unlock tables;";
+                command.CommandText = @"unlock tables;";
                 command.ExecuteNonQuery();
                 connection.Close();
             }

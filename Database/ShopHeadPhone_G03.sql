@@ -67,5 +67,6 @@ values('Urbanista Tokyo plus TWS','Urbanista','Không dây','2990000','Chíp Blu
       ('1More EB100 Wireless','1More','Thể thao','1500000','Thời lượng pin lên đến 8h, nói chuyện liên tục 10h chỉ mất 2h để sạc đầy pin. Có khả năng chống thấm mồ hôi và nước theo tiêu chuẩn IPX4. Kết nối bluetooth 4.1 và công nghệ giải mã tín hiệu APTX thế hệ mới nhất, với bán kính bắt sóng ổn định là 10m.'),
       ('1More iBFree','1More','Không dây','1150000','Thời lượng pin lên đến 8h, nói chuyện liên tục 10h chỉ mất 2h để sạc đầy pin. Có khả năng chống thấm mồ hôi và nước theo tiêu chuẩn IPX4. Kết nối bluetooth 4.1 và công nghệ giải mã tín hiệu APTX thế hệ mới nhất, với bán kính bắt sóng ổn định là 10m.');
 -- select * from Items where Produce_Code = '1' and Trademark = '';
+select distinct Trademark from Items;
 CREATE USER if not exists 'HP_User'@'localhost' IDENTIFIED BY '123456';
 GRANT ALL PRIVILEGES ON * . * TO 'HP_User'@'localhost'; 

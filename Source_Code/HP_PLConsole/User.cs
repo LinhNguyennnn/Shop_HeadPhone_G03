@@ -252,7 +252,6 @@ namespace HP_PLConsole
         public void AddToCart(Items item, Customers Cus)
         {
             Console.Clear();
-
             ListItems.Add(item);
             string sJSONReponse = JsonConvert.SerializeObject(ListItems);
             BinaryWriter bw;
@@ -304,9 +303,9 @@ namespace HP_PLConsole
                     fs.Close();
                     br.Close();
                     Console.WriteLine("==================================================================================");
-                    Console.WriteLine($"                    Giỏ hảng của {Cus.User_Name}");
+                    Console.WriteLine($"                               Giỏ hàng của {Cus.User_Name}");
                     Console.WriteLine("==================================================================================\n");
-                    table = new ConsoleTable("Mã sản phẩm", "Tên sản phẩm", "Hãng", "Thuộc tính", "Giá sản phẩm", "Số lượng", "Tổng tiền");
+                    table = new ConsoleTable("Mã sản phẩm", "Tên sản phẩm", "Hãng", "Thuộc tính", "Đơn giá", "Số lượng", "Tổng tiền");
                     int amount = 0;
                     foreach (Items i in Items)
                     {
@@ -327,6 +326,10 @@ namespace HP_PLConsole
                                 Order_BL OBL = new Order_BL();
                                 Console.Write("Địa chỉ giao hàng: ");
                                 string address_Shipping = Console.ReadLine().Trim();
+                                if (address_Shipping.Length <= 0)
+                                {
+                                    address_Shipping = Cus.Cus_Address;
+                                }
                                 order.Address_Shipping = address_Shipping;
                                 order.Order_Date = DateTime.Now;
                                 order.Status = "Không thành công";
@@ -349,7 +352,56 @@ namespace HP_PLConsole
                                         switch (b)
                                         {
                                             case 1:
-                                                Product.Pay(amount);
+                                                Console.Write("Nhập số tiền : ");
+                                                int money;
+                                                while (true)
+                                                {
+                                                    try
+                                                    {
+                                                        money = int.Parse(Console.ReadLine());
+                                                        if (money >= 500 && money <= 10000000 && money % 500 == 0)
+                                                        {
+                                                            if (money < amount)
+                                                            {
+                                                                Console.WriteLine("Số tiền bạn nhập vào nhỏ hơn tổng tiền phải thanh toán !");
+                                                                Console.Write("Nhập số tiền : ");
+                                                                money = Product.input(Console.ReadLine());
+                                                                continue;
+                                                            }
+                                                            else
+                                                            {
+                                                                break;
+                                                            }
+                                                        }
+                                                    }
+                                                    catch (System.Exception)
+                                                    {
+                                                        {
+                                                            Console.WriteLine("Số tiền nhập vào không hợp lệ ! ");
+                                                            Console.Write("Nhập số tiền : ");
+                                                            continue;
+                                                        }
+                                                    }
+                                                }
+                                                bool UpdateStatus = OBL.UpdateStatus(order.Order_ID);
+                                                Console.WriteLine("Thanh toán thành công !");
+                                                try
+                                                {
+                                                    if (File.Exists(Path.Combine($"CartOf{Cus.User_Name}.dat")))
+                                                    {
+                                                        File.Delete(Path.Combine($"CartOf{Cus.User_Name}.dat"));
+                                                    }
+                                                    else
+                                                    {
+                                                        Console.WriteLine("Giỏ hàng không tồn tại");
+                                                    }
+                                                }
+                                                catch (IOException ioExp)
+                                                {
+                                                    Console.WriteLine(ioExp.Message);
+                                                }
+                                                Console.ReadKey();
+                                                UserMenu(order.Customer, null, null);
                                                 break;
                                             case 2:
                                                 check = OBL.DeleteOrder(order.Order_ID);
@@ -361,13 +413,13 @@ namespace HP_PLConsole
                                 else
                                 {
                                     Console.WriteLine("\n Đặt hàng thất bại!\n");
-                                    Console.WriteLine("Nhấn phím bất kỳ để quay lại");
+                                    Console.WriteLine("Nhấn phím bất kỳ để quay lại Menu chính!");
                                     Console.ReadKey();
-                                    DisplayCart(Cus);
+                                    UserMenu(Cus, null, null);
                                 }
                                 break;
                             case 2:
-                                Product.DisplayProduct(Cus);
+                                UserMenu(Cus, null, null);
                                 break;
                         }
                     }
@@ -389,6 +441,7 @@ namespace HP_PLConsole
         }
         public void Userhasbought(Customers Cus)
         {
+            Console.Clear();
             while (true)
             {
                 Console.WriteLine("===========================================================");
@@ -415,10 +468,6 @@ namespace HP_PLConsole
                 table = new ConsoleTable("Mã đặt hàng", "Ngày đặt hàng", "Địa chỉ giao hàng", "Trạng thái");
                 foreach (Order order in ListOrder)
                 {
-                    if (order.Address_Shipping.Length <= 0)
-                    {
-                        order.Address_Shipping = Cus.Cus_Address;
-                    }
                     table.AddRow(order.Order_ID, order.Order_Date, order.Address_Shipping, order.Status);
                 }
                 table.Write(Format.Alternative);
