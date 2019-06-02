@@ -1221,11 +1221,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "d:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\HP_BL\\HP_BL.csproj",
+      "projectUniqueName": "D:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\HP_BL\\HP_BL.csproj",
       "projectName": "HP_BL",
-      "projectPath": "d:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\HP_BL\\HP_BL.csproj",
+      "projectPath": "D:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\HP_BL\\HP_BL.csproj",
       "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
-      "outputPath": "d:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\HP_BL\\obj\\",
+      "outputPath": "D:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\HP_BL\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -1242,11 +1242,11 @@
       "frameworks": {
         "netstandard2.0": {
           "projectReferences": {
-            "d:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\HP_DAL\\HP_DAL.csproj": {
-              "projectPath": "d:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\HP_DAL\\HP_DAL.csproj"
+            "D:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\HP_DAL\\HP_DAL.csproj": {
+              "projectPath": "D:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\HP_DAL\\HP_DAL.csproj"
             },
-            "d:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\HP_Persistence\\HP_Persistence.csproj": {
-              "projectPath": "d:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\HP_Persistence\\HP_Persistence.csproj"
+            "D:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\HP_Persistence\\HP_Persistence.csproj": {
+              "projectPath": "D:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\HP_Persistence\\HP_Persistence.csproj"
             }
           }
         }
