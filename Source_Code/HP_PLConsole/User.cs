@@ -327,7 +327,7 @@ namespace HP_PLConsole
                                 Order_BL OBL = new Order_BL();
                                 Console.Write("Địa chỉ giao hàng: ");
                                 string address_Shipping = Console.ReadLine().Trim();
-                                if (address_Shipping.Length <= 0)
+                                if (address_Shipping.Length == 0)
                                 {
                                     address_Shipping = Cus.Cus_Address;
                                 }
@@ -353,12 +353,12 @@ namespace HP_PLConsole
                                         switch (b)
                                         {
                                             case 1:
-                                                Console.Write("Nhập số tiền : ");
                                                 int money;
-                                                while (true)
+                                                try
                                                 {
-                                                    try
+                                                    while (true)
                                                     {
+                                                        Console.Write("Nhập số tiền : ");
                                                         money = int.Parse(Console.ReadLine());
                                                         if (money >= 500 && money <= 10000000 && money % 500 == 0)
                                                         {
@@ -375,13 +375,12 @@ namespace HP_PLConsole
                                                             }
                                                         }
                                                     }
-                                                    catch (System.Exception)
+                                                }
+                                                catch (System.Exception)
+                                                {
                                                     {
-                                                        {
-                                                            Console.WriteLine("Số tiền nhập vào không hợp lệ ! ");
-                                                            Console.Write("Nhập số tiền : ");
-                                                            continue;
-                                                        }
+                                                        Console.WriteLine("Số tiền nhập vào không hợp lệ ! ");
+                                                        Console.Write("Nhập số tiền : ");
                                                     }
                                                 }
                                                 bool UpdateStatus = OBL.UpdateStatus(order.Order_ID);
@@ -445,20 +444,18 @@ namespace HP_PLConsole
             Console.Clear();
             while (true)
             {
-                Console.WriteLine("===========================================================");
+                Console.WriteLine("==========================================================================");
                 Console.WriteLine("                             Đã mua");
-                Console.WriteLine("===========================================================");
+                Console.WriteLine("==========================================================================");
                 List<Order> ListOrder;
                 try
                 {
                     Order_BL OBL = new Order_BL();
                     ListOrder = OBL.GetOrderByCustomerId(Cus.Cus_ID);
                 }
-                catch (System.Exception ex)
+                catch (System.Exception)
                 {
-                    Console.WriteLine(ex.Message);
-                    Console.ReadKey();
-                    break;
+                    throw;
                 }
                 if (ListOrder.Count < 0)
                 {
@@ -469,7 +466,7 @@ namespace HP_PLConsole
                 table = new ConsoleTable("Mã đặt hàng", "Ngày đặt hàng", "Địa chỉ giao hàng", "Trạng thái");
                 foreach (Order order in ListOrder)
                 {
-                    table.AddRow(order.Order_ID, order.Order_Date, order.Address_Shipping, order.Status);
+                    table.AddRow(order.Order_ID, order.Order_Date.ToString("dd/MM/yyyy h:mm tt"), order.Address_Shipping, order.Status);
                 }
                 table.Write(Format.Alternative);
                 Console.WriteLine("Nhấn phím bất kỳ để quay lại! ");

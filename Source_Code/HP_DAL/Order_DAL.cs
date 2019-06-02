@@ -120,8 +120,8 @@ namespace HP_DAL
             List<Order> ListOrders = new List<Order>();
             while (reader.Read())
             {
-                Order od = GetOrder(reader);
-                ListOrders.Add(od);
+                Order order = GetOrder(reader);
+                ListOrders.Add(order);
             }
             return ListOrders;
         }
@@ -129,14 +129,15 @@ namespace HP_DAL
         private Order GetOrder(MySqlDataReader reader)
         {
             Order order = new Order();
-            order.Order_ID = reader.GetInt32("Order_ID");
+            order.Order_ID = reader.GetInt16("Order_ID");
             order.Order_Date = reader.GetDateTime("Order_Date");
             order.Address_Shipping = reader.GetString("Address_Shipping");
             order.Status = reader.GetString("Order_Status");
             order.Customer = new Customers();
-            order.Customer.Cus_ID = reader.GetInt32("Cus_ID");
+            order.Customer.Cus_ID = reader.GetInt16("Cus_ID");
             return order;
         }
+        
         public bool UpdateStatusOrder(int? orderId)
         {
             bool result = false;
@@ -151,8 +152,8 @@ namespace HP_DAL
             try
             {
                 command.Parameters.Clear();
-                command.CommandText = $"Update Orders set Order_Status = 'Thành công' where Order_ID = @Order_Id";
-                command.Parameters.AddWithValue("@Order", orderId);
+                command.CommandText = $"Update ignore Orders set Order_Status = 'Thành công' where Order_ID = @Order_Id";
+                command.Parameters.AddWithValue("@Order_Id", orderId);
                 command.ExecuteNonQuery();
                 transaction.Commit();
                 result = true;
