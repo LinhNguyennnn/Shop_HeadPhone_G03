@@ -11,7 +11,6 @@ namespace HP_BLTest
         Order_BL OBL = new Order_BL();
 
         // Test Create Order 
-<<<<<<< HEAD
         // [Fact]
         // public void GetItemByProduceCodeTest1()
         // {
@@ -26,7 +25,6 @@ namespace HP_BLTest
         // {
         //     Assert.Null(OBL.DeleteOrder(Oid));
         // }
-=======
         [Fact]
         public void CreateOrder()
         {
@@ -75,6 +73,5 @@ namespace HP_BLTest
         {
             Assert.False(OBL.UpdateStatus(id));
         }
->>>>>>> 01e642e8a83ffff67b13a69ca49ed7df4520a880
     }
 }
