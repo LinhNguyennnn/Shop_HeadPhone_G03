@@ -11,8 +11,6 @@ namespace HP_PLConsole
     public class Product
     {
         User U = new User();
-        Items item = new Items();
-        Order order = new Order();
         ConsoleTable table = new ConsoleTable();
         public void DisplayProduct(Customers Cus)
         {

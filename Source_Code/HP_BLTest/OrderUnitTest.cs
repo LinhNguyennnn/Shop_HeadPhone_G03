@@ -18,7 +18,7 @@ namespace HP_BLTest
             order.Customer = new Customers();
             order.Order_Date = DateTime.Now;
             order.Order_ID = 1;
-            order.Status = "OK";
+            order.Status = "Thành Công";
             order.Customer.Cus_ID = 1;
             order.ItemsList = new List<Items>();
             Items item = new Items();
@@ -30,6 +30,7 @@ namespace HP_BLTest
 
         // Test GetOrderByCustomerId
         [Theory]
+        [InlineData(1)]
         [InlineData(2)]
         [InlineData(3)]
         [InlineData(4)]

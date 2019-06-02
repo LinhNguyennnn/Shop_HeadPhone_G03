@@ -4,7 +4,7 @@ Create database if not exists Headphone_Shop_Gr3;
 use Headphone_Shop_Gr3;
 
 create table if not exists Customers(
-	Cus_ID int auto_increment primary key not null,
+	Cus_ID int auto_increment primary key,
     Cus_Name nvarchar(50) not null,
     Cus_DateBirth date not null,
     Cus_Address nvarchar(100) not null,
@@ -13,7 +13,7 @@ create table if not exists Customers(
     User_Name varchar(50) not null unique,
     User_Password varchar(15) not null
 );
-
+select * from Customers;
 create table if not exists Items(
 	Produce_Code int auto_increment primary key not null,
     Item_Name nvarchar(50) not null,
@@ -23,7 +23,7 @@ create table if not exists Items(
     Item_Description nvarchar(500) not null
 );
 create table if not exists Orders(
-	Order_ID int not null auto_increment,
+	Order_ID int auto_increment,
     Cus_ID int not null,
     Order_Status nvarchar(50),
     Order_Date  timestamp,
@@ -31,7 +31,6 @@ create table if not exists Orders(
     primary key(Order_ID, Cus_ID),
     foreign key (Cus_ID) references Customers(Cus_ID)
 );
-
 create table if not exists OrderDetails(
 	Order_ID int,
     Produce_Code int,
@@ -67,6 +66,6 @@ values('Urbanista Tokyo plus TWS','Urbanista','Không dây','2990000','Chíp Blu
       ('1More EB100 Wireless','1More','Thể thao','1500000','Thời lượng pin lên đến 8h, nói chuyện liên tục 10h chỉ mất 2h để sạc đầy pin. Có khả năng chống thấm mồ hôi và nước theo tiêu chuẩn IPX4. Kết nối bluetooth 4.1 và công nghệ giải mã tín hiệu APTX thế hệ mới nhất, với bán kính bắt sóng ổn định là 10m.'),
       ('1More iBFree','1More','Không dây','1150000','Thời lượng pin lên đến 8h, nói chuyện liên tục 10h chỉ mất 2h để sạc đầy pin. Có khả năng chống thấm mồ hôi và nước theo tiêu chuẩn IPX4. Kết nối bluetooth 4.1 và công nghệ giải mã tín hiệu APTX thế hệ mới nhất, với bán kính bắt sóng ổn định là 10m.');
 -- select * from Items where Produce_Code = '1' and Trademark = '';
-select distinct Trademark from Items;
+select * from Orders where Cus_ID = 1;
 CREATE USER if not exists 'HP_User'@'localhost' IDENTIFIED BY '123456';
 GRANT ALL PRIVILEGES ON * . * TO 'HP_User'@'localhost'; 
