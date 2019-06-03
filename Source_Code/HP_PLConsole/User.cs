@@ -289,7 +289,6 @@ namespace HP_PLConsole
         public void DisplayCart(Customers Cus)
         {
             Console.Clear();
-
             List<Items> Items = null;
             BinaryReader br;
             try
@@ -401,7 +400,7 @@ namespace HP_PLConsole
                                                     Console.WriteLine(ioExp.Message);
                                                 }
                                                 Console.ReadKey();
-                                                UserMenu(order.Customer, null, null);
+                                                UserMenu(Cus, Cus.User_Name, Cus.User_Password);
                                                 break;
                                             case 2:
                                                 check = OBL.DeleteOrder(order.Order_ID);
@@ -415,11 +414,11 @@ namespace HP_PLConsole
                                     Console.WriteLine("\n Đặt hàng thất bại!\n");
                                     Console.WriteLine("Nhấn phím bất kỳ để quay lại Menu chính!");
                                     Console.ReadKey();
-                                    UserMenu(Cus, null, null);
+                                    UserMenu(Cus, Cus.User_Name, Cus.User_Password);
                                 }
                                 break;
                             case 2:
-                                UserMenu(Cus, null, null);
+                                UserMenu(Cus, Cus.User_Name, Cus.User_Password);
                                 break;
                         }
                     }
@@ -429,7 +428,7 @@ namespace HP_PLConsole
                     Console.WriteLine("Giỏ hàng trống!");
                     Console.Write("\nNhấn phím bất kỳ để quay lại!");
                     Console.ReadKey();
-                    UserMenu(Cus, null, null);
+                    UserMenu(Cus, Cus.User_Name, Cus.User_Password);
                 }
             }
             catch (System.Exception ex)
@@ -471,7 +470,7 @@ namespace HP_PLConsole
                 table.Write(Format.Alternative);
                 Console.WriteLine("Nhấn phím bất kỳ để quay lại! ");
                 Console.ReadKey();
-                UserMenu(Cus, null, null);
+                UserMenu(Cus, Cus.User_Name, Cus.User_Password);
             }
         }
     }

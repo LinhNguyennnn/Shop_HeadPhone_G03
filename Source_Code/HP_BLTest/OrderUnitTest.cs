@@ -34,6 +34,7 @@ namespace HP_BLTest
             order.Order_ID = 1;
             order.Status = "Thành Công";
             order.Customer.Cus_ID = 1;
+            order.Address_Shipping = "abc";
             order.ItemsList = new List<Items>();
             Items item = new Items();
             item.Produce_Code = 1;
@@ -47,7 +48,6 @@ namespace HP_BLTest
         [InlineData(1)]
         [InlineData(2)]
         [InlineData(3)]
-        [InlineData(4)]
         public void GetOrderByCustomerId(int id)
         {
             Assert.NotNull(OBL.GetOrderByCustomerId(id));
@@ -72,7 +72,7 @@ namespace HP_BLTest
         [InlineData(4)]
         public void UpdateStatus(int? id)
         {
-            Assert.False(OBL.UpdateStatus(id));
+            Assert.True(OBL.UpdateStatus(id));
         }
     }
 }

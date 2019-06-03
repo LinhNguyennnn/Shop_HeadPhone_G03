@@ -18,8 +18,9 @@ namespace HP_DALTest
             order.Customer = new Customers();
             order.Order_Date = DateTime.Now;
             order.Order_ID = 1;
-            order.Status = "OK";
+            order.Status = "Thành Công";
             order.Customer.Cus_ID = 1;
+            order.Address_Shipping = "abc";
             order.ItemsList = new List<Items>();
             Items item = new Items();
             item.Produce_Code = 1;
@@ -58,7 +59,7 @@ namespace HP_DALTest
         [InlineData(4)]
         public void UpdateStatusOrder(int? id)
         {
-            Assert.False(ODAL.UpdateStatusOrder(id));
+            Assert.True(ODAL.UpdateStatusOrder(id));
         }
     }
 }

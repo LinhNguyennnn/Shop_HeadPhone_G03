@@ -17,17 +17,8 @@ namespace HP_DAL
             {
                 return null;
             }
-            try
-            {
-                DbHelper.OpenConnection();
-            }
-            catch (System.Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                return null;
-            }
             query = $"select * from Items where Produce_Code = " + _code + ";";
-            reader = DbHelper.ExecQuery(query);
+            reader = DbHelper.ExecQuery(query,DbHelper.OpenConnection());
             Items item = null;
             if (reader.Read())
             {
@@ -42,17 +33,8 @@ namespace HP_DAL
             {
                 return null;
             }
-            try
-            {
-                DbHelper.OpenConnection();
-            }
-            catch (System.Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                return null;
-            }
             query = $"select * from Items where Produce_Code = " + _code + " and Attribute = '" + Attribute + "';";
-            reader = DbHelper.ExecQuery(query);
+            reader = DbHelper.ExecQuery(query,DbHelper.OpenConnection());
             Items item = null;
             if (reader.Read())
             {
@@ -67,17 +49,8 @@ namespace HP_DAL
             {
                 return null;
             }
-            try
-            {
-                DbHelper.OpenConnection();
-            }
-            catch (System.Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                return null;
-            }
             query = $"select * from Items where Produce_Code = " + _code + " and Trademark = '" + TradeMark + "';";
-            reader = DbHelper.ExecQuery(query);
+            reader = DbHelper.ExecQuery(query,DbHelper.OpenConnection());
             Items item = null;
             if (reader.Read())
             {
@@ -88,18 +61,9 @@ namespace HP_DAL
         }
         public List<Items> GetAllItems()
         {
-            try
-            {
-                DbHelper.OpenConnection();
-            }
-            catch (System.Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                return null;
-            }
             query = $"select * from Items;";
             List<Items> items = null;
-            reader = DbHelper.ExecQuery(query);
+            reader = DbHelper.ExecQuery(query,DbHelper.OpenConnection());
             items = new List<Items>();
             while (reader.Read())
             {
@@ -114,18 +78,9 @@ namespace HP_DAL
             {
                 return null;
             }
-            try
-            {
-                DbHelper.OpenConnection();
-            }
-            catch (System.Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                return null;
-            }
             query = @"select * from Items where Trademark = '" + tradeMark + "';";
             List<Items> items = null;
-            reader = DbHelper.ExecQuery(query);
+            reader = DbHelper.ExecQuery(query,DbHelper.OpenConnection());
             items = new List<Items>();
            
             while (reader.Read())
@@ -146,18 +101,9 @@ namespace HP_DAL
             {
                 return null;
             }
-            try
-            {
-                DbHelper.OpenConnection();
-            }
-            catch (System.Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                return null;
-            }
             query = $"select * from Items where Attribute = '" + attribute + "';";
             List<Items> items = null;
-            reader = DbHelper.ExecQuery(query);
+            reader = DbHelper.ExecQuery(query,DbHelper.OpenConnection());
             items = new List<Items>();
            
             while (reader.Read())
@@ -174,7 +120,7 @@ namespace HP_DAL
         public Items GetItems(MySqlDataReader reader)
         {
             Items items = new Items();
-            items.Produce_Code = reader.GetInt16("Produce_Code");
+            items.Produce_Code = reader.GetInt32("Produce_Code");
             items.Item_Name = reader.GetString("Item_Name");
             items.Trademark = reader.GetString("Trademark");
             items.Attribute = reader.GetString("Attribute");

@@ -32,7 +32,7 @@ namespace HP_PLConsole
                         DisplayAttribute(Cus);
                         break;
                     case 4:
-                        U.UserMenu(Cus, null, null);
+                        U.UserMenu(Cus, Cus.User_Name, Cus.User_Password);
                         break;
                 }
             }
