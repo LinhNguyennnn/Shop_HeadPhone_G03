@@ -23,17 +23,8 @@ namespace HP_DAL
             {
                 return null;
             }
-            try
-            {
-                DbHelper.OpenConnection();
-            }
-            catch (System.Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                return null;
-            }
             query = $"select * from Customers where User_Name = '" + username + "' and User_Password = '" + password + "';";
-            reader = DbHelper.ExecQuery(query);
+            reader = DbHelper.ExecQuery(query,DbHelper.OpenConnection());
             Customers customer = null;
             if (reader.Read())
             {

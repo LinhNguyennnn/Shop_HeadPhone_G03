@@ -7,27 +7,42 @@ namespace HP_DAL
     public class DbHelper
     {
         private static MySqlConnection connection;
+        private static string connection_String;
         public static MySqlConnection OpenConnection()
         {
             try
             {
-                string connection_String;
-                FileStream fileStream = File.OpenRead("ConnectionString.txt");
-                using (StreamReader reader = new StreamReader(fileStream))
+                if (connection_String == null)
                 {
-                    connection_String = reader.ReadLine();
+                    using (FileStream fileStream = File.OpenRead("ConnectionString.txt"))
+                    {
+                        using (StreamReader reader = new StreamReader(fileStream))
+                        {
+                            connection_String = reader.ReadLine();
+                        }
+                    }
                 }
-                fileStream.Close();
-                connection = new MySqlConnection
+                return OpenConnection(connection_String);
+            }
+            catch (System.Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+        }
+        public static MySqlConnection OpenConnection(string connection_String)
+        {
+            try
+            {
+                MySqlConnection connection = new MySqlConnection
                 {
                     ConnectionString = connection_String
                 };
                 connection.Open();
                 return connection;
             }
-            catch (System.Exception ex)
+            catch (System.Exception)
             {
-                Console.WriteLine(ex.Message);
                 return null;
             }
         }
@@ -38,7 +53,7 @@ namespace HP_DAL
                 connection.Close();
             }
         }
-        public static MySqlDataReader ExecQuery(string query)
+        public static MySqlDataReader ExecQuery(string query, MySqlConnection connection)
         {
             MySqlCommand command = new MySqlCommand(query, connection);
             return command.ExecuteReader();

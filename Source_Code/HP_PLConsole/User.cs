@@ -13,7 +13,6 @@ namespace HP_PLConsole
     {
         private static Product Product = new Product();
         private static List<Items> ListItems = new List<Items>();
-        ConsoleTable table = new ConsoleTable();
         public void ScreenLogin()
         {
             Menu MN = new Menu();
@@ -305,7 +304,7 @@ namespace HP_PLConsole
                     Console.WriteLine("==================================================================================");
                     Console.WriteLine($"                               Giỏ hàng của {Cus.User_Name}");
                     Console.WriteLine("==================================================================================\n");
-                    table = new ConsoleTable("Mã sản phẩm", "Tên sản phẩm", "Hãng", "Thuộc tính", "Đơn giá", "Số lượng", "Tổng tiền");
+                    var table = new ConsoleTable("Mã sản phẩm", "Tên sản phẩm", "Hãng", "Thuộc tính", "Đơn giá", "Số lượng", "Tổng tiền");
                     int amount = 0;
                     foreach (Items i in Items)
                     {
@@ -462,7 +461,7 @@ namespace HP_PLConsole
                     Console.ReadKey();
                     break;
                 }
-                table = new ConsoleTable("Mã đặt hàng", "Ngày đặt hàng", "Địa chỉ giao hàng", "Trạng thái");
+                var table = new ConsoleTable("Mã đặt hàng", "Ngày đặt hàng", "Địa chỉ giao hàng", "Trạng thái");
                 foreach (Order order in ListOrder)
                 {
                     table.AddRow(order.Order_ID, order.Order_Date.ToString("dd/MM/yyyy h:mm tt"), order.Address_Shipping, order.Status);

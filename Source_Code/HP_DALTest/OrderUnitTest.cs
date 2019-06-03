@@ -58,7 +58,7 @@ namespace HP_DALTest
         [InlineData(4)]
         public void UpdateStatusOrder(int? id)
         {
-            Assert.False(ODAL.UpdateStatusOrder(id));
+            Assert.True(ODAL.UpdateStatusOrder(id));
         }
     }
 }

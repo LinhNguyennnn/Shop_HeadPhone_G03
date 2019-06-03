@@ -33,7 +33,6 @@ namespace HP_BLTest
         [InlineData(1)]
         [InlineData(2)]
         [InlineData(3)]
-        [InlineData(4)]
         public void GetOrderByCustomerId(int id)
         {
             Assert.NotNull(OBL.GetOrderByCustomerId(id));
@@ -58,7 +57,7 @@ namespace HP_BLTest
         [InlineData(4)]
         public void UpdateStatus(int? id)
         {
-            Assert.False(OBL.UpdateStatus(id));
+            Assert.True(OBL.UpdateStatus(id));
         }
     }
 }
