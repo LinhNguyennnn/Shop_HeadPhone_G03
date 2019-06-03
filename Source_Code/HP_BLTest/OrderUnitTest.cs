@@ -20,6 +20,7 @@ namespace HP_BLTest
             order.Order_ID = 1;
             order.Status = "Thành Công";
             order.Customer.Cus_ID = 1;
+            order.Address_Shipping = "abc";
             order.ItemsList = new List<Items>();
             Items item = new Items();
             item.Produce_Code = 1;

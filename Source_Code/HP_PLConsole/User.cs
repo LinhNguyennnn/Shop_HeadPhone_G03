@@ -13,6 +13,7 @@ namespace HP_PLConsole
     {
         private static Product Product = new Product();
         private static List<Items> ListItems = new List<Items>();
+        ConsoleTable table = new ConsoleTable();
         public void ScreenLogin()
         {
             Menu MN = new Menu();
@@ -287,7 +288,6 @@ namespace HP_PLConsole
         public void DisplayCart(Customers Cus)
         {
             Console.Clear();
-
             List<Items> Items = null;
             BinaryReader br;
             try
@@ -304,7 +304,7 @@ namespace HP_PLConsole
                     Console.WriteLine("==================================================================================");
                     Console.WriteLine($"                               Giỏ hàng của {Cus.User_Name}");
                     Console.WriteLine("==================================================================================\n");
-                    var table = new ConsoleTable("Mã sản phẩm", "Tên sản phẩm", "Hãng", "Thuộc tính", "Đơn giá", "Số lượng", "Tổng tiền");
+                    table = new ConsoleTable("Mã sản phẩm", "Tên sản phẩm", "Hãng", "Thuộc tính", "Đơn giá", "Số lượng", "Tổng tiền");
                     int amount = 0;
                     foreach (Items i in Items)
                     {
@@ -399,7 +399,7 @@ namespace HP_PLConsole
                                                     Console.WriteLine(ioExp.Message);
                                                 }
                                                 Console.ReadKey();
-                                                UserMenu(order.Customer, null, null);
+                                                UserMenu(Cus, Cus.User_Name, Cus.User_Password);
                                                 break;
                                             case 2:
                                                 check = OBL.DeleteOrder(order.Order_ID);
@@ -413,11 +413,11 @@ namespace HP_PLConsole
                                     Console.WriteLine("\n Đặt hàng thất bại!\n");
                                     Console.WriteLine("Nhấn phím bất kỳ để quay lại Menu chính!");
                                     Console.ReadKey();
-                                    UserMenu(Cus, null, null);
+                                    UserMenu(Cus, Cus.User_Name, Cus.User_Password);
                                 }
                                 break;
                             case 2:
-                                UserMenu(Cus, null, null);
+                                UserMenu(Cus, Cus.User_Name, Cus.User_Password);
                                 break;
                         }
                     }
@@ -427,7 +427,7 @@ namespace HP_PLConsole
                     Console.WriteLine("Giỏ hàng trống!");
                     Console.Write("\nNhấn phím bất kỳ để quay lại!");
                     Console.ReadKey();
-                    UserMenu(Cus, null, null);
+                    UserMenu(Cus, Cus.User_Name, Cus.User_Password);
                 }
             }
             catch (System.Exception ex)
@@ -461,7 +461,7 @@ namespace HP_PLConsole
                     Console.ReadKey();
                     break;
                 }
-                var table = new ConsoleTable("Mã đặt hàng", "Ngày đặt hàng", "Địa chỉ giao hàng", "Trạng thái");
+                table = new ConsoleTable("Mã đặt hàng", "Ngày đặt hàng", "Địa chỉ giao hàng", "Trạng thái");
                 foreach (Order order in ListOrder)
                 {
                     table.AddRow(order.Order_ID, order.Order_Date.ToString("dd/MM/yyyy h:mm tt"), order.Address_Shipping, order.Status);
@@ -469,7 +469,7 @@ namespace HP_PLConsole
                 table.Write(Format.Alternative);
                 Console.WriteLine("Nhấn phím bất kỳ để quay lại! ");
                 Console.ReadKey();
-                UserMenu(Cus, null, null);
+                UserMenu(Cus, Cus.User_Name, Cus.User_Password);
             }
         }
     }
