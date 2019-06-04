@@ -11,7 +11,6 @@ namespace HP_PLConsole
 {
     class User
     {
-        private static Product Product = new Product();
         private static List<Items> ListItems = new List<Items>();
         ConsoleTable table = new ConsoleTable();
         public void ScreenLogin()
@@ -129,12 +128,13 @@ namespace HP_PLConsole
                             continue;
                     }
                 }
-                UserMenu(Cus, Un, Pw);
+                UserMenu(Cus);
             }
         }
-        public void UserMenu(Customers Cus, string Un, string Pw)
+        public void UserMenu(Customers Cus)
         {
             Console.Clear();
+            Product Product = new Product();
             Menu MN = new Menu();
             string[] choice = { "Menu sản phẩm", "Thông tin cá nhân", "Xem giỏ hàng", "Đã mua", "Đăng xuất" };
             int number = Product.SubMenu($"Chào mừng {Cus.User_Name} đến với của hàng", choice);
@@ -144,7 +144,7 @@ namespace HP_PLConsole
                     Product.DisplayProduct(Cus);
                     break;
                 case 2:
-                    CustomerProfile(Un, Pw);
+                    CustomerProfile(Cus.User_Name, Cus.User_Password);
                     break;
                 case 3:
                     DisplayCart(Cus);
@@ -246,7 +246,7 @@ namespace HP_PLConsole
             Console.WriteLine("Số điện thoại: {0}", Cus.Cus_Phone_Numbers);
             Console.Write("\nNhấn phím bất kỳ để quay lại!");
             Console.ReadKey();
-            UserMenu(Cus, username, password);
+            UserMenu(Cus);
         }
 
         public void AddToCart(Items item, Customers Cus)
@@ -272,6 +272,7 @@ namespace HP_PLConsole
                             DisplayCart(Cus);
                             break;
                         case 2:
+                            Product Product = new Product();
                             Product.DisplayProduct(Cus);
                             break;
                     }
@@ -335,6 +336,7 @@ namespace HP_PLConsole
                                 order.Amount = amount;
                                 order.Customer = Cus;
                                 Item_BL IBL = new Item_BL();
+                                Product Product = new Product();
                                 foreach (Items item in Items)
                                 {
                                     order.ItemsList = new List<Items>();
@@ -364,12 +366,42 @@ namespace HP_PLConsole
                                                             {
                                                                 Console.WriteLine("Số tiền bạn nhập vào nhỏ hơn tổng tiền phải thanh toán !");
                                                                 Console.Write("Nhập số tiền : ");
-                                                                money = Product.input(Console.ReadLine());
                                                                 continue;
                                                             }
                                                             else
                                                             {
                                                                 break;
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            Console.WriteLine("Số tiền bạn nhập vào không hợp lệ !");
+                                                            Console.Write("Bạn có muốn nhập lại không ? (Y/N): ");
+                                                            string Question;
+                                                            while (true)
+                                                            {
+                                                                Question = Console.ReadLine();
+                                                                if (Question == "Y" || Question == "N" || Question == "y" || Question == "n")
+                                                                {
+                                                                    break;
+                                                                }
+                                                                else
+                                                                {
+                                                                    Console.Write("Bạn có muốn nhập lại không ? (Y/N): ");
+                                                                }
+                                                            }
+                                                            switch (Question)
+                                                            {
+                                                                case "Y":
+                                                                    continue;
+                                                                case "y":
+                                                                    continue;
+                                                                case "N":
+                                                                    DisplayCart(Cus);
+                                                                    break;
+                                                                case "n":
+                                                                    DisplayCart(Cus);
+                                                                    break;
                                                             }
                                                         }
                                                     }
@@ -378,7 +410,33 @@ namespace HP_PLConsole
                                                 {
                                                     {
                                                         Console.WriteLine("Số tiền nhập vào không hợp lệ ! ");
-                                                        Console.Write("Nhập số tiền : ");
+                                                        Console.Write("Bạn có muốn nhập lại không ? (Y/N): ");
+                                                        string Question;
+                                                        while (true)
+                                                        {
+                                                            Question = Console.ReadLine();
+                                                            if (Question == "Y" || Question == "N" || Question == "y" || Question == "n")
+                                                            {
+                                                                break;
+                                                            }
+                                                            else
+                                                            {
+                                                                Console.Write("Bạn có muốn nhập lại không ? (Y/N): ");
+                                                            }
+                                                        }
+                                                        switch (Question)
+                                                        {
+                                                            case "Y":
+                                                                continue;
+                                                            case "y":
+                                                                continue;
+                                                            case "N":
+                                                                DisplayCart(Cus);
+                                                                break;
+                                                            case "n":
+                                                                DisplayCart(Cus);
+                                                                break;
+                                                        }
                                                     }
                                                 }
                                                 bool UpdateStatus = OBL.UpdateStatus(order.Order_ID);
@@ -399,7 +457,7 @@ namespace HP_PLConsole
                                                     Console.WriteLine(ioExp.Message);
                                                 }
                                                 Console.ReadKey();
-                                                UserMenu(Cus, Cus.User_Name, Cus.User_Password);
+                                                UserMenu(Cus);
                                                 break;
                                             case 2:
                                                 check = OBL.DeleteOrder(order.Order_ID);
@@ -413,11 +471,11 @@ namespace HP_PLConsole
                                     Console.WriteLine("\n Đặt hàng thất bại!\n");
                                     Console.WriteLine("Nhấn phím bất kỳ để quay lại Menu chính!");
                                     Console.ReadKey();
-                                    UserMenu(Cus, Cus.User_Name, Cus.User_Password);
+                                    UserMenu(Cus);
                                 }
                                 break;
                             case 2:
-                                UserMenu(Cus, Cus.User_Name, Cus.User_Password);
+                                UserMenu(Cus);
                                 break;
                         }
                     }
@@ -427,13 +485,12 @@ namespace HP_PLConsole
                     Console.WriteLine("Giỏ hàng trống!");
                     Console.Write("\nNhấn phím bất kỳ để quay lại!");
                     Console.ReadKey();
-                    UserMenu(Cus, Cus.User_Name, Cus.User_Password);
+                    UserMenu(Cus);
                 }
             }
             catch (System.Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                Console.WriteLine("Mất kết nối !");
                 Console.ReadKey();
             }
         }
@@ -469,7 +526,7 @@ namespace HP_PLConsole
                 table.Write(Format.Alternative);
                 Console.WriteLine("Nhấn phím bất kỳ để quay lại! ");
                 Console.ReadKey();
-                UserMenu(Cus, Cus.User_Name, Cus.User_Password);
+                UserMenu(Cus);
             }
         }
     }
