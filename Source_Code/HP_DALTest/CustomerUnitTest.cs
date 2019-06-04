@@ -21,7 +21,7 @@ namespace HP_DALTest
         [InlineData("customer", "123456")]
         [InlineData("dasdvasd", "wd12d12")]
         [InlineData("sdcqwdqcw",null)]
-        [InlineData(null, "21312dsd")]
+        [InlineData(null, "21312")]
         public void LoginTest2(string username, string password)
         {
             Assert.Null(CusDAL.Login(username, password));

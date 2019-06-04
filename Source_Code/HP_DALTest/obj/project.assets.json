@@ -6310,11 +6310,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "d:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\HP_DALTest\\HP_DALTest.csproj",
+      "projectUniqueName": "D:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\HP_DALTest\\HP_DALTest.csproj",
       "projectName": "HP_DALTest",
-      "projectPath": "d:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\HP_DALTest\\HP_DALTest.csproj",
+      "projectPath": "D:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\HP_DALTest\\HP_DALTest.csproj",
       "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
-      "outputPath": "d:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\HP_DALTest\\obj\\",
+      "outputPath": "D:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\HP_DALTest\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -6331,11 +6331,11 @@
       "frameworks": {
         "netcoreapp2.2": {
           "projectReferences": {
-            "d:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\HP_DAL\\HP_DAL.csproj": {
-              "projectPath": "d:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\HP_DAL\\HP_DAL.csproj"
+            "D:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\HP_DAL\\HP_DAL.csproj": {
+              "projectPath": "D:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\HP_DAL\\HP_DAL.csproj"
             },
-            "d:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\HP_Persistence\\HP_Persistence.csproj": {
-              "projectPath": "d:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\HP_Persistence\\HP_Persistence.csproj"
+            "D:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\HP_Persistence\\HP_Persistence.csproj": {
+              "projectPath": "D:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\HP_Persistence\\HP_Persistence.csproj"
             }
           }
         }
@@ -6379,13 +6379,5 @@
         "warn": true
       }
     }
-  },
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problem reading the cache file d:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\HP_DALTest\\obj\\HP_DALTest.csproj.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
-    }
-  ]
+  }
 }

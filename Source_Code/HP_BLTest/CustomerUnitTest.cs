@@ -16,8 +16,8 @@ namespace HP_BLTest
             Assert.NotNull(cusBL.Login(Un, Pw));
         }
         [Theory]
-        [InlineData("ascasc", "412412e")]
-        [InlineData("dd1", "35435fdd")]
+        [InlineData("", "")]
+        [InlineData("@%^&#", ",,..,")]
         [InlineData("24v14v", "12412312")]
         public void LoginTest1(string Un, string Pw)
         {
