@@ -10,7 +10,6 @@ namespace HP_PLConsole
 {
     public class Product
     {
-        User U = new User();
         ConsoleTable table = new ConsoleTable();
         public void DisplayProduct(Customers Cus)
         {
@@ -32,14 +31,13 @@ namespace HP_PLConsole
                         DisplayAttribute(Cus);
                         break;
                     case 4:
-                        U.UserMenu(Cus, Cus.User_Name, Cus.User_Password);
+                        U.UserMenu(Cus);
                         break;
                 }
             }
             catch (System.Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                Console.WriteLine("Mất kết nối !");
                 Console.ReadKey();
             }
         }
@@ -106,6 +104,7 @@ namespace HP_PLConsole
         public int DisplayItemDetail(int id, Customers Cus)
         {
             Item_BL IBL = new Item_BL();
+            User U = new User();
             Items item = IBL.GetItemByProduceCode(id);
             Console.Clear();
             Console.WriteLine("=====================================================================");
@@ -121,14 +120,14 @@ namespace HP_PLConsole
                 switch (number)
                 {
                     case 1:
-                        Console.Write("Nhập số lượng sản phẩm: ");
                         int itemQuantity;
                         while (true)
                         {
+                            Console.Write("Nhập số lượng sản phẩm: ");
                             try
                             {
                                 itemQuantity = int.Parse(Console.ReadLine());
-                                if (itemQuantity >= 1 && itemQuantity <= 10)
+                                if (itemQuantity >= 1 && itemQuantity <= 5)
                                 {
                                     break;
                                 }
@@ -136,8 +135,7 @@ namespace HP_PLConsole
                             catch (System.Exception)
                             {
 
-                                Console.WriteLine("Số lượng sản phẩm phải là số lớn hơn 0 và nhỏ 10 !");
-                                Console.Write("Nhập số lượng sản phẩm: ");
+                                Console.WriteLine("Số lượng sản phẩm phải là số lớn hơn 0 và nhỏ 5 !");
                                 continue;
                             }
                         }
