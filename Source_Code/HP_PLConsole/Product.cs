@@ -237,6 +237,7 @@ namespace HP_PLConsole
                 {
                     Console.Write("\nChọn mã sản phẩm: ");
                     Id = input(Console.ReadLine());
+                    continue;
                 }
                 else
                 {
