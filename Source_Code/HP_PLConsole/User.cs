@@ -11,7 +11,6 @@ namespace HP_PLConsole
 {
     class User
     {
-        private static List<Items> ListItems = new List<Items>();
         ConsoleTable table = new ConsoleTable();
         public void ScreenLogin()
         {
@@ -252,7 +251,32 @@ namespace HP_PLConsole
         public void AddToCart(Items item, Customers Cus)
         {
             Console.Clear();
-            ListItems.Add(item);
+            List<Items> ListItems = new List<Items>();
+            if (File.Exists($"CartOf{Cus.User_Name}.dat"))
+            {
+                FileStream fs = new FileStream($"CartOf{Cus.User_Name}.dat", FileMode.Open, FileAccess.ReadWrite);
+                BinaryReader br = new BinaryReader(fs);
+                string str = br.ReadString();
+                ListItems = JsonConvert.DeserializeObject<List<Items>>(str);
+
+                fs.Close();
+                br.Close();
+                ListItems.Add(item);
+            }
+            else
+            {
+                ListItems.Add(item);
+            }
+            for (int i = 0; i < ListItems.Count; i++)
+            {
+                for (int j = 0; j < i; j++)
+                {
+                    if (ListItems[i].Produce_Code == ListItems[j].Produce_Code)
+                    {
+                        ListItems.RemoveAt(j);
+                    }
+                }
+            }
             string sJSONReponse = JsonConvert.SerializeObject(ListItems);
             BinaryWriter bw;
             try
@@ -290,13 +314,12 @@ namespace HP_PLConsole
         {
             Console.Clear();
             List<Items> Items = null;
-            BinaryReader br;
             try
             {
                 if (File.Exists($"CartOf{Cus.User_Name}.dat"))
                 {
                     FileStream fs = new FileStream($"CartOf{Cus.User_Name}.dat", FileMode.Open, FileAccess.ReadWrite);
-                    br = new BinaryReader(fs);
+                    BinaryReader br = new BinaryReader(fs);
                     string str = br.ReadString();
                     Items = JsonConvert.DeserializeObject<List<Items>>(str);
 
@@ -305,14 +328,13 @@ namespace HP_PLConsole
                     Console.WriteLine("==================================================================================");
                     Console.WriteLine($"                               Giỏ hàng của {Cus.User_Name}");
                     Console.WriteLine("==================================================================================\n");
-                    table = new ConsoleTable("Mã sản phẩm", "Tên sản phẩm", "Hãng", "Thuộc tính", "Đơn giá", "Số lượng", "Tổng tiền");
+                    table = new ConsoleTable("Mã sản phẩm", "Tên sản phẩm", "Hãng", "Thuộc tính", "Đơn giá", "Số lượng", "Thành tiền");
                     int amount = 0;
                     foreach (Items i in Items)
                     {
                         amount += i.Item_Price * i.Quantity;
-                        table.AddRow(i.Produce_Code, i.Item_Name, i.Trademark, i.Attribute, i.Item_Price, i.Quantity, amount);
+                        table.AddRow(i.Produce_Code, i.Item_Name, i.Trademark, i.Attribute, i.Item_Price, i.Quantity, i.Item_Price * i.Quantity);
                     }
-
                     table.Write(Format.Alternative);
                     while (true)
                     {
@@ -325,12 +347,30 @@ namespace HP_PLConsole
                                 Order order = new Order();
                                 Order_BL OBL = new Order_BL();
                                 Console.Write("Địa chỉ giao hàng: ");
-                                string address_Shipping = Console.ReadLine().Trim();
-                                if (address_Shipping.Length == 0)
+                                while (true)
                                 {
-                                    address_Shipping = Cus.Cus_Address;
+                                    string address_Shipping = Console.ReadLine().Trim();
+                                    Regex regex = new Regex(@"^[a-zA-Z0-9-_/\ ]+$");
+                                    if (regex.IsMatch(address_Shipping))
+                                    {
+                                        if (address_Shipping.Length == 0)
+                                        {
+                                            order.Address_Shipping = Cus.Cus_Address;
+                                            break;
+                                        }
+                                        else
+                                        {
+                                            order.Address_Shipping = address_Shipping;
+                                            break;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Nhập sai !");
+                                        Console.Write("Địa chỉ giao hàng: ");
+                                        continue;
+                                    }
                                 }
-                                order.Address_Shipping = address_Shipping;
                                 order.Order_Date = DateTime.Now;
                                 order.Status = "Không thành công";
                                 order.Amount = amount;
@@ -354,28 +394,64 @@ namespace HP_PLConsole
                                         {
                                             case 1:
                                                 int money;
-                                                try
+                                                while (true)
                                                 {
-                                                    while (true)
+                                                    try
                                                     {
-                                                        Console.Write("Nhập số tiền : ");
-                                                        money = int.Parse(Console.ReadLine());
-                                                        if (money >= 500 && money <= 10000000 && money % 500 == 0)
+                                                        while (true)
                                                         {
-                                                            if (money < amount)
+                                                            Console.Write("Nhập số tiền : ");
+                                                            money = int.Parse(Console.ReadLine());
+                                                            if (money >= 500 && money <= 10000000 && money % 500 == 0)
                                                             {
-                                                                Console.WriteLine("Số tiền bạn nhập vào nhỏ hơn tổng tiền phải thanh toán !");
-                                                                Console.Write("Nhập số tiền : ");
-                                                                continue;
+                                                                if (money < amount)
+                                                                {
+                                                                    Console.WriteLine("Số tiền bạn nhập vào nhỏ hơn tổng tiền phải thanh toán !");
+                                                                    Console.Write("Nhập số tiền : ");
+                                                                    continue;
+                                                                }
+                                                                else
+                                                                {
+                                                                    break;
+                                                                }
                                                             }
                                                             else
                                                             {
-                                                                break;
+                                                                Console.WriteLine("Số tiền bạn nhập vào không hợp lệ !");
+                                                                Console.Write("Bạn có muốn nhập lại không ? (Y/N): ");
+                                                                string Question;
+                                                                while (true)
+                                                                {
+                                                                    Question = Console.ReadLine();
+                                                                    if (Question == "Y" || Question == "N" || Question == "y" || Question == "n")
+                                                                    {
+                                                                        break;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        Console.Write("Bạn có muốn nhập lại không ? (Y/N): ");
+                                                                    }
+                                                                }
+                                                                switch (Question)
+                                                                {
+                                                                    case "Y":
+                                                                        continue;
+                                                                    case "y":
+                                                                        continue;
+                                                                    case "N":
+                                                                        DisplayCart(Cus);
+                                                                        break;
+                                                                    case "n":
+                                                                        DisplayCart(Cus);
+                                                                        break;
+                                                                }
                                                             }
                                                         }
-                                                        else
+                                                    }
+                                                    catch (System.Exception)
+                                                    {
                                                         {
-                                                            Console.WriteLine("Số tiền bạn nhập vào không hợp lệ !");
+                                                            Console.WriteLine("Số tiền nhập vào không hợp lệ ! ");
                                                             Console.Write("Bạn có muốn nhập lại không ? (Y/N): ");
                                                             string Question;
                                                             while (true)
@@ -405,39 +481,7 @@ namespace HP_PLConsole
                                                             }
                                                         }
                                                     }
-                                                }
-                                                catch (System.Exception)
-                                                {
-                                                    {
-                                                        Console.WriteLine("Số tiền nhập vào không hợp lệ ! ");
-                                                        Console.Write("Bạn có muốn nhập lại không ? (Y/N): ");
-                                                        string Question;
-                                                        while (true)
-                                                        {
-                                                            Question = Console.ReadLine();
-                                                            if (Question == "Y" || Question == "N" || Question == "y" || Question == "n")
-                                                            {
-                                                                break;
-                                                            }
-                                                            else
-                                                            {
-                                                                Console.Write("Bạn có muốn nhập lại không ? (Y/N): ");
-                                                            }
-                                                        }
-                                                        switch (Question)
-                                                        {
-                                                            case "Y":
-                                                                continue;
-                                                            case "y":
-                                                                continue;
-                                                            case "N":
-                                                                DisplayCart(Cus);
-                                                                break;
-                                                            case "n":
-                                                                DisplayCart(Cus);
-                                                                break;
-                                                        }
-                                                    }
+                                                    break;
                                                 }
                                                 bool UpdateStatus = OBL.UpdateStatus(order.Order_ID);
                                                 Console.WriteLine("Thanh toán thành công !");
@@ -508,15 +552,16 @@ namespace HP_PLConsole
                     Order_BL OBL = new Order_BL();
                     ListOrder = OBL.GetOrderByCustomerId(Cus.Cus_ID);
                 }
-                catch (System.Exception)
+                catch (System.Exception ex)
                 {
+                    Console.WriteLine(ex.Message);
                     throw;
                 }
                 if (ListOrder.Count < 0)
                 {
                     Console.WriteLine("Danh sách trống !\n");
                     Console.ReadKey();
-                    break;
+                    UserMenu(Cus);
                 }
                 table = new ConsoleTable("Mã đặt hàng", "Ngày đặt hàng", "Địa chỉ giao hàng", "Trạng thái");
                 foreach (Order order in ListOrder)

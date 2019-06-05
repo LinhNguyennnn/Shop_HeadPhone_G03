@@ -25,7 +25,7 @@ namespace HP_PLConsole
                         DisplayAllItems(Cus);
                         break;
                     case 2:
-                        DisplayTradeMark(null);
+                        DisplayTradeMark(Cus);
                         break;
                     case 3:
                         DisplayAttribute(Cus);
@@ -75,7 +75,7 @@ namespace HP_PLConsole
             while (IBL.GetItemByProduceCode(Id) == null)
             {
                 string a;
-                Console.Write("Mã sản phẩm không tồn tại!");
+                Console.WriteLine("Mã sản phẩm không tồn tại!");
                 Console.Write("Bạn có muốn nhập lại mã sản phẩm không ? (Y/N): ");
                 a = Console.ReadLine().ToUpper();
                 while (true)
@@ -139,7 +139,31 @@ namespace HP_PLConsole
                                 continue;
                             }
                         }
-                        item.Quantity = itemQuantity;
+                        if (File.Exists($"CartOf{Cus.User_Name}.dat"))
+                        {
+                            List<Items> Items = null;
+                            FileStream fs = new FileStream($"CartOf{Cus.User_Name}.dat", FileMode.Open, FileAccess.ReadWrite);
+                            BinaryReader br = new BinaryReader(fs);
+                            string str = br.ReadString();
+                            Items = JsonConvert.DeserializeObject<List<Items>>(str);
+                            fs.Close();
+                            br.Close();
+                            for (int i = 0; i < Items.Count; i++)
+                            {
+                                if (id == Items[i].Produce_Code)
+                                {
+                                    item.Quantity = itemQuantity + Items[i].Quantity;
+                                }
+                                else
+                                {
+                                    item.Quantity = itemQuantity;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            item.Quantity = itemQuantity;
+                        }
                         U.AddToCart(item, Cus);
                         break;
                     case 2:
@@ -237,6 +261,7 @@ namespace HP_PLConsole
                 {
                     Console.Write("\nChọn mã sản phẩm: ");
                     Id = input(Console.ReadLine());
+                    continue;
                 }
                 else
                 {
