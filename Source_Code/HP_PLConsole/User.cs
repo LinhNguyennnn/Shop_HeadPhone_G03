@@ -278,12 +278,11 @@ namespace HP_PLConsole
                 }
             }
             string sJSONReponse = JsonConvert.SerializeObject(ListItems);
-            BinaryWriter bw;
             try
             {
                 FileStream fs = new FileStream($"CartOf{Cus.User_Name}.dat", FileMode.OpenOrCreate, FileAccess.Write);
-                bw = new BinaryWriter(fs);
-                bw.Write((string)(object)sJSONReponse + Environment.NewLine);
+                BinaryWriter bw = new BinaryWriter(fs);
+                bw.Write((string)(object)sJSONReponse);
                 fs.Close();
                 Console.WriteLine("Đã thêm vào giỏ hàng!");
                 while (true)
@@ -314,7 +313,6 @@ namespace HP_PLConsole
         {
             Console.Clear();
             List<Items> Items = null;
-            Product Product = new Product();
             try
             {
                 if (File.Exists($"CartOf{Cus.User_Name}.dat"))
@@ -326,9 +324,9 @@ namespace HP_PLConsole
 
                     fs.Close();
                     br.Close();
-                    Console.WriteLine("==================================================================================");
+                    Console.WriteLine("==========================================================================================================");
                     Console.WriteLine($"                               Giỏ hàng của {Cus.User_Name}");
-                    Console.WriteLine("==================================================================================\n");
+                    Console.WriteLine("==========================================================================================================\n");
                     table = new ConsoleTable("Mã sản phẩm", "Tên sản phẩm", "Hãng", "Thuộc tính", "Đơn giá", "Số lượng", "Thành tiền");
                     int amount = 0;
                     foreach (Items i in Items)
@@ -337,6 +335,8 @@ namespace HP_PLConsole
                         table.AddRow(i.Produce_Code, i.Item_Name, i.Trademark, i.Attribute, i.Item_Price, i.Quantity, i.Item_Price * i.Quantity);
                     }
                     table.Write(Format.Alternative);
+                    Console.WriteLine("|    Tổng tiền                                                                            |  {0,-10} |",amount);
+                    Console.WriteLine("+--------------------------------------------------------------------------------------------------------+");
                     while (true)
                     {
                         string[] choice = { "Đặt hàng", "Xóa mặt hàng", "Quay lại" };
@@ -501,7 +501,7 @@ namespace HP_PLConsole
                                                     Console.WriteLine(ioExp.Message);
                                                 }
                                                 Console.ReadKey();
-                                                UserMenu(Cus);
+                                                Paybill(Cus,order);
                                                 break;
                                             case 2:
                                                 check = OBL.DeleteOrder(order.Order_ID);
@@ -519,71 +519,8 @@ namespace HP_PLConsole
                                 }
                                 break;
                             case 2:
-                                int count = 0;
-                                while (true)
-                                {
-                                    Console.Write("Nhập mã sản phẩm cần xóa khỏi giỏ hàng : ");
-                                    int id = Product.input(Console.ReadLine());
-                                    while (true)
-                                    {
-                                        for (int i = 0; i < Items.Count; i++)
-                                        {
-                                            if (id == Items[i].Produce_Code)
-                                            {
-                                                count = 1;
-                                                Items.RemoveAt(i);
-                                                break;
-                                            }
-                                            else
-                                            {
-                                                string a;
-                                                Console.Write("Mã sản phẩm không tồn tại!");
-                                                Console.Write("Bạn có muốn nhập lại mã sản phẩm không ? (Y/N): ");
-                                                a = Console.ReadLine().ToUpper();
-                                                while (true)
-                                                {
-                                                    if (a != "Y" && a != "N")
-                                                    {
-                                                        Console.Write("Bạn chỉ được nhập (Y/N): ");
-                                                        a = Console.ReadLine().ToUpper();
-                                                        continue;
-                                                    }
-                                                    break;
-                                                }
-                                                if (a == "Y" || a == "y")
-                                                {
-                                                    Console.Write("\nChọn mã sản phẩm: ");
-                                                    id = Product.input(Console.ReadLine());
-                                                    continue;
-                                                }
-                                                else
-                                                {
-                                                    DisplayCart(Cus);
-                                                }
-                                            }
-                                        }
-                                        if (count == 1)
-                                        {
-                                            break;
-                                        }
-                                    }
-                                    string sJSONReponse = JsonConvert.SerializeObject(Items);
-                                    BinaryWriter bw;
-                                    try
-                                    {
-                                        fs = new FileStream($"CartOf{Cus.User_Name}.dat", FileMode.OpenOrCreate, FileAccess.Write);
-                                        bw = new BinaryWriter(fs);
-                                        bw.Write((string)(object)sJSONReponse + Environment.NewLine);
-                                        fs.Close();
-                                        Console.WriteLine("Đã xóa sản phẩm!");
-                                    }
-                                    catch (System.Exception ex)
-                                    {
-                                        Console.WriteLine(ex.Message);
-                                        Console.WriteLine("Không xóa được sản phẩm!");
-                                        Console.ReadKey();
-                                    }
-                                }
+                                DeleteItemInCart(Cus);
+                                break;
                             case 3:
                                 UserMenu(Cus);
                                 break;
@@ -639,6 +576,101 @@ namespace HP_PLConsole
                 Console.ReadKey();
                 UserMenu(Cus);
             }
+        }
+        public void DeleteItemInCart(Customers Cus)
+        {
+            Product Product = new Product();
+            string a;
+            List<Items> ListItems = null;
+            FileStream fs = new FileStream($"CartOf{Cus.User_Name}.dat", FileMode.Open, FileAccess.ReadWrite);
+            BinaryReader br = new BinaryReader(fs);
+            string st = br.ReadString();
+            ListItems = JsonConvert.DeserializeObject<List<Items>>(st);
+
+            fs.Close();
+            br.Close();
+
+            Console.Write("Nhập mã sản phẩm cần xóa khỏi giỏ hàng : ");
+            int id = Product.input(Console.ReadLine());
+            int index = ListItems.FindIndex(x => x.Produce_Code == id);
+            if (index == -1)
+            {
+                Console.WriteLine("Mã sản phẩm không tồn tại!");
+                Console.Write("Bạn có muốn nhập lại mã sản phẩm không ? (Y/N): ");
+                a = Console.ReadLine().ToUpper();
+                while (true)
+                {
+                    if (a != "Y" && a != "N")
+                    {
+                        Console.Write("Bạn chỉ được nhập (Y/N): ");
+                        a = Console.ReadLine().ToUpper();
+                    }
+                    break;
+                }
+                if (a == "Y" || a == "y")
+                {
+                    Console.Write("Nhập mã sản phẩm cần xóa khỏi giỏ hàng : ");
+                    id = Product.input(Console.ReadLine());
+                }
+                else
+                {
+                    DisplayCart(Cus);
+                }
+            }
+            else
+            {
+                ListItems.RemoveAt(index);
+            }
+            if (ListItems.Count == 0)
+            {
+                try
+                {
+                    if (File.Exists(Path.Combine($"CartOf{Cus.User_Name}.dat")))
+                    {
+                        File.Delete(Path.Combine($"CartOf{Cus.User_Name}.dat"));
+                        Console.WriteLine("Đã xóa sản phẩm!");
+                        Console.ReadKey();
+                        UserMenu(Cus);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Giỏ hàng không tồn tại");
+                    }
+                }
+                catch (IOException ioExp)
+                {
+                    Console.WriteLine(ioExp.Message);
+                }
+            }
+            else
+            {
+                string sJSONReponse = JsonConvert.SerializeObject(ListItems);
+                try
+                {
+                    fs = new FileStream($"CartOf{Cus.User_Name}.dat", FileMode.OpenOrCreate, FileAccess.Write);
+                    BinaryWriter bw = new BinaryWriter(fs);
+                    bw.Write((string)(object)sJSONReponse);
+                    fs.Close();
+                    Console.WriteLine("Đã xóa sản phẩm!");
+                    Console.ReadKey();
+                    UserMenu(Cus);
+                }
+                catch (System.Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    Console.WriteLine("Không xóa được sản phẩm!");
+                    Console.ReadKey();
+                    UserMenu(Cus);
+                }
+            }
+        }
+        public void Paybill(Customers Cus, Order order)
+        {
+            Console.Clear();
+            Console.WriteLine("===========================================================================");
+            Console.WriteLine("                                 Hóa đơn bán hàng");
+            Console.WriteLine("===========================================================================");
+            Console.WriteLine("                                                                  {0,-10}",DateTime.Now.ToString("dd/MM/yyyy"));
         }
     }
 }

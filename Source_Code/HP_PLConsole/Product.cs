@@ -148,16 +148,15 @@ namespace HP_PLConsole
                             Items = JsonConvert.DeserializeObject<List<Items>>(str);
                             fs.Close();
                             br.Close();
-                            for (int i = 0; i < Items.Count; i++)
+                            int index = Items.FindIndex(x => x.Produce_Code == id);
+                            if (index == -1)
                             {
-                                if (id == Items[i].Produce_Code)
-                                {
-                                    item.Quantity = itemQuantity + Items[i].Quantity;
-                                }
-                                else
-                                {
-                                    item.Quantity = itemQuantity;
-                                }
+                                item.Quantity = itemQuantity;
+                            }
+                            else
+                            {
+                                item.Quantity = itemQuantity + Items[index].Quantity;
+
                             }
                         }
                         else
