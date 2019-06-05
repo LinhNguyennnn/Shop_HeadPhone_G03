@@ -131,12 +131,7 @@ namespace HP_PLConsole
                 UserMenu(Cus);
             }
         }
-<<<<<<< HEAD
-        
-        public void UserMenu(Customers Cus, string Un, string Pw)
-=======
         public void UserMenu(Customers Cus)
->>>>>>> 173b09485f1a7b601b97d57825963edcd4b4c27e
         {
             Console.Clear();
             Product Product = new Product();
