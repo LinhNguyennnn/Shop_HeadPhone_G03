@@ -75,7 +75,7 @@ namespace HP_PLConsole
             while (IBL.GetItemByProduceCode(Id) == null)
             {
                 string a;
-                Console.Write("Mã sản phẩm không tồn tại!");
+                Console.WriteLine("Mã sản phẩm không tồn tại!");
                 Console.Write("Bạn có muốn nhập lại mã sản phẩm không ? (Y/N): ");
                 a = Console.ReadLine().ToUpper();
                 while (true)

@@ -11,7 +11,6 @@ namespace HP_PLConsole
 {
     class User
     {
-        private static List<Items> ListItems = new List<Items>();
         ConsoleTable table = new ConsoleTable();
         public void ScreenLogin()
         {
@@ -252,7 +251,22 @@ namespace HP_PLConsole
         public void AddToCart(Items item, Customers Cus)
         {
             Console.Clear();
-            ListItems.Add(item);
+            List<Items> ListItems = new List<Items>();
+            if (File.Exists($"CartOf{Cus.User_Name}.dat"))
+            {
+                FileStream fs = new FileStream($"CartOf{Cus.User_Name}.dat", FileMode.Open, FileAccess.ReadWrite);
+                BinaryReader br = new BinaryReader(fs);
+                string str = br.ReadString();
+                ListItems = JsonConvert.DeserializeObject<List<Items>>(str);
+
+                fs.Close();
+                br.Close();
+                ListItems.Add(item);
+            }
+            else
+            {
+                ListItems.Add(item);
+            }
             for (int i = 0; i < ListItems.Count; i++)
             {
                 for (int j = 0; j < i; j++)
@@ -300,13 +314,12 @@ namespace HP_PLConsole
         {
             Console.Clear();
             List<Items> Items = null;
-            BinaryReader br;
             try
             {
                 if (File.Exists($"CartOf{Cus.User_Name}.dat"))
                 {
                     FileStream fs = new FileStream($"CartOf{Cus.User_Name}.dat", FileMode.Open, FileAccess.ReadWrite);
-                    br = new BinaryReader(fs);
+                    BinaryReader br = new BinaryReader(fs);
                     string str = br.ReadString();
                     Items = JsonConvert.DeserializeObject<List<Items>>(str);
 
@@ -315,14 +328,13 @@ namespace HP_PLConsole
                     Console.WriteLine("==================================================================================");
                     Console.WriteLine($"                               Giỏ hàng của {Cus.User_Name}");
                     Console.WriteLine("==================================================================================\n");
-                    table = new ConsoleTable("Mã sản phẩm", "Tên sản phẩm", "Hãng", "Thuộc tính", "Đơn giá", "Số lượng", "Tổng tiền");
+                    table = new ConsoleTable("Mã sản phẩm", "Tên sản phẩm", "Hãng", "Thuộc tính", "Đơn giá", "Số lượng", "Thành tiền");
                     int amount = 0;
                     foreach (Items i in Items)
                     {
-                        amount = i.Item_Price * i.Quantity;
-                        table.AddRow(i.Produce_Code, i.Item_Name, i.Trademark, i.Attribute, i.Item_Price, i.Quantity, amount);
+                        amount += i.Item_Price * i.Quantity;
+                        table.AddRow(i.Produce_Code, i.Item_Name, i.Trademark, i.Attribute, i.Item_Price, i.Quantity, i.Item_Price * i.Quantity);
                     }
-
                     table.Write(Format.Alternative);
                     while (true)
                     {
