@@ -314,6 +314,7 @@ namespace HP_PLConsole
         {
             Console.Clear();
             List<Items> Items = null;
+            Product Product = new Product();
             try
             {
                 if (File.Exists($"CartOf{Cus.User_Name}.dat"))
@@ -338,7 +339,7 @@ namespace HP_PLConsole
                     table.Write(Format.Alternative);
                     while (true)
                     {
-                        string[] choice = { "Đặt hàng", "Quay lại" };
+                        string[] choice = { "Đặt hàng", "Xóa mặt hàng", "Quay lại" };
                         int number = Product.SubMenu(null, choice);
                         switch (number)
                         {
@@ -376,7 +377,6 @@ namespace HP_PLConsole
                                 order.Amount = amount;
                                 order.Customer = Cus;
                                 Item_BL IBL = new Item_BL();
-                                Product Product = new Product();
                                 foreach (Items item in Items)
                                 {
                                     order.ItemsList = new List<Items>();
@@ -519,6 +519,72 @@ namespace HP_PLConsole
                                 }
                                 break;
                             case 2:
+                                int count = 0;
+                                while (true)
+                                {
+                                    Console.Write("Nhập mã sản phẩm cần xóa khỏi giỏ hàng : ");
+                                    int id = Product.input(Console.ReadLine());
+                                    while (true)
+                                    {
+                                        for (int i = 0; i < Items.Count; i++)
+                                        {
+                                            if (id == Items[i].Produce_Code)
+                                            {
+                                                count = 1;
+                                                Items.RemoveAt(i);
+                                                break;
+                                            }
+                                            else
+                                            {
+                                                string a;
+                                                Console.Write("Mã sản phẩm không tồn tại!");
+                                                Console.Write("Bạn có muốn nhập lại mã sản phẩm không ? (Y/N): ");
+                                                a = Console.ReadLine().ToUpper();
+                                                while (true)
+                                                {
+                                                    if (a != "Y" && a != "N")
+                                                    {
+                                                        Console.Write("Bạn chỉ được nhập (Y/N): ");
+                                                        a = Console.ReadLine().ToUpper();
+                                                        continue;
+                                                    }
+                                                    break;
+                                                }
+                                                if (a == "Y" || a == "y")
+                                                {
+                                                    Console.Write("\nChọn mã sản phẩm: ");
+                                                    id = Product.input(Console.ReadLine());
+                                                    continue;
+                                                }
+                                                else
+                                                {
+                                                    DisplayCart(Cus);
+                                                }
+                                            }
+                                        }
+                                        if (count == 1)
+                                        {
+                                            break;
+                                        }
+                                    }
+                                    string sJSONReponse = JsonConvert.SerializeObject(Items);
+                                    BinaryWriter bw;
+                                    try
+                                    {
+                                        fs = new FileStream($"CartOf{Cus.User_Name}.dat", FileMode.OpenOrCreate, FileAccess.Write);
+                                        bw = new BinaryWriter(fs);
+                                        bw.Write((string)(object)sJSONReponse + Environment.NewLine);
+                                        fs.Close();
+                                        Console.WriteLine("Đã xóa sản phẩm!");
+                                    }
+                                    catch (System.Exception ex)
+                                    {
+                                        Console.WriteLine(ex.Message);
+                                        Console.WriteLine("Không xóa được sản phẩm!");
+                                        Console.ReadKey();
+                                    }
+                                }
+                            case 3:
                                 UserMenu(Cus);
                                 break;
                         }
