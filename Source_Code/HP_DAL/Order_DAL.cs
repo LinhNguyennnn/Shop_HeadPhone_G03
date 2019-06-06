@@ -46,7 +46,7 @@ namespace HP_DAL
                 order.Order_ID = orderId;
                 foreach (var item in order.ItemsList)
                 {
-                    command.CommandText = @"insert into OrderDetails(Order_ID,Produce_Code) values (" + order.Order_ID + ", " + item.Produce_Code + ");";
+                    command.CommandText = @"insert into OrderDetails(Order_ID,Produce_Code,Quantity) values (" + order.Order_ID + ", " + item.Produce_Code + ", " + item.Quantity + ");";
                     command.ExecuteNonQuery();
                 }
                 transaction.Commit();
@@ -70,7 +70,7 @@ namespace HP_DAL
         public List<Order> GetOrderByCustomerId(int customerId)
         {
             query = @"select * from Orders where Cus_ID = " + customerId + ";";
-            reader = DbHelper.ExecQuery(query,DbHelper.OpenConnection());
+            reader = DbHelper.ExecQuery(query, DbHelper.OpenConnection());
             List<Order> order = null;
             if (reader != null)
             {
@@ -80,6 +80,37 @@ namespace HP_DAL
             return order;
         }
 
+        public Order GetOrderDetailByOrderID(int? orderId)
+        {
+
+            query = @"select Orders.Order_ID , Customers.Cus_ID, 
+                    Customers.Cus_Name, Customers.Cus_Address, 
+                    Items.Produce_Code, Items.Item_Name, Items.Item_Price, 
+                    OrderDetails.Quantity from Orders inner join Customers on Orders.Cus_ID = Customers.Cus_ID 
+                    inner join OrderDetails on Orders.Order_ID = OrderDetails.Order_ID 
+                    inner join Items on Orderdetails.Produce_Code = Items.Produce_Code 
+                    where Orders.Order_ID = " + orderId + ";";
+            reader = DbHelper.ExecQuery(query, DbHelper.OpenConnection());
+            Order order = new Order();
+            order.ItemsList = new List<Items>();
+            while (reader.Read())
+            {
+                order.Order_ID = reader.GetInt32("Order_ID");
+                order.Customer = new Customers();
+                order.Customer.Cus_ID = reader.GetInt32("Cus_ID");
+                order.Customer.Cus_Name = reader.GetString("Cus_Name");
+                order.Customer.Cus_Address = reader.GetString("Cus_Address");
+                Items item = new Items();
+                item.Produce_Code = reader.GetInt32("Produce_Code");
+                item.Item_Name = reader.GetString("Item_Name");
+                item.Quantity = reader.GetInt32("Quantity");
+                item.Item_Price = reader.GetInt32("Item_Price");
+
+                order.ItemsList.Add(item);
+            }
+            DbHelper.CloseConnection();
+            return order;
+        }
         public bool DeleteOrder(int? orderId)
         {
             bool result = false;
@@ -136,7 +167,7 @@ namespace HP_DAL
             order.Customer.Cus_ID = reader.GetInt32("Cus_ID");
             return order;
         }
-        
+
         public bool UpdateStatusOrder(int? orderId)
         {
             bool result = false;

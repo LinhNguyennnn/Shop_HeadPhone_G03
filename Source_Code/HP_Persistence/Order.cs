@@ -8,25 +8,21 @@ namespace HP_Persistence
         public int? Order_ID { get; set; }
         public int ItemId { get; set; }
         public DateTime Order_Date { get; set; }
-        public int ItemQuantity { set; get; }
         public Customers Customer { get; set; }
         public string Status { get; set; }
         public string Address_Shipping { get; set; }
-        public int Amount { set; get; }
 
         public List<Items> ItemsList { get; set; }
 
         public Order()
         {
         }
-        public Order(int? order_id, string address_Shipping, DateTime order_date, int itemId, string status, List<Items> itemsList, int itemQuantity, int amount)
+        public Order(int? order_id, string address_Shipping, DateTime order_date, int itemId, string status, List<Items> itemsList)
         {
             this.Order_ID = order_id;
             this.Order_Date = order_date;
             this.Address_Shipping = address_Shipping;
             this.ItemsList = itemsList;
-            this.ItemQuantity = itemQuantity;
-            this.Amount = amount;
             this.Status = status;
             this.ItemId = itemId;
         }
