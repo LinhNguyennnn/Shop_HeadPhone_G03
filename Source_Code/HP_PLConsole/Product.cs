@@ -70,8 +70,8 @@ namespace HP_PLConsole
                 table.AddRow(i.Produce_Code, i.Item_Name, i.Trademark, i.Attribute, U.FormatMoney(i.Item_Price));
             }
             table.Write(Format.Alternative);
-            Console.WriteLine("================================================================================================");
-            Console.Write("\nChọn mã sản phẩm: ");
+            Console.WriteLine("================================================================================================\n");
+            Console.Write("Chọn mã sản phẩm: ");
             int Id = input(Console.ReadLine());
 
             while (IBL.GetItemByProduceCode(Id) == null)
