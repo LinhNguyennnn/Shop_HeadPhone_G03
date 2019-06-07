@@ -116,7 +116,7 @@ namespace HP_PLConsole
             Console.WriteLine("Mô tả sản phẩm : {0}\n", item.Item_Description);
             while (true)
             {
-                string[] choice = { "Thêm vào giỏ hàng", "Danh sách sản phẩm" };
+                string[] choice = { "Thêm vào giỏ hàng", "Trở về danh sách sản phẩm", "Trở về trang chính" };
                 int number = SubMenu(null, choice);
                 switch (number)
                 {
@@ -125,19 +125,15 @@ namespace HP_PLConsole
                         while (true)
                         {
                             Console.Write("Nhập số lượng sản phẩm: ");
-                            try
+                            bool isINT = Int32.TryParse(Console.ReadLine(), out itemQuantity);
+                            if (!isINT && itemQuantity < 1 && itemQuantity > 10)
                             {
-                                itemQuantity = int.Parse(Console.ReadLine());
-                                if (itemQuantity >= 1 && itemQuantity <= 5)
-                                {
-                                    break;
-                                }
-                            }
-                            catch (System.Exception)
-                            {
-
-                                Console.WriteLine("Số lượng sản phẩm phải là số lớn hơn 0 và nhỏ hơn 5 !");
+                                Console.WriteLine("Số lượng sản phẩm phải là số lớn hơn 0 và nhỏ hơn 10 !");
                                 continue;
+                            }
+                            else
+                            {
+                                break;
                             }
                         }
                         if (File.Exists($"CartOf{Cus.User_Name}.dat"))
@@ -167,6 +163,35 @@ namespace HP_PLConsole
                         break;
                     case 2:
                         DisplayProduct(Cus);
+                        break;
+                    case 3:
+                        if (Cus.User_Name != null && Cus.User_Password != null)
+                        {
+                            U.UserMenu(Cus);
+                        }
+                        else
+                        {
+                            Console.Clear();
+                            Menu m = new Menu();
+                            Product Product = new Product();
+                            string[] choice1 = { "Danh sách sản phẩm", "Xem giỏ hàng", "Đăng nhập", "Thoát" };
+                            int number1 = Product.SubMenu($"Chào mừng đến với cửa hàng", choice1);
+                            switch (number1)
+                            {
+                                case 1:
+                                    Product.DisplayProduct(Cus);
+                                    break;
+                                case 2:
+                                    U.DisplayCart(Cus);
+                                    break;
+                                case 3:
+                                    U.ScreenLogin();
+                                    break;
+                                case 4:
+                                    Environment.Exit(0);
+                                    break;
+                            }
+                        }
                         break;
                 }
             }

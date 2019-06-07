@@ -14,7 +14,7 @@ namespace HP_PLConsole
     {
         public void ScreenLogin()
         {
-            Menu MN = new Menu();
+            Menu m = new Menu();
             Customer_BL CusBL = new Customer_BL();
             Customers Cus = new Customers();
             string Un = null;
@@ -52,10 +52,10 @@ namespace HP_PLConsole
                         case "y":
                             continue;
                         case "N":
-                            MN.menu(null);
+                            m.menu();
                             break;
                         case "n":
-                            MN.menu(null);
+                            m.menu();
                             break;
                         default:
                             continue;
@@ -87,10 +87,10 @@ namespace HP_PLConsole
                         case "y":
                             continue;
                         case "N":
-                            MN.menu(null);
+                            m.menu();
                             break;
                         case "n":
-                            MN.menu(null);
+                            m.menu();
                             break;
                         default:
                             continue;
@@ -118,10 +118,10 @@ namespace HP_PLConsole
                         case "y":
                             continue;
                         case "N":
-                            MN.menu(null);
+                            m.menu();
                             break;
                         case "n":
-                            MN.menu(null);
+                            m.menu();
                             break;
                         default:
                             continue;
@@ -133,8 +133,28 @@ namespace HP_PLConsole
         public void UserMenu(Customers Cus)
         {
             Console.Clear();
+            Menu m = new Menu();
             Product Product = new Product();
-            Menu MN = new Menu();
+            if (Cus.User_Name == null && Cus.User_Password == null)
+            {
+                string[] choice1 = { "Danh sách sản phẩm", "Xem giỏ hàng", "Đăng nhập", "Thoát" };
+                int number1 = Product.SubMenu($"Chào mừng đến với cửa hàng", choice1);
+                switch (number1)
+                {
+                    case 1:
+                        Product.DisplayProduct(Cus);
+                        break;
+                    case 2:
+                        DisplayCart(Cus);
+                        break;
+                    case 3:
+                        ScreenLogin();
+                        break;
+                    case 4:
+                        Environment.Exit(0);
+                        break;
+                }
+            }
             string[] choice = { "Danh sách sản phẩm", "Thông tin cá nhân", "Xem giỏ hàng", "Lịch sử giao dịch", "Đăng xuất" };
             int number = Product.SubMenu($"Chào mừng {Cus.User_Name} đến với cửa hàng", choice);
             switch (number)
@@ -152,7 +172,7 @@ namespace HP_PLConsole
                     Userhasbought(Cus);
                     break;
                 case 5:
-                    MN.menu(null);
+                    m.menu();
                     break;
             }
         }
@@ -208,7 +228,7 @@ namespace HP_PLConsole
             }
             catch (System.Exception)
             {
-                Menu MN = new Menu();
+                Menu m = new Menu();
                 Console.WriteLine("Mất kết nối!");
                 Console.Write("Bạn có muốn đăng nhập lại không? (Y/N): ");
                 string select = Console.ReadLine().ToUpper();
@@ -231,10 +251,10 @@ namespace HP_PLConsole
                         ScreenLogin();
                         break;
                     case "N":
-                        MN.menu(null);
+                        m.menu();
                         break;
                     case "n":
-                        MN.menu(null);
+                        m.menu();
                         break;
                 }
             }
@@ -427,7 +447,6 @@ namespace HP_PLConsole
                                 else if (orderid > 0 && orderid <= Count)
                                 {
                                     break;
-
                                 }
                                 else
                                 {
@@ -568,21 +587,27 @@ namespace HP_PLConsole
                             break;
                     }
                 }
+                else if (money < 500 && money > 50000000)
+                {
+                    Console.WriteLine("Số tiền bạn nhập vào không hợp lệ !");
+                    continue;
+                }
                 else
                 {
-                    if (money >= 500 && money <= 50000000 && money % 500 == 0 && money < amount)
+                    if (money >= amount)
                     {
-                        Console.WriteLine("Số tiền bạn nhập vào nhỏ hơn tổng số tiền phải thanh toán !");
-                        continue;
+                        break;
                     }
                     else
                     {
-                        break;
+                        Console.WriteLine("Số tiền bạn nhập vào nhỏ hơn tổng số tiền phải thanh toán !");
+                        continue;
                     }
                 }
             }
             bool UpdateStatus = OBL.UpdateStatus(order.Order_ID);
             Console.WriteLine("Thanh toán thành công !");
+            Console.WriteLine("Tiền thừa : {0}", money - amount);
             try
             {
                 if (File.Exists(Path.Combine($"CartOf{Cus.User_Name}.dat")))
@@ -598,6 +623,8 @@ namespace HP_PLConsole
             {
                 Console.WriteLine(ioExp.Message);
             }
+            Console.Write("Nhấn phím bất kỳ để in hóa đơn!");
+            Console.ReadKey();
             Paybill(Cus, order.Order_ID);
         }
 
@@ -739,7 +766,7 @@ namespace HP_PLConsole
         }
         public void LoginToPay(Customers Cus, List<Items> ListItems, int amount)
         {
-            Menu MN = new Menu();
+            Menu m = new Menu();
             Customer_BL CusBL = new Customer_BL();
             Cus = new Customers();
             string Un = null;
@@ -777,10 +804,10 @@ namespace HP_PLConsole
                         case "y":
                             continue;
                         case "N":
-                            MN.menu(null);
+                            m.menu();
                             break;
                         case "n":
-                            MN.menu(null);
+                            m.menu();
                             break;
                         default:
                             continue;
@@ -812,10 +839,10 @@ namespace HP_PLConsole
                         case "y":
                             continue;
                         case "N":
-                            MN.menu(null);
+                            m.menu();
                             break;
                         case "n":
-                            MN.menu(null);
+                            m.menu();
                             break;
                         default:
                             continue;
@@ -843,10 +870,10 @@ namespace HP_PLConsole
                         case "y":
                             continue;
                         case "N":
-                            MN.menu(null);
+                            m.menu();
                             break;
                         case "n":
-                            MN.menu(null);
+                            m.menu();
                             break;
                         default:
                             continue;

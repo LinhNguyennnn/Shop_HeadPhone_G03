@@ -3,22 +3,19 @@ using HP_Persistence;
 
 namespace HP_PLConsole
 {
-    public class Menu : Product
+    public class Menu
     {
-        public void menu(string a)
+        public void menu()
         {
+            Product Product = new Product();
             Console.Clear();
-            if (a != null)
-            {
-                Console.WriteLine(a);
-            }
             string[] choice = { "Xem danh sách sản phẩm","Đăng nhập", "Thoát" };
-            int number = SubMenu("Chào mừng đến với cửa hàng tai nghe", choice);
+            int number = Product.SubMenu("Chào mừng đến với cửa hàng tai nghe", choice);
             switch (number)
             {
                 case 1:
                     Customers Cus = new Customers();
-                    DisplayProduct(Cus);
+                    Product.DisplayProduct(Cus);
                     break;
                 case 2:
                     User U = new User();
