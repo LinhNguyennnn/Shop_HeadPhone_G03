@@ -8,20 +8,23 @@ namespace HP_PLConsole
         public void menu()
         {
             Product Product = new Product();
+            Customers Cus = new Customers();
+            User U = new User();
             Console.Clear();
-            string[] choice = { "Xem danh sách sản phẩm","Đăng nhập", "Thoát" };
-            int number = Product.SubMenu("Chào mừng đến với cửa hàng tai nghe", choice);
+            string[] choice = { "Danh sách sản phẩm", "Xem giỏ hàng", "Đăng nhập", "Thoát" };
+            int number = Product.SubMenu($"Chào mừng đến với cửa hàng", choice);
             switch (number)
             {
                 case 1:
-                    Customers Cus = new Customers();
                     Product.DisplayProduct(Cus);
                     break;
                 case 2:
-                    User U = new User();
-                    U.ScreenLogin();
+                    U.DisplayCart(Cus);
                     break;
                 case 3:
+                    U.ScreenLogin();
+                    break;
+                case 4:
                     Environment.Exit(0);
                     break;
             }

@@ -137,23 +137,7 @@ namespace HP_PLConsole
             Product Product = new Product();
             if (Cus.User_Name == null && Cus.User_Password == null)
             {
-                string[] choice1 = { "Danh sách sản phẩm", "Xem giỏ hàng", "Đăng nhập", "Thoát" };
-                int number1 = Product.SubMenu($"Chào mừng đến với cửa hàng", choice1);
-                switch (number1)
-                {
-                    case 1:
-                        Product.DisplayProduct(Cus);
-                        break;
-                    case 2:
-                        DisplayCart(Cus);
-                        break;
-                    case 3:
-                        ScreenLogin();
-                        break;
-                    case 4:
-                        Environment.Exit(0);
-                        break;
-                }
+                m.menu();
             }
             string[] choice = { "Danh sách sản phẩm", "Thông tin cá nhân", "Xem giỏ hàng", "Lịch sử giao dịch", "Đăng xuất" };
             int number = Product.SubMenu($"Chào mừng {Cus.User_Name} đến với cửa hàng", choice);
@@ -226,10 +210,10 @@ namespace HP_PLConsole
             {
                 Cus = CusBL.Login(username, password);
             }
-            catch (System.Exception)
+            catch (System.Exception ex)
             {
                 Menu m = new Menu();
-                Console.WriteLine("Mất kết nối!");
+                Console.WriteLine(ex.Message);
                 Console.Write("Bạn có muốn đăng nhập lại không? (Y/N): ");
                 string select = Console.ReadLine().ToUpper();
                 while (true)
@@ -299,7 +283,7 @@ namespace HP_PLConsole
             }
             try
             {
-                FileStream fs = new FileStream($"CartOf{Cus.User_Name}.dat", FileMode.OpenOrCreate, FileAccess.Write);
+                FileStream fs = new FileStream($"CartOf{Cus.User_Name}.dat", FileMode.OpenOrCreate, FileAccess.ReadWrite);
                 BinaryWriter bw = new BinaryWriter(fs);
                 string sJSONReponse = JsonConvert.SerializeObject(ListItems);
                 bw.Write((string)(object)sJSONReponse);
@@ -336,6 +320,41 @@ namespace HP_PLConsole
             int amount = 0;
             try
             {
+                if (File.Exists($"CartOf.dat"))
+                {
+                    FileStream fs = new FileStream($"CartOf.dat", FileMode.Open, FileAccess.ReadWrite);
+                    BinaryReader br = new BinaryReader(fs);
+                    string str = br.ReadString();
+                    Items = JsonConvert.DeserializeObject<List<Items>>(str);
+                    fs.Close();
+                    fs = new FileStream($"CartOf{Cus.User_Name}.dat", FileMode.OpenOrCreate, FileAccess.ReadWrite);
+                    BinaryWriter bw = new BinaryWriter(fs);
+                    string sJSONReponse = JsonConvert.SerializeObject(Items);
+                    bw.Write((string)(object)sJSONReponse);
+                    fs.Close();
+                    try
+                    {
+                        if (File.Exists(Path.Combine($"CartOf.dat")))
+                        {
+                            File.Delete(Path.Combine($"CartOf.dat"));
+                        }
+                        else
+                        {
+                            Console.WriteLine("Giỏ hàng không tồn tại");
+                        }
+                    }
+                    catch (IOException ioExp)
+                    {
+                        Console.WriteLine(ioExp.Message);
+                    }
+                }
+            }
+            catch (System.Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            try
+            {
                 if (File.Exists($"CartOf{Cus.User_Name}.dat"))
                 {
                     FileStream fs = new FileStream($"CartOf{Cus.User_Name}.dat", FileMode.Open, FileAccess.ReadWrite);
@@ -349,7 +368,7 @@ namespace HP_PLConsole
                     Console.WriteLine($"                                                      Giỏ hàng");
                     Console.WriteLine("================================================================================================================================\n");
                     Console.WriteLine("+-------------+-----------------------------------+----------------+------------+-----------------+----------+------------------+");
-                    Console.WriteLine("| {0,-12}|           {1,-24}|      {2,-10}| {3,-11}|    {4,-6}      | {5,-11}| {6,-19}|", "Mã sản phẩm", "Tên sản phẩm", "Hãng", "Thuộc tính", "Đơn giá", "Số lượng", "Thành tiền");
+                    Console.WriteLine("| {0,-12}|           {1,-24}|      {2,-10}| {3,-11}|    {4,-6}      | {5,-9}| {6,-17}|", "Mã sản phẩm", "Tên sản phẩm", "Hãng", "Thuộc tính", "Đơn giá", "Số lượng", "Thành tiền");
                     Console.WriteLine("+-------------+-----------------------------------+----------------+------------+-----------------+----------+------------------+");
                     foreach (Items i in Items)
                     {
@@ -357,7 +376,7 @@ namespace HP_PLConsole
                         Console.WriteLine("|      {0,-7}| {1,-34}| {2,-15}| {3,-11}| {4,-16}|    {5,-6}|  {6,-16}|", i.Produce_Code, i.Item_Name, i.Trademark, i.Attribute, FormatMoney(i.Item_Price), i.Quantity, FormatMoney(i.Item_Price * i.Quantity));
                         Console.WriteLine("+-------------+-----------------------------------+----------------+------------+-----------------+----------+------------------+");
                     }
-                    Console.WriteLine("|    Tổng tiền                                                                                               |  {0,-15} |", FormatMoney(amount));
+                    Console.WriteLine("|    Tổng tiền                                                                                               |  {0,-15} |", FormatMoney(amount));
                     Console.WriteLine("+-------------------------------------------------------------------------------------------------------------------------------+");
                     while (true)
                     {
@@ -414,16 +433,16 @@ namespace HP_PLConsole
                     Console.ReadKey();
                     UserMenu(Cus);
                 }
-                Console.WriteLine("===========================================================================================================");
+                Console.WriteLine("==========================================================================================================");
                 Console.WriteLine("                                             Danh sách sản phẩm đã mua");
-                Console.WriteLine("===========================================================================================================\n");
-                Console.WriteLine("+----------------+--------------------+------------------------------------------+--------------------+");
-                Console.WriteLine("| {0,-15}|    {1,-16}|          {2,-21}           |    {3,-16}|", "Mã đơn hàng", "Ngày đặt hàng", "Địa chỉ giao hàng", "Trạng thái");
-                Console.WriteLine("+----------------+--------------------+------------------------------------------+--------------------+");
+                Console.WriteLine("==========================================================================================================\n");
+                Console.WriteLine("+----------------+--------------------+------------------------------------------+------------------------+");
+                Console.WriteLine("| {0,-15}|    {1,-16}|          {2,-21}           |   {3,-21}|", "Mã đơn hàng", "Ngày đặt hàng", "Địa chỉ giao hàng", "Trạng thái đặt hàng");
+                Console.WriteLine("+----------------+--------------------+------------------------------------------+------------------------+");
                 foreach (Order order in ListOrder)
                 {
-                    Console.WriteLine("|      {0,-7}   |     {1,-15}| {2,-41}|  {3,-18}|", order.Order_ID, order.Order_Date.ToString("dd/MM/yyyy"), order.Address_Shipping, order.Status);
-                    Console.WriteLine("+----------------+--------------------+------------------------------------------+--------------------+");
+                    Console.WriteLine("|      {0,-7}   |     {1,-15}| {2,-41}|  {3,-22}|", order.Order_ID, order.Order_Date.ToString("dd/MM/yyyy"), order.Address_Shipping, order.Status);
+                    Console.WriteLine("+----------------+--------------------+------------------------------------------+------------------------+");
                 }
                 int Count = ListOrder.Count;
                 while (true)
@@ -466,6 +485,7 @@ namespace HP_PLConsole
 
         public void CreateOrder(Customers Cus, List<Items> ListItems, int amount)
         {
+            Console.Clear();
             if (Cus.User_Name == null && Cus.User_Password == null)
             {
                 Console.Write("Bạn cần đăng nhập để thanh toán!\nBạn có muốn đăng nhập không ? (Y/N): ");
@@ -698,7 +718,7 @@ namespace HP_PLConsole
                 string sJSONReponse = JsonConvert.SerializeObject(ListItems);
                 try
                 {
-                    fs = new FileStream($"CartOf{Cus.User_Name}.dat", FileMode.OpenOrCreate, FileAccess.Write);
+                    fs = new FileStream($"CartOf{Cus.User_Name}.dat", FileMode.OpenOrCreate, FileAccess.ReadWrite);
                     BinaryWriter bw = new BinaryWriter(fs);
                     bw.Write((string)(object)sJSONReponse);
                     fs.Close();
@@ -879,7 +899,7 @@ namespace HP_PLConsole
                             continue;
                     }
                 }
-                FileStream fs = new FileStream($"CartOf{Cus.User_Name}.dat", FileMode.OpenOrCreate, FileAccess.Write);
+                FileStream fs = new FileStream($"CartOf{Cus.User_Name}.dat", FileMode.Open, FileAccess.ReadWrite);
                 BinaryWriter bw = new BinaryWriter(fs);
                 string sJSONReponse = JsonConvert.SerializeObject(ListItems);
                 bw.Write((string)(object)sJSONReponse);
