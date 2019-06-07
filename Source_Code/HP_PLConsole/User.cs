@@ -630,7 +630,7 @@ namespace HP_PLConsole
             }
             bool UpdateStatus = OBL.UpdateStatus(order.Order_ID);
             Console.WriteLine("Thanh toán thành công !");
-            Console.WriteLine("Tiền thừa : {0}", money - amount);
+            Console.WriteLine("Tiền thừa : {0}", FormatMoney(money - amount));
             try
             {
                 if (File.Exists(Path.Combine($"CartOf{Cus.User_Name}.dat")))
@@ -902,7 +902,7 @@ namespace HP_PLConsole
                             continue;
                     }
                 }
-                FileStream fs = new FileStream($"CartOf{Cus.User_Name}.dat", FileMode.Open, FileAccess.ReadWrite);
+                FileStream fs = new FileStream($"CartOf{Cus.User_Name}.dat", FileMode.OpenOrCreate, FileAccess.ReadWrite);
                 BinaryWriter bw = new BinaryWriter(fs);
                 string sJSONReponse = JsonConvert.SerializeObject(ListItems);
                 bw.Write((string)(object)sJSONReponse);
