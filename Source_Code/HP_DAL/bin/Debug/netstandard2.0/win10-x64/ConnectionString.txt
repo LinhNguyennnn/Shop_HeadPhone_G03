@@ -1,0 +1,1 @@
+server=localhost;user id=HP_User;password=123456;port=3306;database=Headphone_Shop_Gr3;SslMode=None;

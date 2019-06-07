@@ -1,0 +1,9 @@
+C:\Users\lenovo\Desktop\Project\Shop_HeadPhone_G03\Source_Code\HP_Persistence\bin\Debug\netstandard2.0\win10-x64\HP_Persistence.deps.json
+C:\Users\lenovo\Desktop\Project\Shop_HeadPhone_G03\Source_Code\HP_Persistence\bin\Debug\netstandard2.0\win10-x64\HP_Persistence.dll
+C:\Users\lenovo\Desktop\Project\Shop_HeadPhone_G03\Source_Code\HP_Persistence\bin\Debug\netstandard2.0\win10-x64\HP_Persistence.pdb
+C:\Users\lenovo\Desktop\Project\Shop_HeadPhone_G03\Source_Code\HP_Persistence\obj\Debug\netstandard2.0\win10-x64\HP_Persistence.csprojAssemblyReference.cache
+C:\Users\lenovo\Desktop\Project\Shop_HeadPhone_G03\Source_Code\HP_Persistence\obj\Debug\netstandard2.0\win10-x64\HP_Persistence.csproj.CoreCompileInputs.cache
+C:\Users\lenovo\Desktop\Project\Shop_HeadPhone_G03\Source_Code\HP_Persistence\obj\Debug\netstandard2.0\win10-x64\HP_Persistence.AssemblyInfoInputs.cache
+C:\Users\lenovo\Desktop\Project\Shop_HeadPhone_G03\Source_Code\HP_Persistence\obj\Debug\netstandard2.0\win10-x64\HP_Persistence.AssemblyInfo.cs
+C:\Users\lenovo\Desktop\Project\Shop_HeadPhone_G03\Source_Code\HP_Persistence\obj\Debug\netstandard2.0\win10-x64\HP_Persistence.dll
+C:\Users\lenovo\Desktop\Project\Shop_HeadPhone_G03\Source_Code\HP_Persistence\obj\Debug\netstandard2.0\win10-x64\HP_Persistence.pdb
