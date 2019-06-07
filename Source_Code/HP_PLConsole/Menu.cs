@@ -1,9 +1,5 @@
-<<<<<<< HEAD
 using System;    
-=======
-using System;
 using HP_Persistence;
->>>>>>> d2b757ba1feff1c3ff8df4f4f7ca9a4499248b13
 
 namespace HP_PLConsole
 {
