@@ -13,10 +13,14 @@ namespace HP_BL
             return ODAL.CreateOrder(order);
         }
         public List<Order> GetOrderByCustomerId(int customerId)
-        {        
+        {
             List<Order> listOrders = ODAL.GetOrderByCustomerId(customerId);
 
             return listOrders;
+        }
+        public Order GetOrderDetailsByOrderId(int? orderID)
+        {
+            return ODAL.GetOrderDetailByOrderID(orderID);
         }
         public bool DeleteOrder(int? orderId)
         {

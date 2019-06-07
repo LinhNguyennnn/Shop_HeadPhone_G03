@@ -58,8 +58,9 @@ namespace HP_PLConsole
         public int DisplayAllItems(Customers Cus)
         {
             Console.Clear();
-            Console.WriteLine("=====================================================================");
-            Console.WriteLine("------------------------ DANH SÁCH SẢN PHẨM -------------------------\n");
+            Console.WriteLine("================================================================================================");
+            Console.WriteLine("------------------------------------- DANH SÁCH SẢN PHẨM ---------------------------------------");
+            Console.WriteLine("================================================================================================\n");
             Item_BL IBL = new Item_BL();
             List<Items> items = IBL.GetAllItems();
             table = new ConsoleTable("Mã sản phẩm", "Tên sản phẩm", "Hãng", "Thuộc tính", "Giá sản phẩm");
@@ -68,7 +69,7 @@ namespace HP_PLConsole
                 table.AddRow(i.Produce_Code, i.Item_Name, i.Trademark, i.Attribute, i.Item_Price);
             }
             table.Write(Format.Alternative);
-            Console.WriteLine("=====================================================================");
+            Console.WriteLine("================================================================================================");
             Console.Write("\nChọn mã sản phẩm: ");
             int Id = input(Console.ReadLine());
 
@@ -107,8 +108,8 @@ namespace HP_PLConsole
             User U = new User();
             Items item = IBL.GetItemByProduceCode(id);
             Console.Clear();
-            Console.WriteLine("=====================================================================");
-            Console.WriteLine("------------------------- CHI TIẾT SẢN PHẨM -------------------------\n");
+            Console.WriteLine("==================================================================================");
+            Console.WriteLine("-------------------------------- CHI TIẾT SẢN PHẨM -------------------------------\n");
             table = new ConsoleTable("Mã sản phẩm", "Tên sản phẩm", "Hãng", "Thuộc tính", "Giá sản phẩm");
             table.AddRow(item.Produce_Code, item.Item_Name, item.Trademark, item.Attribute, item.Item_Price);
             table.Write(Format.Alternative);
@@ -156,7 +157,6 @@ namespace HP_PLConsole
                             else
                             {
                                 item.Quantity = itemQuantity + Items[index].Quantity;
-
                             }
                         }
                         else
@@ -237,7 +237,7 @@ namespace HP_PLConsole
                 table.AddRow(i.Produce_Code, i.Item_Name, i.Trademark, i.Attribute, i.Item_Price);
             }
             table.Write(Format.Alternative);
-            Console.WriteLine("=====================================================================");
+            Console.WriteLine("==================================================================================");
             Console.Write("\nChọn mã sản phẩm: ");
             int Id = input(Console.ReadLine());
             while (IBL.GetItemByProduceCodeAndTradeMark(Id, trade) == null)
@@ -311,7 +311,7 @@ namespace HP_PLConsole
                 table.AddRow(i.Produce_Code, i.Item_Name, i.Trademark, i.Attribute, i.Item_Price);
             }
             table.Write(Format.Alternative);
-            Console.WriteLine("=====================================================================");
+            Console.WriteLine("================================================================================================");
             Console.Write("\nChọn mã sản phẩm: ");
             int Id = input(Console.ReadLine());
             while (IBL.GetItemByProduceCodeAndAttribute(Id, ab) == null)
