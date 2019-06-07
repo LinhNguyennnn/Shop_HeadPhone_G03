@@ -182,7 +182,7 @@ namespace HP_DAL
             try
             {
                 command.Parameters.Clear();
-                command.CommandText = $"Update ignore Orders set Order_Status = 'Thành công' where Order_ID = @Order_Id";
+                command.CommandText = $"Update ignore Orders set Order_Status = 'Thành công' where Order_ID = @Order_Id";
                 command.Parameters.AddWithValue("@Order_Id", orderId);
                 command.ExecuteNonQuery();
                 transaction.Commit();

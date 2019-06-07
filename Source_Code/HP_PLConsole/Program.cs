@@ -6,8 +6,8 @@ namespace HP_PLConsole
     {
         static void Main(string[] args)
         {
-            Menu menu = new Menu();
-            menu.menu(null);
+            Menu m = new Menu();
+            m.menu();
         }
     }
 }

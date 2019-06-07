@@ -1,0 +1,15 @@
+C:\Users\lenovo\Desktop\Project\Shop_HeadPhone_G03\Source_Code\HP_BL\bin\Debug\netstandard2.0\win10-x64\ConnectionString.txt
+C:\Users\lenovo\Desktop\Project\Shop_HeadPhone_G03\Source_Code\HP_BL\bin\Debug\netstandard2.0\win10-x64\HP_BL.deps.json
+C:\Users\lenovo\Desktop\Project\Shop_HeadPhone_G03\Source_Code\HP_BL\bin\Debug\netstandard2.0\win10-x64\HP_BL.dll
+C:\Users\lenovo\Desktop\Project\Shop_HeadPhone_G03\Source_Code\HP_BL\bin\Debug\netstandard2.0\win10-x64\HP_BL.pdb
+C:\Users\lenovo\Desktop\Project\Shop_HeadPhone_G03\Source_Code\HP_BL\bin\Debug\netstandard2.0\win10-x64\HP_DAL.dll
+C:\Users\lenovo\Desktop\Project\Shop_HeadPhone_G03\Source_Code\HP_BL\bin\Debug\netstandard2.0\win10-x64\HP_Persistence.dll
+C:\Users\lenovo\Desktop\Project\Shop_HeadPhone_G03\Source_Code\HP_BL\bin\Debug\netstandard2.0\win10-x64\HP_Persistence.pdb
+C:\Users\lenovo\Desktop\Project\Shop_HeadPhone_G03\Source_Code\HP_BL\bin\Debug\netstandard2.0\win10-x64\HP_DAL.pdb
+C:\Users\lenovo\Desktop\Project\Shop_HeadPhone_G03\Source_Code\HP_BL\obj\Debug\netstandard2.0\win10-x64\HP_BL.csproj.CoreCompileInputs.cache
+C:\Users\lenovo\Desktop\Project\Shop_HeadPhone_G03\Source_Code\HP_BL\obj\Debug\netstandard2.0\win10-x64\HP_BL.AssemblyInfoInputs.cache
+C:\Users\lenovo\Desktop\Project\Shop_HeadPhone_G03\Source_Code\HP_BL\obj\Debug\netstandard2.0\win10-x64\HP_BL.AssemblyInfo.cs
+C:\Users\lenovo\Desktop\Project\Shop_HeadPhone_G03\Source_Code\HP_BL\obj\Debug\netstandard2.0\win10-x64\HP_BL.csproj.CopyComplete
+C:\Users\lenovo\Desktop\Project\Shop_HeadPhone_G03\Source_Code\HP_BL\obj\Debug\netstandard2.0\win10-x64\HP_BL.dll
+C:\Users\lenovo\Desktop\Project\Shop_HeadPhone_G03\Source_Code\HP_BL\obj\Debug\netstandard2.0\win10-x64\HP_BL.pdb
+C:\Users\lenovo\Desktop\Project\Shop_HeadPhone_G03\Source_Code\HP_BL\obj\Debug\netstandard2.0\win10-x64\HP_BL.csprojAssemblyReference.cache

@@ -211,11 +211,19 @@
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< HEAD
       "projectUniqueName": "D:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\HP_Persistence\\HP_Persistence.csproj",
       "projectName": "HP_Persistence",
       "projectPath": "D:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\HP_Persistence\\HP_Persistence.csproj",
       "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
       "outputPath": "D:\\PROJECT\\Shop_HeadPhone_G03\\Source_Code\\HP_Persistence\\obj\\",
+=======
+      "projectUniqueName": "C:\\Users\\lenovo\\Desktop\\Project\\Shop_HeadPhone_G03\\Source_Code\\HP_Persistence\\HP_Persistence.csproj",
+      "projectName": "HP_Persistence",
+      "projectPath": "C:\\Users\\lenovo\\Desktop\\Project\\Shop_HeadPhone_G03\\Source_Code\\HP_Persistence\\HP_Persistence.csproj",
+      "packagesPath": "C:\\Users\\lenovo\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\lenovo\\Desktop\\Project\\Shop_HeadPhone_G03\\Source_Code\\HP_Persistence\\obj\\",
+>>>>>>> d2b757ba1feff1c3ff8df4f4f7ca9a4499248b13
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

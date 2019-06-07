@@ -11,14 +11,15 @@ namespace HP_PLConsole
     public class Product
     {
         ConsoleTable table = new ConsoleTable();
+        User U = new User();
         public void DisplayProduct(Customers Cus)
         {
             User U = new User();
             Console.Clear();
             try
             {
-                string[] choice = { "Xem danh sách sản phẩm", "Xem danh sách sản phẩm theo hãng", "Xem danh sách sản phẩm theo loại sản phẩm", "Trở về MENU chính" };
-                int number = SubMenu("MENU SẢN PHẨM", choice);
+                string[] choice = { "Xem danh sách tất cả sản phẩm", "Xem danh sách sản phẩm theo hãng", "Xem danh sách sản phẩm theo thuộc tính", "Trở về trang chính" };
+                int number = SubMenu("DANH SÁCH SẢN PHẨM", choice);
                 switch (number)
                 {
                     case 1:
@@ -66,7 +67,7 @@ namespace HP_PLConsole
             table = new ConsoleTable("Mã sản phẩm", "Tên sản phẩm", "Hãng", "Thuộc tính", "Giá sản phẩm");
             foreach (Items i in items)
             {
-                table.AddRow(i.Produce_Code, i.Item_Name, i.Trademark, i.Attribute, i.Item_Price);
+                table.AddRow(i.Produce_Code, i.Item_Name, i.Trademark, i.Attribute, U.FormatMoney(i.Item_Price));
             }
             table.Write(Format.Alternative);
             Console.WriteLine("================================================================================================");
@@ -76,8 +77,8 @@ namespace HP_PLConsole
             while (IBL.GetItemByProduceCode(Id) == null)
             {
                 string a;
-                Console.WriteLine("Mã sản phẩm không tồn tại!");
-                Console.Write("Bạn có muốn nhập lại mã sản phẩm không ? (Y/N): ");
+                Console.WriteLine("Mã sản phẩm không tồn tại!");
+                Console.Write("Bạn có muốn nhập lại mã sản phẩm không ? (Y/N): ");
                 a = Console.ReadLine().ToUpper();
                 while (true)
                 {
@@ -105,18 +106,17 @@ namespace HP_PLConsole
         public int DisplayItemDetail(int id, Customers Cus)
         {
             Item_BL IBL = new Item_BL();
-            User U = new User();
             Items item = IBL.GetItemByProduceCode(id);
             Console.Clear();
             Console.WriteLine("==================================================================================");
             Console.WriteLine("-------------------------------- CHI TIẾT SẢN PHẨM -------------------------------\n");
             table = new ConsoleTable("Mã sản phẩm", "Tên sản phẩm", "Hãng", "Thuộc tính", "Giá sản phẩm");
-            table.AddRow(item.Produce_Code, item.Item_Name, item.Trademark, item.Attribute, item.Item_Price);
+            table.AddRow(item.Produce_Code, item.Item_Name, item.Trademark, item.Attribute, U.FormatMoney(item.Item_Price));
             table.Write(Format.Alternative);
             Console.WriteLine("Mô tả sản phẩm : {0}\n", item.Item_Description);
             while (true)
             {
-                string[] choice = { "Thêm vào giỏ hàng", "MENU sản phẩm" };
+                string[] choice = { "Thêm vào giỏ hàng", "Trở về danh sách sản phẩm", "Trở về trang chính" };
                 int number = SubMenu(null, choice);
                 switch (number)
                 {
@@ -124,20 +124,16 @@ namespace HP_PLConsole
                         int itemQuantity;
                         while (true)
                         {
-                            Console.Write("Nhập số lượng sản phẩm: ");
-                            try
+                            Console.Write("Nhập số lượng sản phẩm: ");
+                            bool isINT = Int32.TryParse(Console.ReadLine(), out itemQuantity);
+                            if (!isINT && itemQuantity < 1 && itemQuantity > 10)
                             {
-                                itemQuantity = int.Parse(Console.ReadLine());
-                                if (itemQuantity >= 1 && itemQuantity <= 5)
-                                {
-                                    break;
-                                }
-                            }
-                            catch (System.Exception)
-                            {
-
-                                Console.WriteLine("Số lượng sản phẩm phải là số lớn hơn 0 và nhỏ 5 !");
+                                Console.WriteLine("Số lượng sản phẩm phải là số lớn hơn 0 và nhỏ hơn 10 !");
                                 continue;
+                            }
+                            else
+                            {
+                                break;
                             }
                         }
                         if (File.Exists($"CartOf{Cus.User_Name}.dat"))
@@ -168,6 +164,35 @@ namespace HP_PLConsole
                     case 2:
                         DisplayProduct(Cus);
                         break;
+                    case 3:
+                        if (Cus.User_Name != null && Cus.User_Password != null)
+                        {
+                            U.UserMenu(Cus);
+                        }
+                        else
+                        {
+                            Console.Clear();
+                            Menu m = new Menu();
+                            Product Product = new Product();
+                            string[] choice1 = { "Danh sách sản phẩm", "Xem giỏ hàng", "Đăng nhập", "Thoát" };
+                            int number1 = Product.SubMenu($"Chào mừng đến với cửa hàng", choice1);
+                            switch (number1)
+                            {
+                                case 1:
+                                    Product.DisplayProduct(Cus);
+                                    break;
+                                case 2:
+                                    U.DisplayCart(Cus);
+                                    break;
+                                case 3:
+                                    U.ScreenLogin();
+                                    break;
+                                case 4:
+                                    Environment.Exit(0);
+                                    break;
+                            }
+                        }
+                        break;
                 }
             }
         }
@@ -175,7 +200,7 @@ namespace HP_PLConsole
         public int DisplayTradeMark(Customers Cus)
         {
             Console.Clear();
-            string[] choice = { "Urbanista", "MEE", "RHA AUDIO", "jabees", "SONY", "SOMIC", "Sennheiser", "Audio Technica", "Skullcandy", "Ausdom", "1More", "Trở về Menu sản phẩm", };
+            string[] choice = { "Urbanista", "MEE", "RHA AUDIO", "jabees", "SONY", "SOMIC", "Sennheiser", "Audio Technica", "Skullcandy", "Ausdom", "1More", "Trở về danh sách sản phẩm", };
             int number = SubMenu("Danh sách sản phẩm theo hãng", choice);
             Item_BL IBL = new Item_BL();
             List<Items> items = null;
@@ -234,7 +259,7 @@ namespace HP_PLConsole
             table = new ConsoleTable("Mã sản phẩm", "Tên sản phẩm", "Hãng", "Thuộc tính", "Giá sản phẩm");
             foreach (Items i in items)
             {
-                table.AddRow(i.Produce_Code, i.Item_Name, i.Trademark, i.Attribute, i.Item_Price);
+                table.AddRow(i.Produce_Code, i.Item_Name, i.Trademark, i.Attribute, U.FormatMoney(i.Item_Price));
             }
             table.Write(Format.Alternative);
             Console.WriteLine("==================================================================================");
@@ -243,8 +268,8 @@ namespace HP_PLConsole
             while (IBL.GetItemByProduceCodeAndTradeMark(Id, trade) == null)
             {
                 string a;
-                Console.Write("Mã sản phẩm không tồn tại!");
-                Console.Write("Bạn có muốn nhập lại mã sản phẩm không ? (Y/N): ");
+                Console.Write("Mã sản phẩm không tồn tại!");
+                Console.Write("Bạn có muốn nhập lại mã sản phẩm không ? (Y/N): ");
                 a = Console.ReadLine().ToUpper();
                 while (true)
                 {
@@ -274,8 +299,9 @@ namespace HP_PLConsole
         {
             Console.Clear();
             Item_BL IBL = new Item_BL();
-            string[] choice = { "Không dây", "Thể thao", "In-Ear", "Gaming", "Earbud", "Trở về MENU sản phẩm" };
-            int number = SubMenu("Danh sách sản phẩm theo phân loại sản phẩm", choice);
+            User U = new User();
+            string[] choice = { "Không dây", "Thể thao", "In-Ear", "Gaming", "Earbud", "Trở về danh sách sản phẩm" };
+            int number = SubMenu("Danh sách sản phẩm theo thuộc tính", choice);
             List<Items> items = null;
             string ab = null;
             switch (number)
@@ -308,7 +334,7 @@ namespace HP_PLConsole
             table = new ConsoleTable("Mã sản phẩm", "Tên sản phẩm", "Hãng", "Thuộc tính", "Giá sản phẩm");
             foreach (Items i in items)
             {
-                table.AddRow(i.Produce_Code, i.Item_Name, i.Trademark, i.Attribute, i.Item_Price);
+                table.AddRow(i.Produce_Code, i.Item_Name, i.Trademark, i.Attribute, U.FormatMoney(i.Item_Price));
             }
             table.Write(Format.Alternative);
             Console.WriteLine("================================================================================================");
@@ -317,14 +343,14 @@ namespace HP_PLConsole
             while (IBL.GetItemByProduceCodeAndAttribute(Id, ab) == null)
             {
                 string a;
-                Console.Write("Mã sản phẩm không tồn tại!");
-                Console.Write("Bạn có muốn nhập lại mã sản phẩm không ? (Y/N): ");
+                Console.Write("Mã sản phẩm không tồn tại!");
+                Console.Write("Bạn có muốn nhập lại mã sản phẩm không ? (Y/N): ");
                 a = Console.ReadLine().ToUpper();
                 while (true)
                 {
                     if (a != "Y" && a != "N")
                     {
-                        Console.Write("Bạn chỉ được nhập (Y/N): ");
+                        Console.Write("Bạn chỉ dược nhập (Y/N): ");
                         a = Console.ReadLine().ToUpper();
                         continue;
                     }
@@ -356,7 +382,7 @@ namespace HP_PLConsole
             Console.WriteLine(line);
             do
             {
-                Console.Write("#Chọn: ");
+                Console.Write("#Chọn: ");
                 try
                 {
                     choose = Int16.Parse(Console.ReadLine());
