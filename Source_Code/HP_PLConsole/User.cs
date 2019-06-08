@@ -318,40 +318,43 @@ namespace HP_PLConsole
             Console.Clear();
             List<Items> Items = null;
             int amount = 0;
-            try
+            if (Cus.User_Name != null && Cus.User_Password != null)
             {
-                if (File.Exists($"CartOf.dat"))
+                try
                 {
-                    FileStream fs = new FileStream($"CartOf.dat", FileMode.Open, FileAccess.ReadWrite);
-                    BinaryReader br = new BinaryReader(fs);
-                    string str = br.ReadString();
-                    Items = JsonConvert.DeserializeObject<List<Items>>(str);
-                    fs.Close();
-                    fs = new FileStream($"CartOf{Cus.User_Name}.dat", FileMode.OpenOrCreate, FileAccess.ReadWrite);
-                    BinaryWriter bw = new BinaryWriter(fs);
-                    string sJSONReponse = JsonConvert.SerializeObject(Items);
-                    bw.Write((string)(object)sJSONReponse);
-                    fs.Close();
-                    try
+                    if (File.Exists($"CartOf.dat"))
                     {
-                        if (File.Exists(Path.Combine($"CartOf.dat")))
+                        FileStream fs = new FileStream($"CartOf.dat", FileMode.Open, FileAccess.ReadWrite);
+                        BinaryReader br = new BinaryReader(fs);
+                        string str = br.ReadString();
+                        Items = JsonConvert.DeserializeObject<List<Items>>(str);
+                        fs.Close();
+                        fs = new FileStream($"CartOf{Cus.User_Name}.dat", FileMode.OpenOrCreate, FileAccess.ReadWrite);
+                        BinaryWriter bw = new BinaryWriter(fs);
+                        string sJSONReponse = JsonConvert.SerializeObject(Items);
+                        bw.Write((string)(object)sJSONReponse);
+                        fs.Close();
+                        try
                         {
-                            File.Delete(Path.Combine($"CartOf.dat"));
+                            if (File.Exists(Path.Combine($"CartOf.dat")))
+                            {
+                                File.Delete(Path.Combine($"CartOf.dat"));
+                            }
+                            else
+                            {
+                                Console.WriteLine("Giỏ hàng không tồn tại");
+                            }
                         }
-                        else
+                        catch (IOException ioExp)
                         {
-                            Console.WriteLine("Giỏ hàng không tồn tại");
+                            Console.WriteLine(ioExp.Message);
                         }
-                    }
-                    catch (IOException ioExp)
-                    {
-                        Console.WriteLine(ioExp.Message);
                     }
                 }
-            }
-            catch (System.Exception ex)
-            {
-                Console.WriteLine(ex.Message);
+                catch (System.Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
             }
             try
             {
@@ -627,7 +630,7 @@ namespace HP_PLConsole
             }
             bool UpdateStatus = OBL.UpdateStatus(order.Order_ID);
             Console.WriteLine("Thanh toán thành công !");
-            Console.WriteLine("Tiền thừa : {0}", money - amount);
+            Console.WriteLine("Tiền thừa : {0}", FormatMoney(money - amount));
             try
             {
                 if (File.Exists(Path.Combine($"CartOf{Cus.User_Name}.dat")))
@@ -899,7 +902,7 @@ namespace HP_PLConsole
                             continue;
                     }
                 }
-                FileStream fs = new FileStream($"CartOf{Cus.User_Name}.dat", FileMode.Open, FileAccess.ReadWrite);
+                FileStream fs = new FileStream($"CartOf{Cus.User_Name}.dat", FileMode.OpenOrCreate, FileAccess.ReadWrite);
                 BinaryWriter bw = new BinaryWriter(fs);
                 string sJSONReponse = JsonConvert.SerializeObject(ListItems);
                 bw.Write((string)(object)sJSONReponse);
