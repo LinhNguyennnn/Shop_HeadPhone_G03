@@ -371,7 +371,7 @@ namespace HP_PLConsole
         public static short SubMenu(string title, string[] menuItems)
         {
             short choose = 0;
-            string line = "========================================";
+            string line = "==========================================";
             Console.WriteLine(line);
             Console.WriteLine(" " + title);
             Console.WriteLine(line);

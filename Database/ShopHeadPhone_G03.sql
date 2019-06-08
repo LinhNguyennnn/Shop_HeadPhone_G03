@@ -1,7 +1,5 @@
 -- drop database Headphone_Shop_Gr3;
 
-drop database if exists Headphone_Shop_Gr3;
-
 Create database if not exists Headphone_Shop_Gr3;
 
 use Headphone_Shop_Gr3;

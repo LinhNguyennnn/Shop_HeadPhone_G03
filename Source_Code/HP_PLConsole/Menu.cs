@@ -12,7 +12,7 @@ namespace HP_PLConsole
             User U = new User();
             Console.Clear();
             string[] choice = { "Danh sách sản phẩm", "Xem giỏ hàng", "Đăng nhập", "Thoát" };
-            int number = Product.SubMenu($"Chào mừng đến với cửa hàng", choice);
+            int number = Product.SubMenu($"Chào mừng đến với cửa hàng tai nghe", choice);
             switch (number)
             {
                 case 1:

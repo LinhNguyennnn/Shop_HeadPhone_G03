@@ -440,7 +440,7 @@ namespace HP_PLConsole
                 Console.WriteLine("                                             Danh sách sản phẩm đã mua");
                 Console.WriteLine("==========================================================================================================\n");
                 Console.WriteLine("+----------------+--------------------+------------------------------------------+------------------------+");
-                Console.WriteLine("| {0,-15}|    {1,-16}|          {2,-21}           |   {3,-21}|", "Mã đơn hàng", "Ngày đặt hàng", "Địa chỉ giao hàng", "Trạng thái đặt hàng");
+                Console.WriteLine("| {0,-15}|    {1,-16}|          {2,-21}           |   {3,-21}|", "Mã đơn hàng", "Ngày đặt hàng", "Địa chỉ giao hàng", "Trạng thái thanh toán");
                 Console.WriteLine("+----------------+--------------------+------------------------------------------+------------------------+");
                 foreach (Order order in ListOrder)
                 {
@@ -756,7 +756,7 @@ namespace HP_PLConsole
                 UserMenu(Cus);
             }
             Console.WriteLine("+-------------------------------------------------------------------------------+");
-            Console.WriteLine("|                                HÓA ĐƠN BÁN HÀNG                               |");
+            Console.WriteLine("|                                HÓA ĐƠN THANH TOÁN                             |");
             Console.WriteLine("|                                                                               |");
             Console.WriteLine("|                      Ngày {0,-2} tháng {1,-2} năm {2, -5}                               |", DateTime.Now.ToString("dd"), DateTime.Now.ToString("MM"), DateTime.Now.ToString("yyyy"));
             Console.WriteLine("+-------------------------------------------------------------------------------+");
