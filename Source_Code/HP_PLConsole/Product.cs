@@ -100,10 +100,10 @@ namespace HP_PLConsole
                     DisplayProduct(Cus);
                 }
             }
-            return DisplayItemDetail(Id, Cus);
+            return DisplayItemDetails(Id, Cus);
         }
 
-        public int DisplayItemDetail(int id, Customers Cus)
+        public int DisplayItemDetails(int id, Customers Cus)
         {
             Item_BL IBL = new Item_BL();
             Items item = IBL.GetItemByProduceCode(id);
@@ -138,7 +138,7 @@ namespace HP_PLConsole
                         }
                         if (File.Exists($"CartOf{Cus.User_Name}.dat"))
                         {
-                            List<Items> Items = null;
+                            List<Items> Items = new List<Items>();
                             FileStream fs = new FileStream($"CartOf{Cus.User_Name}.dat", FileMode.Open, FileAccess.ReadWrite);
                             BinaryReader br = new BinaryReader(fs);
                             string str = br.ReadString();
@@ -203,7 +203,7 @@ namespace HP_PLConsole
             string[] choice = { "Urbanista", "MEE", "RHA AUDIO", "jabees", "SONY", "SOMIC", "Sennheiser", "Audio Technica", "Skullcandy", "Ausdom", "1More", "Trở về danh sách sản phẩm", };
             int number = SubMenu("Danh sách sản phẩm theo hãng", choice);
             Item_BL IBL = new Item_BL();
-            List<Items> items = null;
+            List<Items> items = new List<Items>();
             string trade = null;
             switch (number)
             {
@@ -292,7 +292,7 @@ namespace HP_PLConsole
                     DisplayProduct(Cus);
                 }
             }
-            return DisplayItemDetail(Id, Cus);
+            return DisplayItemDetails(Id, Cus);
         }
 
         public int DisplayAttribute(Customers Cus)
@@ -302,7 +302,7 @@ namespace HP_PLConsole
             User U = new User();
             string[] choice = { "Không dây", "Thể thao", "In-Ear", "Gaming", "Earbud", "Trở về danh sách sản phẩm" };
             int number = SubMenu("Danh sách sản phẩm theo thuộc tính", choice);
-            List<Items> items = null;
+            List<Items> items = new List<Items>();
             string ab = null;
             switch (number)
             {
@@ -366,7 +366,7 @@ namespace HP_PLConsole
                     DisplayProduct(Cus);
                 }
             }
-            return DisplayItemDetail(Id, Cus);
+            return DisplayItemDetails(Id, Cus);
         }
         public static short SubMenu(string title, string[] menuItems)
         {

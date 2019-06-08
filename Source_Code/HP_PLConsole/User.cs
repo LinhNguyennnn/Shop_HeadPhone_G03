@@ -316,7 +316,7 @@ namespace HP_PLConsole
         public void DisplayCart(Customers Cus)
         {
             Console.Clear();
-            List<Items> Items = null;
+            List<Items> Items = new List<Items>();
             int amount = 0;
             if (Cus.User_Name != null && Cus.User_Password != null)
             {
@@ -514,6 +514,38 @@ namespace HP_PLConsole
             }
             else
             {
+                if (File.Exists($"CartOf{Cus.User_Name}.dat"))
+                {
+                    List<Items> Items = new List<Items>();
+                    FileStream fs = new FileStream($"CartOf{Cus.User_Name}.dat", FileMode.Open, FileAccess.ReadWrite);
+                    BinaryReader br = new BinaryReader(fs);
+                    string str = br.ReadString();
+                    Items = JsonConvert.DeserializeObject<List<Items>>(str);
+
+                    fs.Close();
+                    br.Close();
+                    Console.WriteLine("================================================================================================================================");
+                    Console.WriteLine($"                                                      Giỏ hàng");
+                    Console.WriteLine("================================================================================================================================\n");
+                    Console.WriteLine("+-------------+-----------------------------------+----------------+------------+-----------------+----------+------------------+");
+                    Console.WriteLine("| {0,-12}|           {1,-24}|      {2,-10}| {3,-11}|    {4,-6}      | {5,-9}| {6,-17}|", "Mã sản phẩm", "Tên sản phẩm", "Hãng", "Thuộc tính", "Đơn giá", "Số lượng", "Thành tiền");
+                    Console.WriteLine("+-------------+-----------------------------------+----------------+------------+-----------------+----------+------------------+");
+                    foreach (Items i in Items)
+                    {
+                        amount += i.Item_Price * i.Quantity;
+                        Console.WriteLine("|      {0,-7}| {1,-34}| {2,-15}| {3,-11}| {4,-16}|    {5,-6}|  {6,-16}|", i.Produce_Code, i.Item_Name, i.Trademark, i.Attribute, FormatMoney(i.Item_Price), i.Quantity, FormatMoney(i.Item_Price * i.Quantity));
+                        Console.WriteLine("+-------------+-----------------------------------+----------------+------------+-----------------+----------+------------------+");
+                    }
+                    Console.WriteLine("|    Tổng tiền                                                                                               |  {0,-15} |", FormatMoney(amount));
+                    Console.WriteLine("+-------------------------------------------------------------------------------------------------------------------------------+");
+                }
+                else
+                {
+                    Console.WriteLine("Giỏ hàng trống!");
+                    Console.Write("\nNhấn phím bất kỳ để quay lại!");
+                    Console.ReadKey();
+                    UserMenu(Cus);
+                }
                 bool check = true;
                 Order order = new Order();
                 Order_BL OBL = new Order_BL();
@@ -629,26 +661,36 @@ namespace HP_PLConsole
                 }
             }
             bool UpdateStatus = OBL.UpdateStatus(order.Order_ID);
-            Console.WriteLine("Thanh toán thành công !");
-            Console.WriteLine("Tiền thừa : {0}", FormatMoney(money - amount));
-            try
+            if (UpdateStatus == true)
             {
-                if (File.Exists(Path.Combine($"CartOf{Cus.User_Name}.dat")))
+                Console.WriteLine("Thanh toán thành công !");
+                Console.WriteLine("Tiền thừa : {0}", FormatMoney(money - amount));
+                try
                 {
-                    File.Delete(Path.Combine($"CartOf{Cus.User_Name}.dat"));
+                    if (File.Exists(Path.Combine($"CartOf{Cus.User_Name}.dat")))
+                    {
+                        File.Delete(Path.Combine($"CartOf{Cus.User_Name}.dat"));
+                    }
+                    else
+                    {
+                        Console.WriteLine("Giỏ hàng không tồn tại");
+                    }
                 }
-                else
+                catch (IOException ioExp)
                 {
-                    Console.WriteLine("Giỏ hàng không tồn tại");
+                    Console.WriteLine(ioExp.Message);
                 }
+                Console.Write("Nhấn phím bất kỳ để in hóa đơn!");
+                Console.ReadKey();
+                Paybill(Cus, order.Order_ID);
             }
-            catch (IOException ioExp)
+            else
             {
-                Console.WriteLine(ioExp.Message);
+                Console.WriteLine("Thanh toán thất bại !");
+                Console.Write("Nhấn phím bất kỳ để quay lại giỏ hàng!");
+                Console.ReadKey();
+                DisplayCart(Cus);
             }
-            Console.Write("Nhấn phím bất kỳ để in hóa đơn!");
-            Console.ReadKey();
-            Paybill(Cus, order.Order_ID);
         }
 
         public void DeleteItemInCart(Customers Cus)
