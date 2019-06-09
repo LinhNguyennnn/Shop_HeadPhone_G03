@@ -56,7 +56,7 @@ namespace HP_PLConsole
             return Convert.ToInt32(str);
         }
 
-        public int DisplayAllItems(Customers Cus)
+        public void DisplayAllItems(Customers Cus)
         {
             Console.Clear();
             Console.WriteLine("================================================================================================");
@@ -70,40 +70,80 @@ namespace HP_PLConsole
                 table.AddRow(i.Produce_Code, i.Item_Name, i.Trademark, i.Attribute, U.FormatMoney(i.Item_Price));
             }
             table.Write(Format.Alternative);
-            Console.WriteLine("================================================================================================\n");
-            Console.Write("Chọn mã sản phẩm: ");
-            int Id = input(Console.ReadLine());
-
-            while (IBL.GetItemByProduceCode(Id) == null)
+            string[] choice1 = { "Xem chi tiết sản phẩm", "Thêm vào giỏ hàng", "Quay về trang chính" };
+            int number1 = Product.SubMenu(null, choice1);
+            switch (number1)
             {
-                string a;
-                Console.WriteLine("Mã sản phẩm không tồn tại!");
-                Console.Write("Bạn có muốn nhập lại mã sản phẩm không ? (Y/N): ");
-                a = Console.ReadLine().ToUpper();
-                while (true)
-                {
-                    if (a != "Y" && a != "N")
+                case 1:
+                    Console.Write("Chọn mã sản phẩm: ");
+                    int showdetal = input(Console.ReadLine());
+                    while (IBL.GetItemByProduceCode(showdetal) == null)
                     {
-                        Console.Write("Bạn chỉ được nhập (Y/N): ");
+                        string a;
+                        Console.WriteLine("Mã sản phẩm không tồn tại!");
+                        Console.Write("Bạn có muốn nhập lại mã sản phẩm không ? (Y/N): ");
                         a = Console.ReadLine().ToUpper();
-                        continue;
+                        while (true)
+                        {
+                            if (a != "Y" && a != "N")
+                            {
+                                Console.Write("Bạn chỉ được nhập (Y/N): ");
+                                a = Console.ReadLine().ToUpper();
+                                continue;
+                            }
+                            break;
+                        }
+                        if (a == "Y" || a == "y")
+                        {
+                            Console.Write("\nChọn mã sản phẩm: ");
+                            showdetal = input(Console.ReadLine());
+                        }
+                        else
+                        {
+                            DisplayProduct(Cus);
+                        }
                     }
+                    DisplayItemDetails(showdetal, Cus);
                     break;
-                }
-                if (a == "Y" || a == "y")
-                {
-                    Console.Write("\nChọn mã sản phẩm: ");
-                    Id = input(Console.ReadLine());
-                }
-                else
-                {
-                    DisplayProduct(Cus);
-                }
+                case 2:
+                    Console.Write("Chọn mã sản phẩm: ");
+                    int pc = input(Console.ReadLine());
+                    while (IBL.GetItemByProduceCode(pc) == null)
+                    {
+                        string a;
+                        Console.WriteLine("Mã sản phẩm không tồn tại!");
+                        Console.Write("Bạn có muốn nhập lại mã sản phẩm không ? (Y/N): ");
+                        a = Console.ReadLine().ToUpper();
+                        while (true)
+                        {
+                            if (a != "Y" && a != "N")
+                            {
+                                Console.Write("Bạn chỉ được nhập (Y/N): ");
+                                a = Console.ReadLine().ToUpper();
+                                continue;
+                            }
+                            break;
+                        }
+                        if (a == "Y" || a == "y")
+                        {
+                            Console.Write("\nChọn mã sản phẩm: ");
+                            pc = input(Console.ReadLine());
+                        }
+                        else
+                        {
+                            DisplayProduct(Cus);
+                        }
+                    }
+                    Items item = IBL.GetItemByProduceCode(pc);
+                    InputQuantity(Cus, item, pc);
+                    break;
+                case 3:
+                    U.UserMenu(Cus);
+                    break;
             }
-            return DisplayItemDetails(Id, Cus);
         }
 
-        public int DisplayItemDetails(int id, Customers Cus)
+        public void DisplayItemDetails(int id, Customers Cus)
         {
             Item_BL IBL = new Item_BL();
             Items item = IBL.GetItemByProduceCode(id);
@@ -121,45 +161,7 @@ namespace HP_PLConsole
                 switch (number)
                 {
                     case 1:
-                        int itemQuantity;
-                        while (true)
-                        {
-                            Console.Write("Nhập số lượng sản phẩm: ");
-                            bool isINT = Int32.TryParse(Console.ReadLine(), out itemQuantity);
-                            if (!isINT && itemQuantity < 1 && itemQuantity > 10)
-                            {
-                                Console.WriteLine("Số lượng sản phẩm phải là số lớn hơn 0 và nhỏ hơn 10 !");
-                                continue;
-                            }
-                            else
-                            {
-                                break;
-                            }
-                        }
-                        if (File.Exists($"CartOf{Cus.User_Name}.dat"))
-                        {
-                            List<Items> Items = new List<Items>();
-                            FileStream fs = new FileStream($"CartOf{Cus.User_Name}.dat", FileMode.Open, FileAccess.ReadWrite);
-                            BinaryReader br = new BinaryReader(fs);
-                            string str = br.ReadString();
-                            Items = JsonConvert.DeserializeObject<List<Items>>(str);
-                            fs.Close();
-                            br.Close();
-                            int index = Items.FindIndex(x => x.Produce_Code == id);
-                            if (index == -1)
-                            {
-                                item.Quantity = itemQuantity;
-                            }
-                            else
-                            {
-                                item.Quantity = itemQuantity + Items[index].Quantity;
-                            }
-                        }
-                        else
-                        {
-                            item.Quantity = itemQuantity;
-                        }
-                        U.AddToCart(item, Cus);
+                        InputQuantity(Cus, item, id);
                         break;
                     case 2:
                         DisplayProduct(Cus);
@@ -197,7 +199,7 @@ namespace HP_PLConsole
             }
         }
 
-        public int DisplayTradeMark(Customers Cus)
+        public void DisplayTradeMark(Customers Cus)
         {
             Console.Clear();
             string[] choice = { "Urbanista", "MEE", "RHA AUDIO", "jabees", "SONY", "SOMIC", "Sennheiser", "Audio Technica", "Skullcandy", "Ausdom", "1More", "Trở về danh sách sản phẩm", };
@@ -262,40 +264,80 @@ namespace HP_PLConsole
                 table.AddRow(i.Produce_Code, i.Item_Name, i.Trademark, i.Attribute, U.FormatMoney(i.Item_Price));
             }
             table.Write(Format.Alternative);
-            Console.WriteLine("==================================================================================");
-            Console.Write("\nChọn mã sản phẩm: ");
-            int Id = input(Console.ReadLine());
-            while (IBL.GetItemByProduceCodeAndTradeMark(Id, trade) == null)
+            string[] choice1 = { "Xem chi tiết sản phẩm", "Thêm vào giỏ hàng", "Quay về trang chính" };
+            int number1 = Product.SubMenu(null, choice1);
+            switch (number1)
             {
-                string a;
-                Console.Write("Mã sản phẩm không tồn tại!");
-                Console.Write("Bạn có muốn nhập lại mã sản phẩm không ? (Y/N): ");
-                a = Console.ReadLine().ToUpper();
-                while (true)
-                {
-                    if (a != "Y" && a != "N")
+                case 1:
+                    Console.Write("Chọn mã sản phẩm: ");
+                    int showdetal = input(Console.ReadLine());
+                    while (IBL.GetItemByProduceCodeAndTradeMark(showdetal, trade) == null)
                     {
-                        Console.Write("Bạn chỉ được nhập (Y/N): ");
+                        string a;
+                        Console.WriteLine("Mã sản phẩm không tồn tại!");
+                        Console.Write("Bạn có muốn nhập lại mã sản phẩm không ? (Y/N): ");
                         a = Console.ReadLine().ToUpper();
-                        continue;
+                        while (true)
+                        {
+                            if (a != "Y" && a != "N")
+                            {
+                                Console.Write("Bạn chỉ được nhập (Y/N): ");
+                                a = Console.ReadLine().ToUpper();
+                                continue;
+                            }
+                            break;
+                        }
+                        if (a == "Y" || a == "y")
+                        {
+                            Console.Write("\nChọn mã sản phẩm: ");
+                            showdetal = input(Console.ReadLine());
+                        }
+                        else
+                        {
+                            DisplayProduct(Cus);
+                        }
                     }
+                    DisplayItemDetails(showdetal, Cus);
                     break;
-                }
-                if (a == "Y" || a == "y")
-                {
-                    Console.Write("\nChọn mã sản phẩm: ");
-                    Id = input(Console.ReadLine());
-                    continue;
-                }
-                else
-                {
-                    DisplayProduct(Cus);
-                }
+                case 2:
+                    Console.Write("Chọn mã sản phẩm: ");
+                    int pc = input(Console.ReadLine());
+                    while (IBL.GetItemByProduceCodeAndTradeMark(pc, trade) == null)
+                    {
+                        string a;
+                        Console.WriteLine("Mã sản phẩm không tồn tại!");
+                        Console.Write("Bạn có muốn nhập lại mã sản phẩm không ? (Y/N): ");
+                        a = Console.ReadLine().ToUpper();
+                        while (true)
+                        {
+                            if (a != "Y" && a != "N")
+                            {
+                                Console.Write("Bạn chỉ được nhập (Y/N): ");
+                                a = Console.ReadLine().ToUpper();
+                                continue;
+                            }
+                            break;
+                        }
+                        if (a == "Y" || a == "y")
+                        {
+                            Console.Write("\nChọn mã sản phẩm: ");
+                            pc = input(Console.ReadLine());
+                        }
+                        else
+                        {
+                            DisplayProduct(Cus);
+                        }
+                    }
+                    Items item = IBL.GetItemByProduceCodeAndTradeMark(pc, trade);
+                    InputQuantity(Cus, item, pc);
+                    break;
+                case 3:
+                    U.UserMenu(Cus);
+                    break;
             }
-            return DisplayItemDetails(Id, Cus);
         }
 
-        public int DisplayAttribute(Customers Cus)
+        public void DisplayAttribute(Customers Cus)
         {
             Console.Clear();
             Item_BL IBL = new Item_BL();
@@ -337,36 +379,124 @@ namespace HP_PLConsole
                 table.AddRow(i.Produce_Code, i.Item_Name, i.Trademark, i.Attribute, U.FormatMoney(i.Item_Price));
             }
             table.Write(Format.Alternative);
-            Console.WriteLine("================================================================================================");
-            Console.Write("\nChọn mã sản phẩm: ");
-            int Id = input(Console.ReadLine());
-            while (IBL.GetItemByProduceCodeAndAttribute(Id, ab) == null)
+            string[] choice1 = { "Xem chi tiết sản phẩm", "Thêm vào giỏ hàng", "Quay về trang chính" };
+            int number1 = Product.SubMenu(null, choice1);
+            switch (number1)
             {
-                string a;
-                Console.Write("Mã sản phẩm không tồn tại!");
-                Console.Write("Bạn có muốn nhập lại mã sản phẩm không ? (Y/N): ");
-                a = Console.ReadLine().ToUpper();
-                while (true)
-                {
-                    if (a != "Y" && a != "N")
+                case 1:
+                    Console.Write("Chọn mã sản phẩm: ");
+                    int showdetal = input(Console.ReadLine());
+                    while (IBL.GetItemByProduceCodeAndAttribute(showdetal, ab) == null)
                     {
-                        Console.Write("Bạn chỉ dược nhập (Y/N): ");
+                        string a;
+                        Console.WriteLine("Mã sản phẩm không tồn tại!");
+                        Console.Write("Bạn có muốn nhập lại mã sản phẩm không ? (Y/N): ");
                         a = Console.ReadLine().ToUpper();
-                        continue;
+                        while (true)
+                        {
+                            if (a != "Y" && a != "N")
+                            {
+                                Console.Write("Bạn chỉ được nhập (Y/N): ");
+                                a = Console.ReadLine().ToUpper();
+                                continue;
+                            }
+                            break;
+                        }
+                        if (a == "Y" || a == "y")
+                        {
+                            Console.Write("\nChọn mã sản phẩm: ");
+                            showdetal = input(Console.ReadLine());
+                        }
+                        else
+                        {
+                            DisplayProduct(Cus);
+                        }
                     }
+                    DisplayItemDetails(showdetal, Cus);
                     break;
-                }
-                if (a == "Y" || a == "y")
+                case 2:
+                    Console.Write("Chọn mã sản phẩm: ");
+                    int pc = input(Console.ReadLine());
+                    while (IBL.GetItemByProduceCodeAndAttribute(pc, ab) == null)
+                    {
+                        string a;
+                        Console.WriteLine("Mã sản phẩm không tồn tại!");
+                        Console.Write("Bạn có muốn nhập lại mã sản phẩm không ? (Y/N): ");
+                        a = Console.ReadLine().ToUpper();
+                        while (true)
+                        {
+                            if (a != "Y" && a != "N")
+                            {
+                                Console.Write("Bạn chỉ được nhập (Y/N): ");
+                                a = Console.ReadLine().ToUpper();
+                                continue;
+                            }
+                            break;
+                        }
+                        if (a == "Y" || a == "y")
+                        {
+                            Console.Write("\nChọn mã sản phẩm: ");
+                            pc = input(Console.ReadLine());
+                        }
+                        else
+                        {
+                            DisplayProduct(Cus);
+                        }
+                    }
+                    Items item = IBL.GetItemByProduceCodeAndAttribute(pc, ab);
+                    InputQuantity(Cus, item, pc);
+                    break;
+                case 3:
+                    U.UserMenu(Cus);
+                    break;
+            }
+        }
+        public void InputQuantity(Customers Cus, Items item, int pc)
+        {
+            int itemQuantity;
+            while (true)
+            {
+                Console.Write("Nhập số lượng sản phẩm: ");
+                bool isINT = Int32.TryParse(Console.ReadLine(), out itemQuantity);
+                if (!isINT)
                 {
-                    Console.Write("\nChọn mã sản phẩm: ");
-                    Id = input(Console.ReadLine());
+                    Console.WriteLine("Số lượng sản phẩm phải là số lớn hơn 0 và nhỏ hơn 10 !");
+                    continue;
+                }
+                else if (itemQuantity < 1 && itemQuantity > 10)
+                {
+                    Console.WriteLine("Số lượng sản phẩm phải là số lớn hơn 0 và nhỏ hơn 10 !");
+                    continue;
                 }
                 else
                 {
-                    DisplayProduct(Cus);
+                    break;
                 }
             }
-            return DisplayItemDetails(Id, Cus);
+            if (File.Exists($"CartOf{Cus.User_Name}.dat"))
+            {
+                List<Items> Items = new List<Items>();
+                FileStream fs = new FileStream($"CartOf{Cus.User_Name}.dat", FileMode.Open, FileAccess.ReadWrite);
+                BinaryReader br = new BinaryReader(fs);
+                string str = br.ReadString();
+                Items = JsonConvert.DeserializeObject<List<Items>>(str);
+                fs.Close();
+                br.Close();
+                int index = Items.FindIndex(x => x.Produce_Code == pc);
+                if (index == -1)
+                {
+                    item.Quantity = itemQuantity;
+                }
+                else
+                {
+                    item.Quantity = itemQuantity + Items[index].Quantity;
+                }
+            }
+            else
+            {
+                item.Quantity = itemQuantity;
+            }
+            U.AddToCart(item, Cus);
         }
         public static short SubMenu(string title, string[] menuItems)
         {
