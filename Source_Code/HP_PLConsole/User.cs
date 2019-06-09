@@ -262,7 +262,6 @@ namespace HP_PLConsole
                 BinaryReader br = new BinaryReader(fs);
                 string str = br.ReadString();
                 ListItems = JsonConvert.DeserializeObject<List<Items>>(str);
-
                 fs.Close();
                 br.Close();
                 ListItems.Add(item);
@@ -364,7 +363,6 @@ namespace HP_PLConsole
                     BinaryReader br = new BinaryReader(fs);
                     string str = br.ReadString();
                     Items = JsonConvert.DeserializeObject<List<Items>>(str);
-
                     fs.Close();
                     br.Close();
                     Console.WriteLine("================================================================================================================================");
@@ -798,7 +796,7 @@ namespace HP_PLConsole
                 UserMenu(Cus);
             }
             Console.WriteLine("+-------------------------------------------------------------------------------+");
-            Console.WriteLine("|                                HÓA ĐƠN BÁN HÀNG                               |");
+            Console.WriteLine("|                                HÓA ĐƠN                                        |");
             Console.WriteLine("|                                                                               |");
             Console.WriteLine("|                      Ngày {0,-2} tháng {1,-2} năm {2, -5}                               |", DateTime.Now.ToString("dd"), DateTime.Now.ToString("MM"), DateTime.Now.ToString("yyyy"));
             Console.WriteLine("+-------------------------------------------------------------------------------+");
@@ -816,8 +814,8 @@ namespace HP_PLConsole
             }
             Console.WriteLine("|    Tổng tiền                                                 |{0,-16}|", FormatMoney(amount));
             Console.WriteLine("+-------------------------------------------------------------------------------+");
-            Console.WriteLine("|        Người mua hàng                            Người bán hàng               |");
-            Console.WriteLine("|            {0,-7}                                 ( Đã ký )                  |    ", Cus.User_Name);
+            Console.WriteLine("|        Người mua hàng                                                         |");
+            Console.WriteLine("|            {0,-7}                                                            |    ", Cus.User_Name);
             Console.WriteLine("|       {0,-20}                                                    |", order.Customer.Cus_Name);
             Console.WriteLine("+-------------------------------------------------------------------------------+");
             Console.WriteLine("Nhấn phím bất kỳ để quay lại trang chính!");
@@ -944,11 +942,40 @@ namespace HP_PLConsole
                             continue;
                     }
                 }
-                FileStream fs = new FileStream($"CartOf{Cus.User_Name}.dat", FileMode.OpenOrCreate, FileAccess.ReadWrite);
-                BinaryWriter bw = new BinaryWriter(fs);
-                string sJSONReponse = JsonConvert.SerializeObject(ListItems);
-                bw.Write((string)(object)sJSONReponse);
-                fs.Close();
+                if (File.Exists($"CartOf{Cus.User_Name}.dat"))
+                {
+                    FileStream fsreader = new FileStream($"CartOf{Cus.User_Name}.dat", FileMode.Open, FileAccess.ReadWrite);
+                    BinaryReader br = new BinaryReader(fsreader);
+                    string str = br.ReadString();
+                    List<Items> ListItems2 = JsonConvert.DeserializeObject<List<Items>>(str);
+                    fsreader.Close();
+                    br.Close();
+                    ListItems.AddRange(ListItems2);
+                    for (int i = 0; i < ListItems.Count; i++)
+                    {
+                        for (int j = 0; j < i; j++)
+                        {
+                            if (ListItems[i].Produce_Code == ListItems[j].Produce_Code)
+                            {
+                                ListItems[i].Quantity += ListItems[j].Quantity;
+                                ListItems.RemoveAt(j);
+                            }
+                        }
+                    }
+                    FileStream fs = new FileStream($"CartOf{Cus.User_Name}.dat", FileMode.OpenOrCreate, FileAccess.ReadWrite);
+                    BinaryWriter bw = new BinaryWriter(fs);
+                    string sJSONReponse = JsonConvert.SerializeObject(ListItems);
+                    bw.Write((string)(object)sJSONReponse);
+                    fs.Close();
+                }
+                else
+                {
+                    FileStream fs = new FileStream($"CartOf{Cus.User_Name}.dat", FileMode.OpenOrCreate, FileAccess.ReadWrite);
+                    BinaryWriter bw = new BinaryWriter(fs);
+                    string sJSONReponse = JsonConvert.SerializeObject(ListItems);
+                    bw.Write((string)(object)sJSONReponse);
+                    fs.Close();
+                }
                 try
                 {
                     if (File.Exists(Path.Combine($"CartOf.dat")))
