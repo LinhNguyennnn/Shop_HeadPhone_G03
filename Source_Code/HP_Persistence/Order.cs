@@ -6,7 +6,6 @@ namespace HP_Persistence
     public class Order
     {
         public int? Order_ID { get; set; }
-        public int ItemId { get; set; }
         public DateTime Order_Date { get; set; }
         public Customers Customer { get; set; }
         public string Status { get; set; }
@@ -17,14 +16,13 @@ namespace HP_Persistence
         public Order()
         {
         }
-        public Order(int? order_id, string address_Shipping, DateTime order_date, int itemId, string status, List<Items> itemsList)
+        public Order(int? order_id, string address_Shipping, DateTime order_date, string status, List<Items> itemsList)
         {
             this.Order_ID = order_id;
             this.Order_Date = order_date;
             this.Address_Shipping = address_Shipping;
             this.ItemsList = itemsList;
             this.Status = status;
-            this.ItemId = itemId;
         }
         public override bool Equals(object obj)
         {
