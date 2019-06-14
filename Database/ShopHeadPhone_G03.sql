@@ -1,4 +1,4 @@
--- drop database Headphone_Shop_Gr3;
+ drop database Headphone_Shop_Gr3;
 
 Create database if not exists Headphone_Shop_Gr3;
 
@@ -75,4 +75,5 @@ values('Urbanista Tokyo plus TWS','Urbanista','Không dây','2990000','Chíp Blu
 -- select distinct Trademark from Items;
 /*CREATE USER if not exists 'HP_User'@'localhost' IDENTIFIED BY '123456';
 GRANT ALL PRIVILEGES ON * . * TO 'HP_User'@'localhost'; */
+
 

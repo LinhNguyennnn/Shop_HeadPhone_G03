@@ -153,7 +153,7 @@ namespace HP_PLConsole
                     DisplayCart(Cus);
                     break;
                 case 4:
-                    Userhasbought(Cus);
+                    UserPurchased(Cus);
                     break;
                 case 5:
                     m.menu();
@@ -316,7 +316,6 @@ namespace HP_PLConsole
         {
             Console.Clear();
             List<Items> Items = new List<Items>();
-            int amount = 0;
             if (Cus.User_Name != null && Cus.User_Password != null)
             {
                 try
@@ -365,6 +364,7 @@ namespace HP_PLConsole
                     Items = JsonConvert.DeserializeObject<List<Items>>(str);
                     fs.Close();
                     br.Close();
+                    int total = 0;
                     Console.WriteLine("================================================================================================================================");
                     Console.WriteLine($"                                                      Giỏ hàng");
                     Console.WriteLine("================================================================================================================================\n");
@@ -373,11 +373,11 @@ namespace HP_PLConsole
                     Console.WriteLine("+-------------+-----------------------------------+----------------+------------+-----------------+----------+------------------+");
                     foreach (Items i in Items)
                     {
-                        amount += i.Item_Price * i.Quantity;
+                        total += i.Item_Price * i.Quantity;
                         Console.WriteLine("|      {0,-7}| {1,-34}| {2,-15}| {3,-11}| {4,-16}|    {5,-6}|  {6,-16}|", i.Produce_Code, i.Item_Name, i.Trademark, i.Attribute, FormatMoney(i.Item_Price), i.Quantity, FormatMoney(i.Item_Price * i.Quantity));
                         Console.WriteLine("+-------------+-----------------------------------+----------------+------------+-----------------+----------+------------------+");
                     }
-                    Console.WriteLine("|    Tổng tiền                                                                                               |  {0,-15} |", FormatMoney(amount));
+                    Console.WriteLine("|    Tổng tiền                                                                                               |  {0,-15} |", FormatMoney(total));
                     Console.WriteLine("+-------------------------------------------------------------------------------------------------------------------------------+");
                     while (true)
                     {
@@ -386,7 +386,7 @@ namespace HP_PLConsole
                         switch (number)
                         {
                             case 1:
-                                CreateOrder(Cus, Items, amount);
+                                CreateOrder(Cus, Items, total);
                                 break;
                             case 2:
                                 DeleteItemInCart(Cus);
@@ -411,7 +411,7 @@ namespace HP_PLConsole
                 Console.ReadKey();
             }
         }
-        public void Userhasbought(Customers Cus)
+        public void UserPurchased(Customers Cus)
         {
             Console.Clear();
             while (true)
@@ -458,7 +458,6 @@ namespace HP_PLConsole
                             {
                                 Console.Write("Nhập mã đơn hàng: ");
                                 bool isINT = Int32.TryParse(Console.ReadLine(), out orderid);
-                                Console.WriteLine(orderid);
                                 if (!isINT)
                                 {
                                     Console.WriteLine("Giá trị nhập vào phải là số!");
@@ -474,7 +473,29 @@ namespace HP_PLConsole
                                     continue;
                                 }
                             }
-                            Paybill(Cus, orderid);
+                            Order_BL OBL = new Order_BL();
+                            Order order = new Order();
+                            try
+                            {
+                                order = OBL.GetOrderDetailsByOrderId(orderid);
+                            }
+                            catch (System.Exception ex)
+                            {
+                                Console.WriteLine(ex);
+                                Console.ReadKey();
+                                UserMenu(Cus);
+                            }
+                            if (order.Status == "Không thành công")
+                            {
+                                Console.WriteLine("Do đơn hàng này chưa đặt hàng thành công nên không có hóa đơn !");
+                                Console.WriteLine("Nhấn phím bất kỳ để trở lại!");
+                                Console.ReadKey();
+                                continue;
+                            }
+                            else
+                            {
+                                Paybill(Cus, orderid);
+                            }
                             break;
                         case 2:
                             UserMenu(Cus);
@@ -484,7 +505,7 @@ namespace HP_PLConsole
             }
         }
 
-        public void CreateOrder(Customers Cus, List<Items> ListItems, int amount)
+        public void CreateOrder(Customers Cus, List<Items> ListItems, int total)
         {
             Console.Clear();
             if (Cus.User_Name == null && Cus.User_Password == null)
@@ -503,7 +524,7 @@ namespace HP_PLConsole
                 }
                 if (select == "Y" || select == "y")
                 {
-                    LoginToPay(Cus, ListItems, amount);
+                    LoginToPay(Cus, ListItems, total);
                 }
                 else
                 {
@@ -519,7 +540,6 @@ namespace HP_PLConsole
                     BinaryReader br = new BinaryReader(fs);
                     string str = br.ReadString();
                     Items = JsonConvert.DeserializeObject<List<Items>>(str);
-
                     fs.Close();
                     br.Close();
                     Console.WriteLine("================================================================================================================================");
@@ -530,11 +550,10 @@ namespace HP_PLConsole
                     Console.WriteLine("+-------------+-----------------------------------+----------------+------------+-----------------+----------+------------------+");
                     foreach (Items i in Items)
                     {
-                        amount += i.Item_Price * i.Quantity;
                         Console.WriteLine("|      {0,-7}| {1,-34}| {2,-15}| {3,-11}| {4,-16}|    {5,-6}|  {6,-16}|", i.Produce_Code, i.Item_Name, i.Trademark, i.Attribute, FormatMoney(i.Item_Price), i.Quantity, FormatMoney(i.Item_Price * i.Quantity));
                         Console.WriteLine("+-------------+-----------------------------------+----------------+------------+-----------------+----------+------------------+");
                     }
-                    Console.WriteLine("|    Tổng tiền                                                                                               |  {0,-15} |", FormatMoney(amount));
+                    Console.WriteLine("|    Tổng tiền                                                                                               |  {0,-15} |", FormatMoney(total));
                     Console.WriteLine("+-------------------------------------------------------------------------------------------------------------------------------+");
                 }
                 else
@@ -575,7 +594,7 @@ namespace HP_PLConsole
                         switch (select)
                         {
                             case 1:
-                                Pay(Cus, order, amount);
+                                Pay(Cus, order, total);
                                 break;
                             case 2:
                                 try
@@ -600,7 +619,7 @@ namespace HP_PLConsole
                 }
             }
         }
-        public void Pay(Customers Cus, Order order, int amount)
+        public void Pay(Customers Cus, Order order, int total)
         {
             int money;
             Order_BL OBL = new Order_BL();
@@ -640,14 +659,14 @@ namespace HP_PLConsole
                             break;
                     }
                 }
-                else if (money < 500 && money > 50000000)
+                else if (money < 500 || money > 50000000)
                 {
                     Console.WriteLine("Số tiền bạn nhập vào không hợp lệ !");
                     continue;
                 }
                 else
                 {
-                    if (money >= amount)
+                    if (money >= total)
                     {
                         break;
                     }
@@ -662,7 +681,7 @@ namespace HP_PLConsole
             if (UpdateStatus == true)
             {
                 Console.WriteLine("Thanh toán thành công !");
-                Console.WriteLine("Tiền thừa : {0}", FormatMoney(money - amount));
+                Console.WriteLine("Tiền thừa : {0}", FormatMoney(money - total));
                 try
                 {
                     if (File.Exists(Path.Combine($"CartOf{Cus.User_Name}.dat")))
@@ -742,7 +761,7 @@ namespace HP_PLConsole
                     if (File.Exists(Path.Combine($"CartOf{Cus.User_Name}.dat")))
                     {
                         File.Delete(Path.Combine($"CartOf{Cus.User_Name}.dat"));
-                        Console.WriteLine("Đã xóa sản phẩm!");
+                        Console.WriteLine("Đã xóa sản phẩm!");
                         Console.ReadKey();
                         UserMenu(Cus);
                     }
@@ -783,24 +802,19 @@ namespace HP_PLConsole
             Console.Clear();
             Order_BL OBL = new Order_BL();
             Order order = new Order();
-            int amount = 0;
+            int total = 0;
             try
             {
                 order = OBL.GetOrderDetailsByOrderId(orderId);
             }
             catch (System.Exception ex)
             {
-
                 Console.WriteLine(ex);
                 Console.ReadKey();
                 UserMenu(Cus);
             }
             Console.WriteLine("+-------------------------------------------------------------------------------+");
-<<<<<<< HEAD
             Console.WriteLine("|                                HÓA ĐƠN THANH TOÁN                             |");
-=======
-            Console.WriteLine("|                                HÓA ĐƠN                                        |");
->>>>>>> f3cc632067fb3c34f50a346b6b3873fc7114cce4
             Console.WriteLine("|                                                                               |");
             Console.WriteLine("|                      Ngày {0,-2} tháng {1,-2} năm {2, -5}                               |", DateTime.Now.ToString("dd"), DateTime.Now.ToString("MM"), DateTime.Now.ToString("yyyy"));
             Console.WriteLine("+-------------------------------------------------------------------------------+");
@@ -811,12 +825,12 @@ namespace HP_PLConsole
             Console.WriteLine("+----------------------------------+----------------+----------+----------------+");
             foreach (var i in order.ItemsList)
             {
-                amount += i.Item_Price * i.Quantity;
+                total += i.Item_Price * i.Quantity;
                 string format = string.Format($"|{i.Item_Name,-34}|{FormatMoney(i.Item_Price),-16}|{i.Quantity,-10}|{FormatMoney(i.Item_Price * i.Quantity),-16}|");
                 Console.WriteLine(format);
                 Console.WriteLine("+----------------------------------+----------------+----------+----------------+");
             }
-            Console.WriteLine("|    Tổng tiền                                                 |{0,-16}|", FormatMoney(amount));
+            Console.WriteLine("|    Tổng tiền ( Đã bao gồm thuế VAT )                         |{0,-16}|", FormatMoney(total));
             Console.WriteLine("+-------------------------------------------------------------------------------+");
             Console.WriteLine("|        Người mua hàng                                                         |");
             Console.WriteLine("|            {0,-7}                                                            |    ", Cus.User_Name);
@@ -831,7 +845,7 @@ namespace HP_PLConsole
             string a = string.Format(new CultureInfo("vi-VN"), "{0:#,##0} VND", Price);
             return a;
         }
-        public void LoginToPay(Customers Cus, List<Items> ListItems, int amount)
+        public void LoginToPay(Customers Cus, List<Items> ListItems, int total)
         {
             Menu m = new Menu();
             Customer_BL CusBL = new Customer_BL();
@@ -946,39 +960,42 @@ namespace HP_PLConsole
                             continue;
                     }
                 }
-                if (File.Exists($"CartOf{Cus.User_Name}.dat"))
-                {
-                    FileStream fsreader = new FileStream($"CartOf{Cus.User_Name}.dat", FileMode.Open, FileAccess.ReadWrite);
-                    BinaryReader br = new BinaryReader(fsreader);
-                    string str = br.ReadString();
-                    List<Items> ListItems2 = JsonConvert.DeserializeObject<List<Items>>(str);
-                    fsreader.Close();
-                    br.Close();
-                    ListItems.AddRange(ListItems2);
-                    for (int i = 0; i < ListItems.Count; i++)
-                    {
-                        for (int j = 0; j < i; j++)
-                        {
-                            if (ListItems[i].Produce_Code == ListItems[j].Produce_Code)
-                            {
-                                ListItems[i].Quantity += ListItems[j].Quantity;
-                                ListItems.RemoveAt(j);
-                            }
-                        }
-                    }
-                    FileStream fs = new FileStream($"CartOf{Cus.User_Name}.dat", FileMode.OpenOrCreate, FileAccess.ReadWrite);
-                    BinaryWriter bw = new BinaryWriter(fs);
-                    string sJSONReponse = JsonConvert.SerializeObject(ListItems);
-                    bw.Write((string)(object)sJSONReponse);
-                    fs.Close();
-                }
                 else
                 {
-                    FileStream fs = new FileStream($"CartOf{Cus.User_Name}.dat", FileMode.OpenOrCreate, FileAccess.ReadWrite);
-                    BinaryWriter bw = new BinaryWriter(fs);
-                    string sJSONReponse = JsonConvert.SerializeObject(ListItems);
-                    bw.Write((string)(object)sJSONReponse);
-                    fs.Close();
+                    if (File.Exists($"CartOf{Cus.User_Name}.dat"))
+                    {
+                        FileStream fsreader = new FileStream($"CartOf{Cus.User_Name}.dat", FileMode.Open, FileAccess.ReadWrite);
+                        BinaryReader br = new BinaryReader(fsreader);
+                        string str = br.ReadString();
+                        List<Items> ListItems2 = JsonConvert.DeserializeObject<List<Items>>(str);
+                        fsreader.Close();
+                        br.Close();
+                        ListItems.AddRange(ListItems2);
+                        for (int i = 0; i < ListItems.Count; i++)
+                        {
+                            for (int j = 0; j < i; j++)
+                            {
+                                if (ListItems[i].Produce_Code == ListItems[j].Produce_Code)
+                                {
+                                    ListItems[i].Quantity += ListItems[j].Quantity;
+                                    ListItems.RemoveAt(j);
+                                }
+                            }
+                        }
+                        FileStream fs = new FileStream($"CartOf{Cus.User_Name}.dat", FileMode.OpenOrCreate, FileAccess.ReadWrite);
+                        BinaryWriter bw = new BinaryWriter(fs);
+                        string sJSONReponse = JsonConvert.SerializeObject(ListItems);
+                        bw.Write((string)(object)sJSONReponse);
+                        fs.Close();
+                    }
+                    else
+                    {
+                        FileStream fs = new FileStream($"CartOf{Cus.User_Name}.dat", FileMode.OpenOrCreate, FileAccess.ReadWrite);
+                        BinaryWriter bw = new BinaryWriter(fs);
+                        string sJSONReponse = JsonConvert.SerializeObject(ListItems);
+                        bw.Write((string)(object)sJSONReponse);
+                        fs.Close();
+                    }
                 }
                 try
                 {
@@ -995,7 +1012,7 @@ namespace HP_PLConsole
                 {
                     Console.WriteLine(ioExp.Message);
                 }
-                CreateOrder(Cus, ListItems, amount);
+                CreateOrder(Cus, ListItems, total);
             }
         }
     }

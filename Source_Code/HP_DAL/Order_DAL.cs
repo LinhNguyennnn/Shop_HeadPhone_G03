@@ -83,7 +83,7 @@ namespace HP_DAL
         public Order GetOrderDetailByOrderID(int? orderId)
         {
 
-            query = @"select Orders.Order_ID , Customers.Cus_ID, 
+            query = @"select Orders.Order_ID, Orders.Order_Status, Customers.Cus_ID, 
                     Customers.Cus_Name, Customers.Cus_Address, 
                     Items.Produce_Code, Items.Item_Name, Items.Item_Price, 
                     OrderDetails.Quantity from Orders inner join Customers on Orders.Cus_ID = Customers.Cus_ID 
@@ -96,6 +96,7 @@ namespace HP_DAL
             while (reader.Read())
             {
                 order.Order_ID = reader.GetInt32("Order_ID");
+                order.Status = reader.GetString("Order_Status");
                 order.Customer = new Customers();
                 order.Customer.Cus_ID = reader.GetInt32("Cus_ID");
                 order.Customer.Cus_Name = reader.GetString("Cus_Name");
