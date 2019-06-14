@@ -463,7 +463,7 @@ namespace HP_PLConsole
                     Console.WriteLine("Số lượng sản phẩm phải là số lớn hơn 0 và nhỏ hơn 10 !");
                     continue;
                 }
-                else if (itemQuantity < 1 && itemQuantity > 10)
+                else if (itemQuantity < 1 || itemQuantity > 10)
                 {
                     Console.WriteLine("Số lượng sản phẩm phải là số lớn hơn 0 và nhỏ hơn 10 !");
                     continue;

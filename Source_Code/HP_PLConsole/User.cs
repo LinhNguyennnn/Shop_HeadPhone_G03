@@ -659,7 +659,7 @@ namespace HP_PLConsole
                             break;
                     }
                 }
-                else if (money < 500 && money > 50000000)
+                else if (money < 500 || money > 50000000)
                 {
                     Console.WriteLine("Số tiền bạn nhập vào không hợp lệ !");
                     continue;
@@ -761,7 +761,7 @@ namespace HP_PLConsole
                     if (File.Exists(Path.Combine($"CartOf{Cus.User_Name}.dat")))
                     {
                         File.Delete(Path.Combine($"CartOf{Cus.User_Name}.dat"));
-                        Console.WriteLine("Đã xóa sản phẩm!");
+                        Console.WriteLine("Đã xóa sản phẩm!");
                         Console.ReadKey();
                         UserMenu(Cus);
                     }
@@ -830,7 +830,7 @@ namespace HP_PLConsole
                 Console.WriteLine(format);
                 Console.WriteLine("+----------------------------------+----------------+----------+----------------+");
             }
-            Console.WriteLine("|    Tổng tiền                                                 |{0,-16}|", FormatMoney(total));
+            Console.WriteLine("|    Tổng tiền ( Đã bao gồm thuế VAT )                         |{0,-16}|", FormatMoney(total));
             Console.WriteLine("+-------------------------------------------------------------------------------+");
             Console.WriteLine("|        Người mua hàng                                                         |");
             Console.WriteLine("|            {0,-7}                                                            |    ", Cus.User_Name);
